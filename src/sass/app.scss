@@ -1,0 +1,587 @@
+@import "../components/fontawesome/scss/font-awesome";
+
+body, html, button {
+  color: #333;
+  font-family: Roboto, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+}
+
+body.light-blue {
+  &, md-content, .md-subheader.md-default-theme.md-accent {
+    background: rgb(33, 150, 243);
+    color: #fff;
+  }
+
+  md-sidenav md-content {
+    color: rgb(33, 150, 243);
+  }
+
+}
+
+.symbol {
+  font-size: 1.33em;
+  line-height: 1.33;
+}
+
+.md-tile-content, md-input-group {
+  &, input {
+    max-width: 100%;
+  }
+}
+
+.search.bottom {
+  border-top: 1px solid #eee;
+  md-input-container {
+    padding-bottom: 6px;
+  }
+}
+
+.md-button,
+.md-button *:not(.fa),
+md-tab-label,
+md-sidenav a,
+.md-subheader-content,
+.md-subheader-content > *,
+label,
+.md-toolbar-tools .h3,
+.md-toolbar-tools h3,
+.app-title,
+.data-box .info,
+.app-title > *,
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+md-tabs.weather-day-tab {
+  section.md-header {
+    height: 110px;
+  }
+}
+
+md-tabs.md-default-theme md-tab {
+  color: inherit;
+}
+
+weather-summary {
+
+  width: 100%;
+  display: block;
+
+  .summary {
+
+    position: relative;
+    z-index: 1000;
+
+    > * {
+      font-size: 1.1em;
+      font-weight: 100;
+      padding: .5em 1em;
+      line-height: 2;
+      display: block;
+      margin: 0;
+    }
+
+  }
+
+  .day-pictogram {
+
+    * {
+      text-align: center;
+      line-height: 1.33;
+    }
+
+    weather-icon {
+      display: block;
+      width: 100%;
+      font-size: 4em;
+    }
+
+    temperature-item {
+      font-size: 3em;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+sup {
+  font-size: .5em;
+  line-height: 1;
+}
+
+.data-box {
+
+  line-height: 1.2;
+  font-weight: 100;
+
+  .info {
+
+    &temperature-item {
+      margin-top: -4px;
+    }
+
+    display: block;
+    font-size: 2em;
+
+  }
+
+  .label {
+    display: block;
+    font-size: .67em;
+  }
+
+  &.overview.precipitation {
+    .info {
+      font-size: 1.8em;
+    }
+  }
+
+}
+
+small {
+  font-weight: normal;
+  font-size: smaller;
+  &.small {
+    font-size: .67em;
+  }
+}
+
+.md-subheader {
+  min-height: 3em;
+  &.no-side-padding {
+    padding: 16px 0;
+  }
+}
+
+.md-tile-left {
+  min-width: 36px;
+  padding-right: 2rem;
+}
+
+.md-tile-content {
+  padding-left: 24px;
+  padding-right: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.nav-submenu {
+  button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.report-label {
+  font-size: small;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.no-break {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+md-sidenav {
+  &.md-sidenav-left, &.md-sidenav-right {
+    min-width: 0;
+    max-width: 95%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+md-backdrop.md-opaque.md-default-theme {
+  background-color: rgba(0, 0, 0, .8);
+}
+
+md-toolbar {
+  box-shadow: none !important;
+  &.main-nav, .md-toolbar-tools {
+    button, .md-button {
+      height: 100%;
+      text-overflow: ellipsis;
+      min-width: 48px;
+    }
+  }
+}
+
+.md-subheader.md-primary {
+  &.md-default-theme {
+    color: #555;
+  }
+}
+
+.md-button {
+  min-width: 48px;
+}
+
+a, .link {
+  cursor: pointer;
+}
+
+md-list md-item md-item-content,
+md-item md-item-content {
+  line-height: 3.5;
+  padding: .5em 1em;
+
+  .md-button {
+    line-height: 2.2;
+  }
+}
+
+md-select.md-default-theme .md-select-label {
+  border-bottom-color: transparent;
+}
+
+md-select-menu {
+  background: #fff;
+}
+
+md-item-content {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.hourly-summary {
+  line-height: 2.5;
+  padding-bottom: .5em;
+  margin-bottom: 0;
+}
+
+hr, .hr {
+  border-bottom: 1px solid #eee;
+  border-top: none;
+}
+
+span.fa-fw {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
+.h1 {
+  font-size: 2em;
+}
+
+.h2 {
+  font-size: 1.5em;
+}
+
+.h3 {
+  font-size: 1.17em;
+}
+
+.line-height-min {
+  line-height: 1;
+}
+
+.h1, .h2, .h3 {
+  line-height: 1.3;
+}
+
+.divider {
+  margin-left: .2em;
+  margin-right: .2em;
+}
+
+.wi {
+
+  &.wi-2x {
+    font-size: 2em;
+    line-height: 1.5;
+  }
+
+  &.wi-3x {
+    font-size: 3em;
+    line-height: 1.5;
+  }
+
+  &.wi-4x {
+    font-size: 4em;
+    line-height: 1.5;
+  }
+
+  &.wi-5x {
+    font-size: 5em;
+    line-height: 1.5;
+  }
+
+  &.wi-fw {
+    width: 2.28571em;
+  }
+
+}
+
+
+
+md-tabs.md-default-theme .md-header {
+  overflow: hidden;
+}
+
+.day-block.active {
+  background: rgba(0, 0, 0, .1);
+  border-radius: 3px;
+}
+
+.monetize-logo {
+  height: 24px;
+  vertical-align: middle;
+}
+
+img.middle {
+  vertical-align: middle;
+}
+
+.btn-fixed-bottom-right {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.updated-subhead {
+  padding-right: 1em;
+  float: right;
+}
+
+.pull-right {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+h3 {
+  span {
+    margin-right: .3em;
+  }
+}
+
+.ng-calendar-day {
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+.ng-calendar-day:hover {
+  background: #f0f0f0;
+}
+
+md-item {
+  display: block;
+}
+
+.md-tile-content h3 {
+  line-height: 2;
+  margin: 0;
+}
+
+.app-title {
+  img {
+    width: 1.5em;
+    margin-right: .5em;
+    vertical-align: middle;
+  }
+}
+
+md-toolbar.md-default-theme .md-button {
+  color: #fff;
+  &.icon {
+    min-width: 3.167em;
+    height: 3.167em;
+    border-radius: 3.167em;
+  }
+}
+
+md-toolbar, .md-toolbar-tools {
+  .md-button {
+    img {
+      max-height: 100% !important;
+    }
+  }
+  h1, h2, h3, h4, h5, h6, p, i {
+    color: #fff;
+  }
+}
+
+md-content {
+  overflow-x: hidden;
+}
+
+md-dialog.calendar {
+  max-width: 90%;
+  min-width: 0;
+  max-height: 90%;
+  overflow-y: auto;
+
+  md-content {
+    padding: 0;
+  }
+}
+
+md-tooltip.md-show {
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+textarea[auto-grow].md-input {
+  flex: auto !important;
+  min-height: 2em;
+}
+
+.md-subheader.md-primary {
+  background: #eee;
+  margin-right: 0;
+}
+
+md-progress-linear {
+  .md-container {
+    top: 0;
+  }
+}
+
+md-content.md-default-theme {
+  background: transparent !important;
+}
+
+body.with-image {
+
+  background: url(https://farm4.staticflickr.com/3163/2787241598_81113c0bee_o.jpg) no-repeat center center fixed;
+
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+
+  md-sidenav {
+    background: rgba(0, 0, 0, .8);
+  }
+
+  .md-subheader {
+
+    &.md-accent, &.md-default-theme, &.md-primary {
+      background: rgba(0, 0, 0, .1);
+      border-bottom: 1px solid rgba(0, 0, 0, .2);
+      margin-right: 0;
+    }
+
+  }
+
+  md-tabs.md-default-theme.bottom {
+    .md-header {
+      background: rgba(0, 0, 0, .2);
+      border-top: 1px solid rgba(0, 0, 0, .3);
+    }
+  }
+
+}
+
+// Tabs test
+[role="tabpanel"] {
+  opacity: 1;
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+[role="tabpanel"].ng-enter,
+[role="tabpanel"].ng-enter.ng-enter-active {
+  opacity: 0;
+}
+
+[role="tabpanel"].ng-leave.ng-leave-active {
+  opacity: .1;
+}
+
+[role="tabpanel"].ng-leave {
+  opacity: .8;
+}
+
+// Medium and lower.
+@media (min-width: 960px) {
+  md-list md-item md-item-content,
+  md-item md-item-content {
+    padding: .5em 2em;
+    line-height: 3;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// Greater than small.
+@media (min-width: 600px) {
+
+  md-tabs.weather-day-tab {
+    section.md-header {
+      height: 180px;
+    }
+  }
+
+  weather-icon {
+    i, .wi {
+      font-size: 1.67em;
+      line-height: 1.5 !important;
+    }
+
+  }
+
+}
+
+// Small only
+@media (max-width: 600px) {
+  .day-pictogram {
+    weather-icon {
+      font-size: 6em !important;
+    }
+    temperature-item {
+      font-size: 4em  !important;
+      line-height: 1;
+    }
+    margin-bottom: 2em;
+  }
+}
+
+// Very small
+@media (max-width: 480px) {
+  [hide-xs], .hide-xs {
+    display: none;
+  }
+}
+
+// Very small
+@media (max-width: 360px) {
+  [hide-xs], .hide-xs {
+    display: none;
+  }
+}
+
+// Very, super extra tiny
+@media (max-width: 240px) {
+  [hide-xs], .hide-xs {
+    display: none;
+  }
+  .day-pictogram {
+    weather-icon {
+      font-size: 6em !important;
+    }
+    temperature-item {
+      font-size: 3em !important;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+md-content(flex, layout='column', layout-fill)
+    md-subheader.md-primary {{ "Location" | translate:language.translator.current }}
+    md-content(flex, layout='column', layout-fill, layout-align='space-around center')
+        div(ng-show='error', layout, layout-fill, layout-align='center center')
+            p.text-center {{ error | translate:language.translator.current }}
+        div(ng-show='geolocationDenied', layout='column', layout-fill, layout-align='center center')
+            h2.text-center
+                span.fa-stack.fa-2x
+                    i.fa.fa-stack-1x.fa-map-marker
+                    i.fa.fa-ban.fa-stack-2x
+                br
+                span {{ "Geolocation Disabled" | translate:language.translator.current }}
+            p.text-center
+                span {{ "Enable geolocation to get your current location." | translate:language.translator.current }}
+                br(hide, show-gt-sm)
+                span.divider {{ "You can add locations manually if you don't want to use geolocation." | translate:language.translator.current }}
+        div(ng-hide='error || geolocationDenied', layout, layout-fill, layout-align='center center')
+            md-progress-circular(md-mode="indeterminate")
+        div(ng-show='error || geolocationDenied', layout='column', layout-padding, layout-align='space-between center')
+            p
+                md-button.md-raised(ng-click='refresh()') {{ "Try again" | translate:language.translator.current }}
+            p(ng-show='lastPosition')
+                md-button.md-raised(ng-click='useLastPosition()') {{ "Use last position" | translate:language.translator.current }}
+            p
+                md-button.md-raised.md-primary(ng-link='/locations') {{ "Add location manually" | translate:language.translator.current }}
+

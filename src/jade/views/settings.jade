@@ -1,0 +1,53 @@
+md-content(layout='column', layout-fill)
+    md-subheader.md-primary {{ "Settings" | translate:language.translator.current }}
+    section(layout='row', layout-fill, layout-padding, layout-align='space-around')
+        md-list(flex=60, flex-md=80, flex-sm=100)
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Color" | translate:language.translator.current }}
+                    md-select(flex, ng-model="color", placeholder="{{ 'Select a color' | translate:language.translator.current }}")
+                        md-option(ng-value="c", ng-repeat="c in colors track by $index") {{ c | translate:language.translator.current }}
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Secondary color" | translate:language.translator.current }}
+                    md-select(flex, ng-model="accent", placeholder="{{ 'Select a color' | translate:language.translator.current }}")
+                        md-option(ng-value="c", ng-repeat="c in colors track by $index") {{ c | translate:language.translator.current }}
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Units" | translate:language.translator.current }}
+                    div(flex)
+                        md-button(ng-click='units = "imperial"')
+                            i.wi.wi-fahrenheit
+                        md-button(ng-click='units = "metric"')
+                            i.wi.wi-celsius
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Language" | translate:language.translator.current }}
+                    md-select(flex, ng-model="lang", placeholder="{{ 'Language' | translate:language.translator.current }}")
+                        md-option(ng-value="l.code", ng-repeat="l in language.languages track by $index") {{ l.title | translate:language.translator.current }}
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Version" | translate:language.translator.current }}
+                    p(ng-click='versionAlert(true)') {{ version }}
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Error Reporting" | translate:language.translator.current }}
+                    md-checkbox(ng-model='reporting', ng-click='toggleErrorReporting()', aria-label='{{ "Error Reporting" | translate:language.translator.current }}')
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "Telemetry" | translate:language.translator.current }}
+                    md-checkbox(ng-model='telemetry', ng-click='toggleTelemetry()',aria-label='{{ "Telemetry" | translate:language.translator.current }}')
+            md-item
+                md-item-content(layout='row', layout-fill)
+                    label.no-break(flex-sm=50, flex-gt-sm=33)
+                        span {{ "About" | translate:language.translator.current }}
+                    p
+                        a(target='_blank', href='https://bitola.co')
+                            img.block(style='max-width: 256px;', src='img/made-in-badge.svg', alt='Made in Bitola')

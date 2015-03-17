@@ -1,0 +1,6 @@
+md-dialog(aria-label='{{ "Thank you" | translate:language.translator.current }}')
+    md-content
+        md-subheader.md-sticky-no-effect {{ "Feedback Received" | translate:language.translator.current }} {{ version }}
+        p {{ "Thanks for the feedback!" | translate:language.translator.current }}
+    .md-actions(layout='row')
+        md-button.md-primary(ng-click='done()') {{ "Done" | translate:language.translator.current }}

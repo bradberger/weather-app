@@ -1,0 +1,42 @@
+{
+  "name": "weather-app",
+  "version": "0.1.4",
+  "authors": [
+    "Brad Berger <inbox@bitola.co>"
+  ],
+  "description": "An open source weather app.",
+  "license": "MPL",
+  "homepage": "https://github.com/BitolaCo/weather-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3",
+    "angular-material": "master",
+    "angular-route": "~1.3",
+    "angular-sanitize": "~1.3",
+    "angular-touch": "~1.3",
+    "angular-translatability": "~0.1.1",
+    "fastclick": "~1.0.6",
+    "weather-icons": "*",
+    "monetizejs": "~0.2.0",
+    "rollbar": "~1.2.1",
+    "fontawesome": "~4.3.0",
+    "gaia-fonts": "gaia-components/gaia-fonts#~0.2.1",
+    "roboto-fontface": "~0.3.0",
+    "angulartics": "~0.17.2",
+    "piwik": "~2.11.2",
+    "nvd3": "~1.7.1"
+  },
+  "resolutions": {
+    "fontawesome": "~4.3.0",
+    "angular": "~1.3",
+    "angular-animate": "1.3.x",
+    "angular-sanitize": "~1.3"
+  }
+}

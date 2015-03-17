@@ -1,0 +1,44 @@
+md-content(flex, layout='column', layout-fill)
+    md-subheader.md-primary {{ "Locations" | translate:language.translator.current }}
+    md-content(flex, layout='row', layout-fill, ng-show='locations.data.length && ! searching && ! searchResults.length')
+        md-list(flex)
+            md-item(ng-repeat='l in locations.data track by $index')
+                md-item-content(md-swipe-left='removeLocation($index)', md-swipe-right='removeLocation($index)')
+                    md-button.md-warn(hide, show-gt-sm)
+                        i.fa.fa-times
+                    span.divider(hide, show-gt-sm)
+                    a.no-break(flex, ng-link='/weather/{{ l.longitude }}/{{ l.latitude }}?title={{ l.label }}') {{ l.label }}
+                    md-button.md-primary(ng-link='/weather/{{ l.longitude }}/{{ l.latitude }}?title={{ l.label }}', arial-label='Go')
+                        i.fa.fa-chevron-right
+                md-divider
+    md-content(flex, layout='row', layout-fill, ng-show='searching || searchResults.length')
+        md-list(flex)
+            md-item(ng-show='searching')
+                md-item-content
+                    p {{ "Searching..." | translate:language.translator.current }}
+                md-divider
+            md-item(ng-show='! searching && searchResults.length', ng-repeat='addr in searchResults track by $index')
+                md-item-content(ng-click='addLocation(addr)')
+                    a {{ addr.label }}
+                md-divider
+    md-content(flex, layout='column', layout-fill, layout-align='center center', ng-hide='searching || searchResults.length || locations.data.length')
+        div(flex)
+        div(layout='row', layout-fill)
+            div(flex)
+            div(flex-sm=66, flex=50)
+                p.text-center {{ "Enter an address in the search box to find a location to add." | translate:language.translator.current }}
+                p.text-center {{ "Swipe to remove addresses." }}
+            div(flex)
+        div(flex)
+    .search.bottom(layout='row', layout-fill, layout-padding)
+        md-input-container(flex)
+            label {{ "Search" | translate:language.translator.current }}
+            input(type='text', ng-model='searchAddress')
+        md-button.md-warn(ng-click='searchResults = []; searchAddress = "";')
+            i.fa.fa-times(hide, show-sm)
+            span(hide, show-gt-sm) {{ "Clear" | translate:language.translator.current }}
+        span.divider
+        md-button.md-raised.md-primary(ng-click='search()')
+            i.fa.fa-search(hide, show-sm)
+            span(hide, show-gt-sm) {{ "Search" | translate:language.translator.current }}
+

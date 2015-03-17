@@ -1,0 +1,58 @@
+.row(layout='column')
+    .row.details(layout='row', layout-sm='column', layout-padding, layout-align='space-around center')
+        .row.day-pictogram(layout='column', layout-align='center center', flex-gt-sm=20, ng-class='day.icon')
+            div
+                weather-icon(flex, flex-sm=50, ng-icon='{{ day.icon }}')
+                temperature-item(flex, flex-sm=50, ng-show='day.temperature', temp='day.temperature')
+                temperature-item(flex, flex-sm=50, ng-show='day.temperatureMax', temp='day.temperatureMax')
+                precipitation-summary.info(day='day', ng-show='day.precipIntensity')
+        .row(layout, layout-padding, layout-wrap, flex-gt-sm=60)
+                .data-box.overview(flex=100)
+                    .info {{ day.summary | summary | translate:language.translator.current }}
+                    .label {{ "Summary" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.apparentTemperature')
+                    temperature-item.info(flex, temp='day.apparentTemperature')
+                    .label {{ "Feels Like" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.temperatureMin')
+                    temperature-item.info(flex, temp='day.temperatureMin')
+                    .label {{ "Low" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.temperatureMax')
+                    temperature-item.info(flex, temp='day.temperatureMax')
+                    .label {{ "High" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    humidity.info(value='day.humidity')
+                    .label {{ "Humidity" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    cloud-cover(value='day.cloudCover').info
+                    .label {{ "Cloud Cover" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    temperature-item.info(temp='day.dewPoint')
+                    .label {{ "Dew Point" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    wind-speed.info(speed='day.windSpeed')
+                    .label {{ "Wind" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    barometric-pressure.info(value='day.pressure')
+                    .label {{ "Pressure" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50)
+                    ozone.info(ozone='day.ozone')
+                    .label {{ "Ozone" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.visibility')
+                    visibility.info(value='day.visibility')
+                    .label {{ "Visibility" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.nearestStormDistance')
+                    nearest-storm.info(value='day.nearestStormDistance')
+                    .label {{ "Nearest Storm" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.sunriseTime')
+                    .info {{ day.sunriseTime | timestamp | date:'h:mm' }}
+                        sup
+                            small {{ day.sunriseTime | timestamp | date:'a' }}
+                    .label {{ "Sunrise" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.sunsetTime')
+                    .info {{ day.sunsetTime | timestamp | date:'h:mm' }}
+                        sup
+                            small {{ day.sunsetTime | timestamp | date:'a' }}
+                    .label {{ "Sunset" | translate:language.translator.current }}
+                .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.moonPhase')
+                    moon-icon.info(value='day.moonPhase')
+                    .label {{ "Moon phase" | translate:language.translator.current }}

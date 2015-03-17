@@ -1,0 +1,50 @@
+{
+    "name": "Weather",
+    "description": "An open source weather app.",
+    "launch_path": "/",
+    "type": "privileged",
+    "default_locale": "en",
+    "icons": {
+        "64": "/img/icon-64.png",
+        "128": "/img/icon-128.png",
+        "256": "/img/icon-256.png",
+        "512": "/img/icon-512.png"
+    },
+    "developer": {
+        "name": "Bitola Software Company",
+        "url": "https://bitola.co"
+    },
+    "locales": {
+        "en": {
+            "name": "Weather",
+            "description": "An open source weather app."
+        }
+    },
+    "permissions": {
+        "geolocation": {
+            "description": "Needed to get weather for your current location."
+        },
+        "systemXHR": {
+            "description": "Needed to connect to download weather data."
+        },
+        "browser": {
+            "description": "Needed to allow you to sign in to your account."
+        },
+        "desktop-notification": {
+            "description": "Needed to provide update notifications."
+        },
+        "audio-channel-notification": {
+            "description": "Needed to provide audible alerts."
+        },
+        "audio-channel-content": {
+            "description": "Needed to enable sound effects."
+        },
+        "push": {
+            "description": "Needed to keep the forecast up to date while running in the background."
+        }
+    },
+    "messages": [
+        { "push": "/" },
+        { "push-register": "/" }
+    ]
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.bitola.weather" version="0.1.4.1426106118" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Weather</name>
+    <description>
+        An open source weather app.
+    </description>
+    <author email="inbox@bitola.co" href="https://bitola.co">
+        Bitola Software Co.
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <icon src="img/icon-512.png" />
+</widget>

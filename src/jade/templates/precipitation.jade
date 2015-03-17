@@ -1,0 +1,9 @@
+div
+    span.precipitation.probability {{ day.precipProbability * 100|number:0 }}%
+    span.divider
+    span.divider(ng-show='') {{ intensity | translate:language.translator.current }}
+    span.precipitation.type
+        i.wi(ng-class='"wi-" + day.precipType')
+    span.divider(ng-show='false && accumulationMin') ({{ accumulationMin }}
+        span.divider(ng-show='accumulationMin != accumulationMax') - {{ accumulationMax }}
+        span.divider {{ accumulationLabel | translate:language.translator.current }})

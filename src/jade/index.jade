@@ -1,0 +1,77 @@
+doctype html
+html.no-js(lang='{{ language.current }}', ng-app='weatherApp', ng-csp, ng-cloak)
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title {{ "Weather" | translate:language.translator.current }}
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
+        link(rel='icon', href='img/logo.svg', sizes='any')
+        link(rel='icon', href='img/icon-32', type='image/png', sizes='32x32')
+        link(rel='stylesheet', href='css/app.css')
+        script(src='js/errors.js')
+        script(src='js/rollbar.snippet.min.js')
+    body(layout='column', layout-fill)
+        section(layout='row', layout-fill, flex)
+            md-content(flex, layout='row')
+                div(layout='column', layout-fill)
+                    md-toolbar.main-nav
+                        .md-toolbar-tools
+                            h3.no-break.app-title(flex, ng-click='toggleNav()')
+                                span {{ "Weather" | translate:language.translator.current }}
+                            md-button(aria-label='{{ "Refresh" | translate:language.translator.current }}', ng-click='refresh()', analytics-on="click", analytics-event="Refresh")
+                                i.fa.fa-fw.fa-2x.fa-refresh(ng-class='{"fa-spin": refreshing}')
+                            md-button(hide-gt-sm, aria-label='{{ "Menu" | translate:language.translator.current }}', ng-click='toggleNav()', analytics-on="click", analytics-event="Menu")
+                                i.fa.fa-fw.fa-2x.fa-bars
+                    md-content(ng-view, layout='column', layout-fill, flex)
+            md-sidenav.md-sidenav-right.md-whiteframe-z1(md-component-id='right', md-is-locked-open="$mdMedia('gt-md')")
+                md-toolbar
+                    .md-toolbar-tools
+                        h3.no-break(flex) {{ "Menu" | translate:language.translator.current }}
+                        md-button.icon(hide-gt-md, ng-click='closeNav()', aria-label='Close nav')
+                            i.fa.fa-fw.fa-2x.fa-times
+                md-content(ng-controller='MenuCtrl')
+                    md-list
+                        md-item
+                            md-item-content
+                                i.fa.fa-fw.fa-2x.fa-location-arrow
+                                a.no-break.block(ng-link='/locate') {{ "Current Location" | translate:language.translator.current }}
+                            md-divider
+                        md-item
+                            md-item-content
+                                a.no-break.block(ng-link='/locations')
+                                    i.fa.fa-fw.fa-2x.fa-map-marker
+                                    | {{ "Locations" | translate:language.translator.current }}
+                            md-divider
+                        md-item(ng-repeat='location in locations track by $index')
+                            md-item-content
+                                a.no-break.block(ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
+                                    span.location-indent
+                                    i.fa.fa-fw.fa-2x
+                                    | {{ location.label | translate:language.translator.current }}
+                            md-divider
+                        md-item(ng-show='false')
+                            md-item-content
+                                a.no-break.block(ng-link='/account')
+                                    i.fa.fa-fw.fa-2x.fa-user
+                                    | {{ "Account" | translate:language.translator.current }}
+                            md-divider
+                        md-item
+                            md-item-content
+                                a.no-break.block(ng-link='/settings')
+                                    i.fa.fa-fw.fa-2x.fa-cog
+                                    | {{ "Settings" | translate:language.translator.current }}
+                            md-divider
+                        md-item
+                            md-item-content
+                                a.no-break.block(ng-link='/feedback')
+                                    i.fa.fa-fw.fa-2x.fa-comment
+                                    | {{ "Feedback" | translate:language.translator.current }}
+                            md-divider
+                        md-item(ng-show='')
+                            md-item-content
+                                a.no-break.block(ng-link='/about')
+                                    i.fa.fa-fw.fa-2x.fa-question
+                                    | {{ "About" | translate:language.translator.current }}
+                            md-divider
+        script(src='js/app.js')
