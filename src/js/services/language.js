@@ -4,6 +4,9 @@ angular.module("weatherApp").service("Language", ["$window", "$q", "Dictionary",
 
     return function(lang) {
 
+
+        $window.language = this;
+
         this.current = false;
 
         this.lowMemory = true;
@@ -12,7 +15,19 @@ angular.module("weatherApp").service("Language", ["$window", "$q", "Dictionary",
 
         this.languages  = [
             {code: "en", title: "English", english: "English"},
-            {code: "mk", title: "Македонски", english: "Macedonian"}
+            {code: "mk", title: "Македонски", english: "Macedonian"},
+            {code: "bs", title: "Bosanski", english: "Bosnian"},
+            {code: "de", title: "Deutsch", english: "German"},
+            {code: "es", title: "Español", english: "Spanish"},
+            {code: "fr", title: "Français", english: "French"},
+            {code: "it", title: "Italiano", english: "Italian"},
+            {code: "nl", title: "Nederlands", english: "Dutch"},
+            {code: "pl", title: "Polski", english: "Polish"},
+            {code: "pt", title: "Portugueses", english: "Portugese"},
+            {code: "ru", title: "Русский", english: "Russian"},
+            {code: "hr", title: "Hrvatski", english: "Serbian"},
+            {code: "al", title: "Shqiptar", english: "Albanian"},
+            {code: "sr", title: "Српски", english: "Serbian"}
         ];
 
         this.translator = new Dictionary();

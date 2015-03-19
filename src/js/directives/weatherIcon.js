@@ -5,7 +5,7 @@ angular.module("weatherApp").directive("weatherIcon", function() {
     return {
         restrict: "E",
         replace: false,
-        template: "<i class='wi' ng-class='iconClass'></i>",
+        template: "<md-icon md-font-icon='wi {{ iconClass }}'></md-icon>",
         link: function($scope, $element, $attrs) {
 
             var classMap = {

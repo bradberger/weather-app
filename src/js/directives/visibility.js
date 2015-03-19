@@ -8,18 +8,25 @@ angular.module("weatherApp").directive("visibility", ["$window", "$log", "$filte
         template: "<span>{{ visibility }}<sup>{{ label }}</sup></span>",
         link: function($scope) {
 
-            var unit = $scope.units || $window.localStorage.getItem("user.units") || "imperial";
-            function update(value) {
-                $scope.visibility = Math.round(value);
+            $scope.visibility = "-";
+            switch($scope.units || $window.localStorage.getItem("user.units") || "us") {
+                case "ca":
+                case "uk":
+                case "si":
+                    $scope.label = "km";
+                    break;
+                default:
+                    $scope.label = "mi";
+                    break;
             }
 
-            $scope.visibility = "-";
-            $scope.label = unit.charAt(0) === "m" ? "km" : "mi";
-            $scope.$watch("value", function(val) {
-                if(val) {
-                    update(val);
+            function update(value) {
+                if ("undefined" !== typeof value) {
+                    $scope.visibility = Math.round(value);
                 }
-            });
+            }
+
+            $scope.$watch("value", update);
 
         }
     };

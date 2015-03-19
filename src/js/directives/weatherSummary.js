@@ -5,7 +5,7 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$mdMedi
     return {
         restrict: "E",
         transclude: true,
-        scope: {day: "="},
+        scope: {day: "=", offset: "="},
         templateUrl: "templates/summary.html",
         link: function ($scope) {
 

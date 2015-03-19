@@ -19,10 +19,10 @@ md-content(layout='column', layout-fill)
                     label.no-break(flex-sm=50, flex-gt-sm=33)
                         span {{ "Units" | translate:language.translator.current }}
                     div(flex)
-                        md-button(ng-click='units = "imperial"')
-                            i.wi.wi-fahrenheit
-                        md-button(ng-click='units = "metric"')
-                            i.wi.wi-celsius
+                        md-button(ng-click='units = "us"') us
+                        md-button(ng-click='units = "si"') si
+                        md-button(ng-click='units = "ca"') ca
+                        md-button(ng-click='units = "uk"') uk
             md-item
                 md-item-content(layout='row', layout-fill)
                     label.no-break(flex-sm=50, flex-gt-sm=33)

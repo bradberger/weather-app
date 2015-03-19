@@ -1720,12 +1720,6 @@ body, html, button {
   font-family: Roboto, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100; }
 
-body.light-blue, body.light-blue md-content, body.light-blue .md-subheader.md-default-theme.md-accent {
-  background: #2196f3;
-  color: #fff; }
-body.light-blue md-sidenav md-content {
-  color: #2196f3; }
-
 .symbol {
   font-size: 1.33em;
   line-height: 1.33; }
@@ -1824,10 +1818,18 @@ small {
 .text-left {
   text-align: left !important; }
 
-.no-break {
+.inset-shadow {
+  box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.75); }
+
+.no-break, .data-box * {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
+
+md-tabs.md-default-theme .md-header {
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1); }
 
 md-sidenav.md-sidenav-left, md-sidenav.md-sidenav-right {
   min-width: 0;
@@ -1839,15 +1841,24 @@ md-sidenav.md-sidenav-left, md-sidenav.md-sidenav-right {
 md-backdrop.md-opaque.md-default-theme {
   background-color: rgba(0, 0, 0, 0.8); }
 
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  z-index: 9999; }
+
 md-toolbar {
   box-shadow: none !important; }
+  md-toolbar.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999; }
   md-toolbar.main-nav button, md-toolbar.main-nav .md-button, md-toolbar .md-toolbar-tools button, md-toolbar .md-toolbar-tools .md-button {
     height: 100%;
     text-overflow: ellipsis;
     min-width: 48px; }
-
-.md-subheader.md-primary.md-default-theme {
-  color: #555; }
 
 .md-button {
   min-width: 48px; }
@@ -1880,7 +1891,7 @@ hr, .hr {
   border-bottom: 1px solid #eee;
   border-top: none; }
 
-span.fa-fw {
+.fa-fw {
   display: inline-block; }
 
 .block {
@@ -1987,6 +1998,245 @@ md-toolbar .md-button img, .md-toolbar-tools .md-button img {
 md-toolbar h1, md-toolbar h2, md-toolbar h3, md-toolbar h4, md-toolbar h5, md-toolbar h6, md-toolbar p, md-toolbar i, .md-toolbar-tools h1, .md-toolbar-tools h2, .md-toolbar-tools h3, .md-toolbar-tools h4, .md-toolbar-tools h5, .md-toolbar-tools h6, .md-toolbar-tools p, .md-toolbar-tools i {
   color: #fff; }
 
+html {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5), 0 -1px 1px rgba(255, 255, 255, 0.2); }
+  html md-content.weather-container {
+    background: rgba(0, 0, 0, 0.1) !important; }
+  html.theme-red, html.theme-red md-content {
+    background: rgba(244, 67, 54, 0.2); }
+  html.theme-red md-sidenav {
+    background: rgba(244, 67, 54, 0.9); }
+  html.theme-red md-sidenav md-content {
+    background: transparent; }
+  html.theme-red .md-subheader.md-primary {
+    background: rgba(244, 67, 54, 0.8); }
+  html.theme-red, html.theme-red md-input-container.md-default-theme .md-input, html.theme-red md-input-container.md-default-theme label, html.theme-red md-input-container.md-default-theme .md-placeholder, html.theme-red md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-red md-content, html.theme-red .md-subheader.md-primary, html.theme-red md-tab-label * {
+    color: white; }
+  html.theme-pink, html.theme-pink md-content {
+    background: rgba(233, 30, 99, 0.2); }
+  html.theme-pink md-sidenav {
+    background: rgba(233, 30, 99, 0.9); }
+  html.theme-pink md-sidenav md-content {
+    background: transparent; }
+  html.theme-pink .md-subheader.md-primary {
+    background: rgba(233, 30, 99, 0.8); }
+  html.theme-pink, html.theme-pink md-input-container.md-default-theme .md-input, html.theme-pink md-input-container.md-default-theme label, html.theme-pink md-input-container.md-default-theme .md-placeholder, html.theme-pink md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-pink md-content, html.theme-pink .md-subheader.md-primary, html.theme-pink md-tab-label * {
+    color: white; }
+  html.theme-purple, html.theme-purple md-content {
+    background: rgba(156, 39, 176, 0.2); }
+  html.theme-purple md-sidenav {
+    background: rgba(156, 39, 176, 0.9); }
+  html.theme-purple md-sidenav md-content {
+    background: transparent; }
+  html.theme-purple .md-subheader.md-primary {
+    background: rgba(156, 39, 176, 0.8); }
+  html.theme-purple, html.theme-purple md-input-container.md-default-theme .md-input, html.theme-purple md-input-container.md-default-theme label, html.theme-purple md-input-container.md-default-theme .md-placeholder, html.theme-purple md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-purple md-content, html.theme-purple .md-subheader.md-primary, html.theme-purple md-tab-label * {
+    color: white; }
+  html.theme-deep-purple, html.theme-deep-purple md-content {
+    background: rgba(103, 58, 183, 0.2); }
+  html.theme-deep-purple md-sidenav {
+    background: rgba(103, 58, 183, 0.9); }
+  html.theme-deep-purple md-sidenav md-content {
+    background: transparent; }
+  html.theme-deep-purple .md-subheader.md-primary {
+    background: rgba(103, 58, 183, 0.8); }
+  html.theme-deep-purple, html.theme-deep-purple md-input-container.md-default-theme .md-input, html.theme-deep-purple md-input-container.md-default-theme label, html.theme-deep-purple md-input-container.md-default-theme .md-placeholder, html.theme-deep-purple md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-deep-purple md-content, html.theme-deep-purple .md-subheader.md-primary, html.theme-deep-purple md-tab-label * {
+    color: white; }
+  html.theme-indigo, html.theme-indigo md-content {
+    background: rgba(63, 81, 181, 0.2); }
+  html.theme-indigo md-sidenav {
+    background: rgba(63, 81, 181, 0.9); }
+  html.theme-indigo md-sidenav md-content {
+    background: transparent; }
+  html.theme-indigo .md-subheader.md-primary {
+    background: rgba(63, 81, 181, 0.8); }
+  html.theme-indigo, html.theme-indigo md-input-container.md-default-theme .md-input, html.theme-indigo md-input-container.md-default-theme label, html.theme-indigo md-input-container.md-default-theme .md-placeholder, html.theme-indigo md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-indigo md-content, html.theme-indigo .md-subheader.md-primary, html.theme-indigo md-tab-label * {
+    color: white; }
+  html.theme-blue, html.theme-blue md-content {
+    background: rgba(33, 150, 243, 0.2); }
+  html.theme-blue md-sidenav {
+    background: rgba(33, 150, 243, 0.9); }
+  html.theme-blue md-sidenav md-content {
+    background: transparent; }
+  html.theme-blue .md-subheader.md-primary {
+    background: rgba(33, 150, 243, 0.8); }
+  html.theme-blue, html.theme-blue md-input-container.md-default-theme .md-input, html.theme-blue md-input-container.md-default-theme label, html.theme-blue md-input-container.md-default-theme .md-placeholder, html.theme-blue md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-blue md-content, html.theme-blue .md-subheader.md-primary, html.theme-blue md-tab-label * {
+    color: white; }
+  html.theme-light-blue, html.theme-light-blue md-content {
+    background: rgba(3, 169, 244, 0.2); }
+  html.theme-light-blue md-sidenav {
+    background: rgba(3, 169, 244, 0.9); }
+  html.theme-light-blue md-sidenav md-content {
+    background: transparent; }
+  html.theme-light-blue .md-subheader.md-primary {
+    background: rgba(3, 169, 244, 0.8); }
+  html.theme-light-blue, html.theme-light-blue md-input-container.md-default-theme .md-input, html.theme-light-blue md-input-container.md-default-theme label, html.theme-light-blue md-input-container.md-default-theme .md-placeholder, html.theme-light-blue md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-light-blue md-content, html.theme-light-blue .md-subheader.md-primary, html.theme-light-blue md-tab-label * {
+    color: white; }
+  html.theme-cyan, html.theme-cyan md-content {
+    background: rgba(0, 188, 212, 0.2); }
+  html.theme-cyan md-sidenav {
+    background: rgba(0, 188, 212, 0.9); }
+  html.theme-cyan md-sidenav md-content {
+    background: transparent; }
+  html.theme-cyan .md-subheader.md-primary {
+    background: rgba(0, 188, 212, 0.8); }
+  html.theme-cyan, html.theme-cyan md-input-container.md-default-theme .md-input, html.theme-cyan md-input-container.md-default-theme label, html.theme-cyan md-input-container.md-default-theme .md-placeholder, html.theme-cyan md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-cyan md-content, html.theme-cyan .md-subheader.md-primary, html.theme-cyan md-tab-label * {
+    color: white; }
+  html.theme-teal, html.theme-teal md-content {
+    background: rgba(0, 150, 136, 0.2); }
+  html.theme-teal md-sidenav {
+    background: rgba(0, 150, 136, 0.9); }
+  html.theme-teal md-sidenav md-content {
+    background: transparent; }
+  html.theme-teal .md-subheader.md-primary {
+    background: rgba(0, 150, 136, 0.8); }
+  html.theme-teal, html.theme-teal md-input-container.md-default-theme .md-input, html.theme-teal md-input-container.md-default-theme label, html.theme-teal md-input-container.md-default-theme .md-placeholder, html.theme-teal md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-teal md-content, html.theme-teal .md-subheader.md-primary, html.theme-teal md-tab-label * {
+    color: white; }
+  html.theme-green, html.theme-green md-content {
+    background: rgba(76, 175, 80, 0.2); }
+  html.theme-green md-sidenav {
+    background: rgba(76, 175, 80, 0.9); }
+  html.theme-green md-sidenav md-content {
+    background: transparent; }
+  html.theme-green .md-subheader.md-primary {
+    background: rgba(76, 175, 80, 0.8); }
+  html.theme-green, html.theme-green md-input-container.md-default-theme .md-input, html.theme-green md-input-container.md-default-theme label, html.theme-green md-input-container.md-default-theme .md-placeholder, html.theme-green md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-green md-content, html.theme-green .md-subheader.md-primary, html.theme-green md-tab-label * {
+    color: white; }
+  html.theme-light-green, html.theme-light-green md-content {
+    background: rgba(139, 195, 74, 0.2); }
+  html.theme-light-green md-sidenav {
+    background: rgba(139, 195, 74, 0.9); }
+  html.theme-light-green md-sidenav md-content {
+    background: transparent; }
+  html.theme-light-green .md-subheader.md-primary {
+    background: rgba(139, 195, 74, 0.8); }
+  html.theme-light-green, html.theme-light-green md-input-container.md-default-theme .md-input, html.theme-light-green md-input-container.md-default-theme label, html.theme-light-green md-input-container.md-default-theme .md-placeholder, html.theme-light-green md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-light-green md-content, html.theme-light-green .md-subheader.md-primary, html.theme-light-green md-tab-label * {
+    color: white; }
+  html.theme-lime, html.theme-lime md-content {
+    background: rgba(205, 220, 57, 0.2); }
+  html.theme-lime md-sidenav {
+    background: rgba(205, 220, 57, 0.9); }
+  html.theme-lime md-sidenav md-content {
+    background: transparent; }
+  html.theme-lime .md-subheader.md-primary {
+    background: rgba(205, 220, 57, 0.8); }
+  html.theme-lime, html.theme-lime md-input-container.md-default-theme .md-input, html.theme-lime md-input-container.md-default-theme label, html.theme-lime md-input-container.md-default-theme .md-placeholder, html.theme-lime md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-lime md-content, html.theme-lime .md-subheader.md-primary, html.theme-lime md-tab-label * {
+    color: white; }
+  html.theme-yellow, html.theme-yellow md-content {
+    background: rgba(255, 235, 59, 0.2); }
+  html.theme-yellow md-sidenav {
+    background: rgba(255, 235, 59, 0.9); }
+  html.theme-yellow md-sidenav md-content {
+    background: transparent; }
+  html.theme-yellow .md-subheader.md-primary {
+    background: rgba(255, 235, 59, 0.8); }
+  html.theme-yellow, html.theme-yellow md-input-container.md-default-theme .md-input, html.theme-yellow md-input-container.md-default-theme label, html.theme-yellow md-input-container.md-default-theme .md-placeholder, html.theme-yellow md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-yellow md-content, html.theme-yellow .md-subheader.md-primary, html.theme-yellow md-tab-label * {
+    color: white; }
+  html.theme-amber, html.theme-amber md-content {
+    background: rgba(255, 193, 7, 0.2); }
+  html.theme-amber md-sidenav {
+    background: rgba(255, 193, 7, 0.9); }
+  html.theme-amber md-sidenav md-content {
+    background: transparent; }
+  html.theme-amber .md-subheader.md-primary {
+    background: rgba(255, 193, 7, 0.8); }
+  html.theme-amber, html.theme-amber md-input-container.md-default-theme .md-input, html.theme-amber md-input-container.md-default-theme label, html.theme-amber md-input-container.md-default-theme .md-placeholder, html.theme-amber md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-amber md-content, html.theme-amber .md-subheader.md-primary, html.theme-amber md-tab-label * {
+    color: white; }
+  html.theme-orange, html.theme-orange md-content {
+    background: rgba(255, 152, 0, 0.2); }
+  html.theme-orange md-sidenav {
+    background: rgba(255, 152, 0, 0.9); }
+  html.theme-orange md-sidenav md-content {
+    background: transparent; }
+  html.theme-orange .md-subheader.md-primary {
+    background: rgba(255, 152, 0, 0.8); }
+  html.theme-orange, html.theme-orange md-input-container.md-default-theme .md-input, html.theme-orange md-input-container.md-default-theme label, html.theme-orange md-input-container.md-default-theme .md-placeholder, html.theme-orange md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-orange md-content, html.theme-orange .md-subheader.md-primary, html.theme-orange md-tab-label * {
+    color: white; }
+  html.theme-deep-orange, html.theme-deep-orange md-content {
+    background: rgba(255, 87, 34, 0.2); }
+  html.theme-deep-orange md-sidenav {
+    background: rgba(255, 87, 34, 0.9); }
+  html.theme-deep-orange md-sidenav md-content {
+    background: transparent; }
+  html.theme-deep-orange .md-subheader.md-primary {
+    background: rgba(255, 87, 34, 0.8); }
+  html.theme-deep-orange, html.theme-deep-orange md-input-container.md-default-theme .md-input, html.theme-deep-orange md-input-container.md-default-theme label, html.theme-deep-orange md-input-container.md-default-theme .md-placeholder, html.theme-deep-orange md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-deep-orange md-content, html.theme-deep-orange .md-subheader.md-primary, html.theme-deep-orange md-tab-label * {
+    color: white; }
+  html.theme-brown, html.theme-brown md-content {
+    background: rgba(121, 85, 72, 0.2); }
+  html.theme-brown md-sidenav {
+    background: rgba(121, 85, 72, 0.9); }
+  html.theme-brown md-sidenav md-content {
+    background: transparent; }
+  html.theme-brown .md-subheader.md-primary {
+    background: rgba(121, 85, 72, 0.8); }
+  html.theme-brown, html.theme-brown md-input-container.md-default-theme .md-input, html.theme-brown md-input-container.md-default-theme label, html.theme-brown md-input-container.md-default-theme .md-placeholder, html.theme-brown md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-brown md-content, html.theme-brown .md-subheader.md-primary, html.theme-brown md-tab-label * {
+    color: white; }
+  html.theme-grey, html.theme-grey md-content {
+    background: rgba(158, 158, 158, 0.2); }
+  html.theme-grey md-sidenav {
+    background: rgba(158, 158, 158, 0.9); }
+  html.theme-grey md-sidenav md-content {
+    background: transparent; }
+  html.theme-grey .md-subheader.md-primary {
+    background: rgba(158, 158, 158, 0.8); }
+  html.theme-grey, html.theme-grey md-input-container.md-default-theme .md-input, html.theme-grey md-input-container.md-default-theme label, html.theme-grey md-input-container.md-default-theme .md-placeholder, html.theme-grey md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-grey md-content, html.theme-grey .md-subheader.md-primary, html.theme-grey md-tab-label * {
+    color: white; }
+  html.theme-blue-grey, html.theme-blue-grey md-content {
+    background: rgba(96, 125, 139, 0.2); }
+  html.theme-blue-grey md-sidenav {
+    background: rgba(96, 125, 139, 0.9); }
+  html.theme-blue-grey md-sidenav md-content {
+    background: transparent; }
+  html.theme-blue-grey .md-subheader.md-primary {
+    background: rgba(96, 125, 139, 0.8); }
+  html.theme-blue-grey, html.theme-blue-grey md-input-container.md-default-theme .md-input, html.theme-blue-grey md-input-container.md-default-theme label, html.theme-blue-grey md-input-container.md-default-theme .md-placeholder, html.theme-blue-grey md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, html.theme-blue-grey md-content, html.theme-blue-grey .md-subheader.md-primary, html.theme-blue-grey md-tab-label * {
+    color: white; }
+  html.theme-black {
+    text-shadow: none; }
+    html.theme-black, html.theme-black md-content {
+      background: rgba(255, 255, 255, 0.2); }
+    html.theme-black md-sidenav {
+      background: #fff; }
+    html.theme-black md-sidenav md-content {
+      background: #fff; }
+    html.theme-black .md-subheader.md-primary {
+      background: #ccc; }
+
+body {
+  padding-top: 4em;
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: initial;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat;
+  background-position: center center; }
+  body.clear-day {
+    background: url(/img/backgrounds/clear-day.jpg); }
+  body.clear-night {
+    background: url(/img/backgrounds/clear-night.jpg); }
+  body.rain {
+    background: url(/img/backgrounds/rain.jpg); }
+  body.snow {
+    background: url(/img/backgrounds/snow.jpg); }
+  body.sleet {
+    background: url(/img/backgrounds/sleet.jpg); }
+  body.wind {
+    background: url(/img/backgrounds/wind.jpg); }
+  body.fog {
+    background: url(/img/backgrounds/fog.jpg); }
+  body.cloudy {
+    background: url(/img/backgrounds/cloudy.jpg); }
+  body.partly-cloudy-day {
+    background: url(/img/backgrounds/partly-cloudy-day.jpg); }
+  body.partly-cloudy-night {
+    background: url(/img/backgrounds/partly-cloudy-night.jpg); }
+
+md-icon {
+  width: auto;
+  height: auto; }
+
 md-content {
   overflow-x: hidden; }
 
@@ -2013,23 +2263,6 @@ textarea[auto-grow].md-input {
 md-progress-linear .md-container {
   top: 0; }
 
-md-content.md-default-theme {
-  background: transparent !important; }
-
-body.with-image {
-  background: url(https://farm4.staticflickr.com/3163/2787241598_81113c0bee_o.jpg) no-repeat center center fixed;
-  color: #fff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); }
-  body.with-image md-sidenav {
-    background: rgba(0, 0, 0, 0.8); }
-  body.with-image .md-subheader.md-accent, body.with-image .md-subheader.md-default-theme, body.with-image .md-subheader.md-primary {
-    background: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    margin-right: 0; }
-  body.with-image md-tabs.md-default-theme.bottom .md-header {
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(0, 0, 0, 0.3); }
-
 [role="tabpanel"] {
   opacity: 1;
   -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
@@ -2044,6 +2277,13 @@ body.with-image {
 [role="tabpanel"].ng-leave {
   opacity: .8; }
 
+weather-icon {
+  display: block; }
+  weather-icon md-icon, weather-icon .md-font {
+    display: block;
+    height: auto !important;
+    width: auto !important; }
+
 @media (min-width: 960px) {
   md-list md-item md-item-content, md-item md-item-content {
     padding: .5em 2em;
@@ -2056,9 +2296,11 @@ body.with-image {
     height: 180px; }
   weather-icon i, weather-icon .wi {
     font-size: 1.67em;
-    line-height: 1.5 !important; } }
+    line-height: 1.67 !important; } }
 
 @media (max-width: 600px) {
+  weather-summary {
+    padding-top: 2em; }
   .day-pictogram {
     margin-bottom: 2em; }
     .day-pictogram weather-icon {

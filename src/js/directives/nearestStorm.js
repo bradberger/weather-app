@@ -5,21 +5,20 @@ angular.module("weatherApp").directive("nearestStorm", ["$window", "$log", "$fil
     return {
         restrict: "E",
         scope: {value: "=", units: "="},
-        template: "<span>{{ nearest }}<sup>{{ label }}</sup></span>",
+        template: "<span>{{ value }}<sup>{{ label }}</sup></span>",
         link: function($scope) {
 
-            var unit = $scope.units || $window.localStorage.getItem("user.units") || "imperial";
-            function update(value) {
-                $scope.nearest = Math.round(value);
+            var unit = $scope.units || $window.localStorage.getItem("user.units") || "us";
+            switch(unit) {
+                case "ca":
+                case "uk":
+                case "si":
+                    $scope.label = "km";
+                    break;
+                default:
+                    $scope.label = "mi";
+                    break;
             }
-
-            $scope.nearest = "-";
-            $scope.label = unit.charAt(0) === "m" ? "km" : "mi";
-            $scope.$watch("value", function(val) {
-                if(val) {
-                    update(val);
-                }
-            });
 
         }
     };

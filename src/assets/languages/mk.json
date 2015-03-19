@@ -72,7 +72,7 @@
   "Ozone": "озонот",
   "Dew Point": "роса точка",
   "Visibility": "",
-  "Nearest Storm": "најблиска бура",
+  "Nearest storm": "најблиска бура",
   "Hourly": "Часовна",
   "Week": "неделата",
   "Now": "Сега",
@@ -84,7 +84,7 @@
   "Enter an address in the search box above to find a location to add.": "Внесете адреса во полето за пребарување погоре, за да се најде локација за да додадете",
   "Search Results": "Резултати од пребарувањето",
   "Weather": "Времето",
-  "Current Location": "тековната локација",
+  "Current location": "тековната локација",
   "Locating...": "лоцирање...",
   "Mostly Cloudy": "претежно облачно",
   "chance of": "шанси за",
@@ -92,7 +92,7 @@
   "Refresh": "Вчитај",
   "Finding your location": "Наоѓање на вашата локација",
   "Click location to add": "Кликнете се на локација за да додавате",
-  "Precipitation Intensity": "врнежите интензитет",
+  "Precipitation intensity": "врнежите интензитет",
   "Precipitation": "врнежите",
   "Summary": "резиме",
   "Drizzle": "Ситен дожд",
@@ -142,5 +142,10 @@
   "You can add locations manually if you don't want to use geolocation.": "Можете да додадете локации рачно ако не сакате да го користите Прецизни.",
   "Add location manually": "Додади локација рачно",
   "Try again": "Пробајте пак",
-  "Use last position": ""
+  "Use last position": "Користете последната позиција",
+  "Feels Like": "Се чувствува како",
+  "Report updated.": "Пријави се ажурираат.",
+  "Your Name (optional)": "Вашето име (опционално)",
+  "Your Email (optional)": "Вашата е-маил (опционално)",
+  "Details": "детали"
 }

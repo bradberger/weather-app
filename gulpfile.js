@@ -148,6 +148,9 @@ gulp.task("sass", function() {
         DEST = opts.path("src/css");
 
     return gulp.src(SRC)
+        .on("error", function(err) {
+            console.error(err);
+        })
         .pipe(sass())
         .pipe(gulp.dest(DEST));
 });

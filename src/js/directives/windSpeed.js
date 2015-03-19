@@ -5,22 +5,28 @@ angular.module("weatherApp").directive("windSpeed", ["$window", "$log", "$filter
     return {
         restrict: "E",
         scope: {speed: "=", units: "="},
-        template: "<span>{{ windSpeed | distance }}<sup><small>{{ label }}</small></sup></span>",
+        template: "<span>{{ value }}<sup><small>{{ label }}</small></sup></span>",
         link: function($scope) {
 
-            var unit = $scope.units || $window.localStorage.getItem("user.units") || "imperial";
-            function update(value) {
-                $scope.windSpeed = Math.round(value);
+            switch($scope.units || $window.localStorage.getItem("user.units") || "us") {
+                case "si":
+                    $scope.label = "m/s";
+                    break;
+                case "ca":
+                    $scope.label = "kph";
+                    break;
+                default:
+                    $scope.label = "mph";
+                    break;
             }
 
-            $scope.label = "-";
-            $scope.windSpeed = "-";
-            $scope.label = unit.charAt(0) === "m" ? "kph" : "mph";
-            $scope.$watch("speed", function(val) {
-                if("undefined" !== typeof val) {
-                    update(val);
+            function update(value) {
+                if (value) {
+                    $scope.value = Math.round(value);
                 }
-            });
+            }
+
+            $scope.$watch("speed", update);
 
         }
     };

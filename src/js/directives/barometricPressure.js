@@ -1,26 +1,23 @@
 "use strict";
 
-angular.module("weatherApp").directive("barometricPressure", ["$window", "$log", "$filter", function($window, $log, $filter) {
+angular.module("weatherApp").directive("barometricPressure", ["$window", function($window) {
 
     return {
         restrict: "E",
         scope: {value: "=", units: "="},
-        template: "<span>{{ pressure | distance }}<sup><small>{{ label }}</small></sup></span>",
+        template: "<span>{{ value|number:0 }}<sup><small>{{ label }}</small></sup></span>",
         link: function($scope) {
 
-            var unit = $scope.units || $window.localStorage.getItem("user.units") || "imperial";
-            function update(value) {
-                $scope.pressure = unit.charAt(0) === "m" ? Math.round(value) : $filter("number")(value * 0.0295301, 2);
+            switch($scope.units || $window.localStorage.getItem("user.units") || "us") {
+                case "ca":
+                case "uk":
+                case "si":
+                    $scope.label = "hPa";
+                    break;
+                default:
+                    $scope.label = "mbar";
+                    break;
             }
-
-            $scope.label = "-";
-            $scope.windSpeed = "-";
-            $scope.label = unit.charAt(0) === "m" ? "mbar" : " in/Hg";
-            $scope.$watch("value", function(val) {
-                if("undefined" !== typeof val) {
-                    update(val);
-                }
-            });
 
         }
     };

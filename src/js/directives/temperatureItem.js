@@ -1,29 +1,36 @@
 "use strict";
 
-angular.module("weatherApp").directive("temperatureItem", ["$window", "$log", "$filter", function($window, $log, $filter) {
+angular.module("weatherApp").directive("temperatureItem", ["$window", function($window) {
 
     return {
         restrict: "E",
         transclude: true,
         scope: { temp: "=", unit: "=" },
         template: "<span class='no-break'>{{ tempAmt }} <sup><i class='wi' ng-class='temperatureClass'></i></span></sup>",
-        link: function($scope, $element, $attrs) {
+        link: function($scope) {
 
             $scope.tempAmt = "-";
 
-            function updateTemp() {
-                var format = ($attrs.ngUnit || $window.localStorage.getItem("user.units") || "i").toLocaleLowerCase();
-                $scope.tempAmt = $filter("temperature")($scope.temp, format);
-                $scope.temperatureClass = format.charAt(0) === "m" ? "wi-celsius" : "wi-fahrenheit";
+            var units = $scope.unit || $window.localStorage.getItem("user.units") || "us";
+            switch(units) {
+                case "us":
+                    $scope.temperatureClass = "wi-fahrenheit";
+                    break;
+                default:
+                    $scope.temperatureClass = "wi-celsius";
+                    break;
             }
 
-            $scope.$watch("temp", function(val) {
+            function updateTemp(val) {
                 if("undefined" !== typeof val) {
-                    updateTemp(val);
+                    $scope.tempAmt = Math.round(val);
                 }
-            });
+            }
+
+            $scope.$watch("temp", updateTemp);
 
         }
+
     };
 
 }]);

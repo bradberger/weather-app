@@ -8,11 +8,11 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
 
         this.apiKey = apiKey || "APIKEY";
         this.results = angular.fromJson($window.localStorage.getItem("user.results") || "{}");
-        this.endpoint = endpoint || "https://weather.bitola.co/forecast";
+        this.endpoint = endpoint || "https://weather.bitola.co/api/v1/weather";
 
         this.limits = {
-            daily: 6,
-            hourly: 8,
+            daily: false,
+            hourly: false,
             currently: false
         };
 
@@ -21,13 +21,16 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
             $window.localStorage.setItem("user.results", angular.toJson(this.results));
         };
 
-        this.get = function(lat, long) {
+        this.get = function(lat, long, lang, units) {
 
             var deferred = $q.defer(),
                 latitude = lat.toString(),
                 longitude = long.toString(),
-                coords = [latitude, longitude].join(","),
-                url = [this.endpoint, this.apiKey, coords].join("/");
+                url = this.endpoint +
+                        "?latitude=" + latitude +
+                        "&longitude=" + longitude +
+                        "&language=" + (lang || "en") +
+                        "&units=" + (units || "us");
 
             if (! this.results[latitude]) {
                 this.results[latitude] = {};
@@ -50,22 +53,8 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
             $http.get(url)
                 .success(function(data) {
 
-                    var results = {
-                        currently: angular.copy(data.currently),
-                        daily: angular.copy(data.daily),
-                        hourly: angular.copy(data.hourly)
-                    };
-
-                    if (self.limits.daily) {
-                        results.daily.data = results.daily.data.splice(0, self.limits.daily - 1);
-                    }
-
-                    if (self.limits.hourly) {
-                        results.hourly.data = results.hourly.data.splice(0, self.limits.hourly - 1);
-                    }
-
+                    var results = angular.copy(data);
                     self.saveResult(latitude, longitude, results);
-
                     deferred.resolve(results);
 
                 })

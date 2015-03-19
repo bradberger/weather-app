@@ -34,44 +34,43 @@ html.no-js(lang='{{ language.current }}', ng-app='weatherApp', ng-csp, ng-cloak)
                     md-list
                         md-item
                             md-item-content
-                                i.fa.fa-fw.fa-2x.fa-location-arrow
-                                a.no-break.block(ng-link='/locate') {{ "Current Location" | translate:language.translator.current }}
+                                md-icon(md-font-icon='fa fa-fw fa-location-arrow fa-lg')
+                                a.no-break.block(ng-link='/locate') {{ "Current location" | translate:language.translator.current }}
                             md-divider
                         md-item
                             md-item-content
                                 a.no-break.block(ng-link='/locations')
-                                    i.fa.fa-fw.fa-2x.fa-map-marker
+                                    md-icon(md-font-icon='fa fa-fw fa-map-marker fa-lg')
                                     | {{ "Locations" | translate:language.translator.current }}
                             md-divider
                         md-item(ng-repeat='location in locations track by $index')
                             md-item-content
                                 a.no-break.block(ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
                                     span.location-indent
-                                    i.fa.fa-fw.fa-2x
                                     | {{ location.label | translate:language.translator.current }}
                             md-divider
                         md-item(ng-show='false')
                             md-item-content
                                 a.no-break.block(ng-link='/account')
-                                    i.fa.fa-fw.fa-2x.fa-user
+                                    md-icon(md-font-icon='fa fa-fw fa-user fa-lg')
                                     | {{ "Account" | translate:language.translator.current }}
                             md-divider
                         md-item
                             md-item-content
                                 a.no-break.block(ng-link='/settings')
-                                    i.fa.fa-fw.fa-2x.fa-cog
+                                    md-icon(md-font-icon='fa fa-fw fa-cog fa-lg')
                                     | {{ "Settings" | translate:language.translator.current }}
                             md-divider
                         md-item
                             md-item-content
                                 a.no-break.block(ng-link='/feedback')
-                                    i.fa.fa-fw.fa-2x.fa-comment
+                                    md-icon(md-font-icon='fa fa-fw fa-comment fa-lg')
                                     | {{ "Feedback" | translate:language.translator.current }}
                             md-divider
                         md-item(ng-show='')
                             md-item-content
                                 a.no-break.block(ng-link='/about')
-                                    i.fa.fa-fw.fa-2x.fa-question
+                                    md-icon(md-font-icon='fa fa-fw fa-question fa-lg')
                                     | {{ "About" | translate:language.translator.current }}
                             md-divider
         script(src='js/app.js')

@@ -1,7 +1,9 @@
 "use strict";
 
-angular.module("weatherApp").controller("WeatherCtrl", ["$scope", "$routeParams", "$log", "$location", "Geolocate", "Forecast", "Locations", "$mdToast", "$mdMedia", "$interval",
-    function($scope, $routeParams, $log, $location, Geolocate, Forecast, Locations, $mdToast, $mdMedia, $interval) {
+angular.module("weatherApp")
+    .controller("WeatherCtrl",
+    ["$scope", "$routeParams", "$log", "$location", "Geolocate", "Forecast", "Locations", "$mdToast", "$mdMedia", "$interval", "$filter", "$window",
+        function($scope, $routeParams, $log, $location, Geolocate, Forecast, Locations, $mdToast, $mdMedia, $interval, $filter, $window) {
 
         $scope.report = false;
         $scope.title = $routeParams.title;
@@ -24,15 +26,40 @@ angular.module("weatherApp").controller("WeatherCtrl", ["$scope", "$routeParams"
             $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
         };
 
-        var forecastio = new Forecast("d886a460faef2e05e81d927167e5da2a");
+        var units = $window.localStorage.getItem("user.units") || "us";
+        var lang = $window.localStorage.getItem("user.language") || "en";
+        var forecastio = new Forecast();
         var locator = new Geolocate();
 
         var updatePosition = function(position) {
             $scope.position = position;
-            return forecastio.get(position.latitude, position.longitude)
+            return forecastio.get(position.latitude, position.longitude, lang, units)
                 .then(function(data) {
                     $scope.report = data;
-                    $mdToast.showSimple("Report updated");
+
+                    // This isn't quite DRY, but it sets the initial page background
+                    // since we don't remember tab state quite yet.
+                    if ($scope.report.currently.icon || false) {
+                        var body = angular.element(document.querySelector("body"));
+                        body.removeClass([
+                            "clear-day",
+                            "clear-night",
+                            "rain",
+                            "snow",
+                            "sleet",
+                            "wind",
+                            "fog",
+                            "cloudy",
+                            "partly-cloudy-day",
+                            "partly-cloudy-night"
+                        ].join(" "));
+                        body.addClass($scope.report.currently.icon);
+                    }
+
+
+                    $mdToast.showSimple(
+                        $filter("translate")("Report updated.", $scope.language.translator.current)
+                    );
                     startUpdate();
                 });
         };

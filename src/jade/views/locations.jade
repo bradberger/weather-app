@@ -4,11 +4,11 @@ md-content(flex, layout='column', layout-fill)
         md-list(flex)
             md-item(ng-repeat='l in locations.data track by $index')
                 md-item-content(md-swipe-left='removeLocation($index)', md-swipe-right='removeLocation($index)')
-                    md-button.md-warn(hide, show-gt-sm)
+                    md-button.md-warn(hide, show-gt-sm, ng-click='removeLocation($index)')
                         i.fa.fa-times
                     span.divider(hide, show-gt-sm)
-                    a.no-break(flex, ng-link='/weather/{{ l.longitude }}/{{ l.latitude }}?title={{ l.label }}') {{ l.label }}
-                    md-button.md-primary(ng-link='/weather/{{ l.longitude }}/{{ l.latitude }}?title={{ l.label }}', arial-label='Go')
+                    a.no-break(flex, ng-link='/weather/{{ l.latitude }}/{{ l.longitude }}?title={{ l.label }}') {{ l.label }}
+                    md-button.md-primary(ng-link='/weather/{{ l.latitude }}/{{ l.longitude }}?title={{ l.label }}', arial-label='Go')
                         i.fa.fa-chevron-right
                 md-divider
     md-content(flex, layout='row', layout-fill, ng-show='searching || searchResults.length')
@@ -27,7 +27,7 @@ md-content(flex, layout='column', layout-fill)
             div(flex)
             div(flex-sm=66, flex=50)
                 p.text-center {{ "Enter an address in the search box to find a location to add." | translate:language.translator.current }}
-                p.text-center {{ "Swipe to remove addresses." }}
+                p.text-center {{ "Swipe to remove addresses." | translate:language.translator.current }}
             div(flex)
         div(flex)
     .search.bottom(layout='row', layout-fill, layout-padding)

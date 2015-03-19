@@ -4,6 +4,11 @@ Number.isNaN = Number.isNaN || function(value) {
     return typeof value === "number" && isNaN(value);
 };
 
+Number.roundTo = function(num, places) {
+    var multiplier = Math.pow(10, places);
+    return Math.round(num * multiplier) / multiplier;
+};
+
 angular.module("ngMonetize", [])
     .service("Monetize", ["$window", "$q", "$http", "$log", function($window, $q, $http, $log) {
 
@@ -297,9 +302,43 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             $analyticsProvider.virtualPageviews(false);
         }
 
+        var secondary = window.localStorage.getItem("user.theme.accent") || "light-blue";
+        var theme = window.localStorage.getItem("user.theme") ||
+            window.localStorage.getItem("user.theme.primary") ||
+            "blue";
+
+        angular.element(document.querySelector("html")).addClass("theme-" + theme);
+
+        switch(theme) {
+            case "red":
+                break;
+            case "pink":
+                break;
+            case "purple":
+            case "deep-purple":
+            case "indigo":
+            case "blue":
+            case "light-blue":
+            case "cyan":
+            case "teal":
+            case "green":
+            case "light-green":
+            case "lime":
+            case "yellow":
+            case "amber":
+            case "case orange":
+            case "deep-orange":
+            case "brown":
+            case "grey":
+            case "blue-grey":
+                break;
+            default: // blue
+                break;
+        }
+
         $mdThemingProvider.theme("default")
-            .primaryPalette(window.localStorage.getItem("user.theme.primary") || "blue")
-            .accentPalette(window.localStorage.getItem("user.theme.accent") || "light-blue");
+            .primaryPalette(theme)
+            .accentPalette(secondary);
 
         $routeProvider
             .when("/locations", {
@@ -344,6 +383,13 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
                 $location.url(str);
             };
 
+            // Use this to correct units.
+            var units = $window.localStorage.getItem("user.units");
+            if (units === "metric") {
+                $window.localStorage.setItem("user.units", "us");
+            } else if(units === "imperial") {
+                $window.localStorage.setItem("user.units", "ca");
+            }
 
             $rootScope.telemetry = getTelemetryStatus();
             $rootScope.reporting = getErrorReportingStatus();
@@ -365,6 +411,15 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
                 "0.1.4": [
                     "Updated user interface",
                     "Minor bugfixes"
+                ],
+                "0.1.5": [
+                    "Added languages: Spanish, French, Italian, Bosnian, Dutch, German, Portugese, Russian",
+                    "Major user interface and theme updates.",
+                    "Removed the now tab.",
+                    "Fixed bug with locations link",
+                    "Set proper time for locations in other timezones.",
+                    "Added more unit options",
+                    "Fixed bug with moon phase icon"
                 ]
             };
 
@@ -404,6 +459,10 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
 
             $rootScope.closeNav = function() {
                 $mdSidenav("right").close();
+            };
+
+            $rootScope.scrollTo = function(x, y) {
+                $window.scrollTo(x || 0, y || 0);
             };
 
             $rootScope.refresh = function() {
