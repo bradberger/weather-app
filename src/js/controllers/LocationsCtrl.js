@@ -1,8 +1,8 @@
 
 "use strict";
 
-angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "Locations", "$mdToast", "$log",
-    function($scope, $filter, $window, Locations, $mdToast, $log) {
+angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$location", "Locations", "$mdToast", "$log",
+    function($scope, $filter, $window, $location, Locations, $mdToast, $log) {
 
         $scope.locations = new Locations();
         $scope.searchAddress = "";
@@ -46,6 +46,10 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
                 $scope.searchAddress = "";
                 $mdToast.showSimple("Location added");
                 $scope.$emit("locations.updated");
+                $location.url(
+                    "/weather/" + location.latitude + "/" +
+                    location.longitude + "?title=" +     encodeURIComponent(location.label)
+                );
             });
         };
 

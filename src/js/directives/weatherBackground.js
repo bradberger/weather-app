@@ -6,7 +6,7 @@ angular.module("weatherApp").directive("weatherBackground", ["$timeout", functio
         restrict: "A",
         link: function ($scope, $element, $attrs) {
 
-            var body = angular.element(document.querySelector("body"));
+            var container = angular.element(document.querySelector(".background"));
             var classes = [
                 "clear-day",
                 "clear-night",
@@ -23,13 +23,11 @@ angular.module("weatherApp").directive("weatherBackground", ["$timeout", functio
             var handleClass = function() {
                 $timeout(function() {
                     var bg = $attrs.weatherBackground || false;
-                    console.log("weatherBackground.click", $attrs.weatherBackground);
                     if (bg) {
-                        body.removeClass(classes.join(" "));
-                        body.addClass(bg);
-
+                        container.removeClass(classes.join(" "));
+                        container.addClass(bg);
                     }
-                }, 300);
+                }, 200);
              };
 
              $element.bind("click", handleClass);

@@ -413,13 +413,14 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
                     "Minor bugfixes"
                 ],
                 "0.1.5": [
-                    "Added languages: Spanish, French, Italian, Bosnian, Dutch, German, Portugese, Russian",
+                    "Added languages: Spanish, French, Italian, Bosnian, Dutch, German, Portuguese, Russian",
                     "Major user interface and theme updates.",
+                    "Major performance improvements.",
                     "Removed the now tab.",
-                    "Fixed bug with locations link",
+                    "Fixed bug with locations link.",
                     "Set proper time for locations in other timezones.",
-                    "Added more unit options",
-                    "Fixed bug with moon phase icon"
+                    "Added more unit options.",
+                    "Fixed bug with moon phase icon."
                 ]
             };
 

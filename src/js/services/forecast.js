@@ -54,6 +54,11 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
                 .success(function(data) {
 
                     var results = angular.copy(data);
+
+                    // Since first hourly is actually *now*, let's use now instead,
+                    // thus eliminating the need for one tab.
+                    results.hourly.data[0] = results.currently;
+
                     self.saveResult(latitude, longitude, results);
                     deferred.resolve(results);
 

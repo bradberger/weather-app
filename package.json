@@ -1,6 +1,6 @@
 {
   "name": "weather-app",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An open source weather app.",
   "main": "gulpfile.js",
   "scripts": {
@@ -13,11 +13,14 @@
   "author": "Brad Berger <inbox@bitola.co>",
   "license": "MPL",
   "devDependencies": {
+    "concurrent-transform": "^1.0.0",
     "glob": "^4.0.6",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-changed": "^1.0.0",
     "gulp-concat": "^2.4.1",
+    "gulp-gm": "0.0.7",
+    "gulp-image-resize": "^0.6.0",
     "gulp-imagemin": "^1.0.1",
     "gulp-jade": "^0.9.0",
     "gulp-jshint": "^1.8.5",

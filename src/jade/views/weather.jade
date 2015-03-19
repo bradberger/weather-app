@@ -16,22 +16,27 @@ md-content(flex, layout='column', layout-fill)
         md-button.md-fab.md-primary.fixed-bottom-right(ng-click='scrollTo()', show, hide-gt-sm)
             md-icon(md-font-icon='fa fa-caret-up')
         md-tabs(md-stretch-tabs='always', md-selected="data.selectedIndex", md-swipe-right='next()', md-swipe-left='prev()')
-            md-tab(analytics-on="click", analytics-event="Weather.Now", aria-controls="nowTab", weather-background='{{ report.currently.icon }}')
-                span {{ "Now" | translate:language.translator.current }}
-            md-tab(analytics-on="click", analytics-event="Weather.Week", aria-controls="weekTab", weather-background='{{ report.daily.data[0].icon }}')
-                md-icon.md-primary(md-font-icon='fa fa-calendar-o')
-            md-tab(analytics-on="click", analytics-event="Weather.Hourly", aria-controls="hourlyTab", weather-background='{{ report.hourly.data[0].icon }}')
+            md-tab(analytics-on="click", analytics-event="Weather.Hourly", aria-controls="hourlyTab", weather-background='{{ report.hourly.data[0].icon }}', change-day='report.hourly.data[0]')
                 md-icon.md-primary(md-font-icon='fa fa-clock-o')
-            //md-tab(ng-show='', disabled='1', analytics-on="click", analytics-event="Weather.Trends", aria-controls="trendTab")
-            //    md-icon.md-primary(md-font-icon='fa fa-line-chart')
-            //md-tab(ng-show='', disabled='1', analytics-on="click", analytics-event="Weather.Warnings", aria-controls="warningTab")
-            //    md-icon.md-primary(md-font-icon='fa fa-exclamation-triangle')
-        ng-switch.tabpanel-container(flex, on="data.selectedIndex", layout='column', layout-fill)
-            #nowTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab1", ng-switch-when="0", md-swipe-left="next()", md-swipe-right="previous()")
-                weather-summary(flex, offset='report.offset', day='report.currently')
+            md-tab(analytics-on="click", analytics-event="Weather.Week", aria-controls="weekTab", weather-background='{{ report.daily.data[0].icon }}', change-day='report.daily.data[0]')
+                md-icon.md-primary(md-font-icon='fa fa-calendar-o')
+        ng-switch.tabpanel-container(on="data.selectedIndex", layout='column', layout-fill)
+            #hourlyTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab2", ng-switch-when="0", md-swipe-left="next()", md-swipe-right="previous()")
+                md-tabs.weather-day-tab(md-stretch-tabs='always')
+                    md-tab(ng-repeat='info in report.hourly.data track by $index', weather-background='{{ info.icon }}', change-day='info')
+                        md-tab-label
+                            div.no-break
+                                small {{ info.time | timestamp:report.offset | date:'h a' | translate:language.translator.current }}
+                            weather-icon.fa-2x(ng-icon='{{ info.icon }}')
+                            div
+                                temperature-item(temp='info.temperature')
+                            div
+                                small
+                                    precipitation-summary.info(day='info', ng-show='info.precipIntensity')
+                                    span(ng-hide='info.precipIntensity') &nbsp;
             #weekTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab3", ng-switch-when="1", md-swipe-left="next()", md-swipe-right="previous()")
                 md-tabs.weather-day-tab(md-stretch-tabs='always', layout='column', layout-fill)
-                    md-tab(ng-repeat='info in report.daily.data track by $index', weather-background='{{ info.icon }}')
+                    md-tab(ng-repeat='info in report.daily.data track by $index', weather-background='{{ info.icon }}', change-day='info')
                         md-tab-label
                             div.no-break
                                 small {{ info.time | timestamp | date:'EEE' | translate:language.translator.current }}
@@ -44,52 +49,5 @@ md-content(flex, layout='column', layout-fill)
                                 small
                                     precipitation-summary.info(day='info', ng-show='info.precipIntensity')
                                     span(ng-hide='info.precipIntensity') &nbsp;
-                        md-tab-content(layout, layout-align='center center', layout-padding)
-                            weather-summary(day='info', offset='report.offset')
-            #hourlyTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab2", ng-switch-when="2", md-swipe-left="next()", md-swipe-right="previous()")
-                md-tabs.weather-day-tab(md-stretch-tabs='always')
-                    md-tab(ng-repeat='info in report.hourly.data track by $index', weather-background='{{ info.icon }}')
-                        md-tab-label
-                            div.no-break
-                                small {{ info.time | timestamp:report.offset | date:'h a' | translate:language.translator.current }}
-                            weather-icon.fa-2x(ng-icon='{{ info.icon }}')
-                            div
-                                temperature-item(temp='info.temperature')
-                            div
-                                small
-                                    precipitation-summary.info(day='info', ng-show='info.precipIntensity')
-                                    span(ng-hide='info.precipIntensity') &nbsp;
-                        md-tab-content(flex, layout, layout-align='center center', layout-padding)
-                            weather-summary(day='info', offset='report.offset')
-            //#trendTab(flex, layout='column', layout-fill, role="tabpanel", ng-switch-when="3", md-swipe-left="next()", md-swipe-right="previous()")
-            //    md-tabs(md-stretch-tabs='always')
-            //        md-tab
-            //            md-tab-label
-            //                i.wi.wi-2x.wi-thermometer
-            //            md-tab-content(layout, layout-fill, layout-align='space-around center', layout-padding)
-            //                p Temperature chart
-            //        md-tab
-            //            md-tab-label
-            //                i.wi.wi-2x.wi-sprinkles
-            //            md-tab-content(layout, layout-fill, layout-align='space-around center', layout-padding)
-            //                p Precipitation chart
-            //        md-tab
-            //            md-tab-label
-            //                i.wi.wi-2x.wi-horizon
-            //            md-tab-content(layout, layout-fill, layout-align='space-around center', layout-padding)
-            //                p Sunrise/sunset chart
-            //        md-tab
-            //            md-tab-label
-            //                i.wi.wi-2x.wi-cloudy
-            //            md-tab-content(layout, layout-fill, layout-align='space-around center', layout-padding)
-            //                p Cloud cover chart
-            //#warningTab(flex, layout='column', layout-fill, layout-align='space-around center', role="tabpanel", ng-switch-when="4", md-swipe-left="next()", md-swipe-right="previous()")
-            //    md-list(ng-show='report.alert.length')
-            //        md-item(ng-repeat='alert in report.alert')
-            //            md-item-content
-            //                a(ng-href='alert.uri', target='_blank')
-            //                    h3 {{ alert.title }}
-            //                    h4 {{ "Expires at" | translate:language.translator.current }} {{ alert.expires | timestamp | date:'medium' }}
-            //                    p {{ alert.description | translate:language.translator.current }}
-            //            md-divider
-            //    p(ng-hide='report.alert.length') {{ "No alerts." | translate:language.translator.current }}
+        md-content.inset-shadow(flex, ng-show='selectedDay || report.hourly.data[0]')
+            weather-summary(day='selectedDay || report.hourly.data[0]', offset='report.offset')

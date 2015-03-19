@@ -42,6 +42,9 @@ var gulp = require("gulp"),
     minifyCSS = require("gulp-minify-css"),
     concat = require("gulp-concat"),
     imagemin = require("gulp-imagemin"),
+    imageResize = require("gulp-image-resize"),
+    parallel = require("concurrent-transform"),
+    os = require("os"),
     autoprefixer = require("gulp-autoprefixer"),
     jshint = require("gulp-jshint"),
     jade = require("gulp-jade"),
@@ -115,10 +118,66 @@ gulp.task("jshint:fail", function () {
         .pipe(jshint.reporter("fail"));
 });
 
-gulp.task("images", function () {
+gulp.task("images", ["images:background"], function () {
     return gulp.src("src/img/**/*")
         .pipe(imagemin())
         .pipe(gulp.dest("app/www/img"));
+});
+
+gulp.task("images:background", ["images:background:240", "images:background:360", "images:background:480", "images:background:600", "images:background:1200", "images:background:1920"]);
+
+gulp.task("images:background:240", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 240 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/240"));
+});
+
+gulp.task("images:background:360", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 360 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/360"));
+});
+
+gulp.task("images:background:480", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 480 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/480"));
+});
+
+gulp.task("images:background:600", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 600 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/600"));
+});
+
+gulp.task("images:background:1200", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 1200 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/1200"));
+});
+
+gulp.task("images:background:1920", function() {
+    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
+        .pipe(parallel(
+            imageResize({ width: 1920 }),
+            os.cpus().length
+        ))
+        .pipe(gulp.dest("src/img/backgrounds/1920"));
 });
 
 gulp.task("jade", function () {
@@ -144,7 +203,7 @@ gulp.task("html", function() {
 
 gulp.task("sass", function() {
 
-    var SRC = opts.path("src/sass/**/*.scss"),
+    var SRC = opts.path("src/sass/app.scss"),
         DEST = opts.path("src/css");
 
     return gulp.src(SRC)
@@ -233,7 +292,7 @@ gulp.task("watch", ["webserver"], function () {
         runSequence("html");
     });
     gulp.watch(["src/css/**/*.css"], ["css:dev"]);
-    gulp.watch(["src/sass/app.scss"], ["sass"]);
+    gulp.watch(["src/sass/**/*.scss"], ["sass"]);
     gulp.watch(["src/jade/**/*.jade"], ["jade"]);
     gulp.watch(["src/js/**/*.js"], ["js:dev"]);
     gulp.watch(["src/img/**/*"], ["images"]);

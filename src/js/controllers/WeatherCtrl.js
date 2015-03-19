@@ -42,8 +42,8 @@ angular.module("weatherApp")
                     // This isn't quite DRY, but it sets the initial page background
                     // since we don't remember tab state quite yet.
                     if ($scope.report.currently.icon || false) {
-                        var body = angular.element(document.querySelector("body"));
-                        body.removeClass([
+                        var bg = angular.element(document.querySelector(".background"));
+                        bg.removeClass([
                             "clear-day",
                             "clear-night",
                             "rain",
@@ -55,7 +55,7 @@ angular.module("weatherApp")
                             "partly-cloudy-day",
                             "partly-cloudy-night"
                         ].join(" "));
-                        body.addClass($scope.report.currently.icon);
+                        bg.addClass($scope.report.currently.icon);
                     }
 
 
