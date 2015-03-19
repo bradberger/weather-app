@@ -36,6 +36,8 @@ angular.module("weatherApp")
             return forecastio.get(position.latitude, position.longitude, lang, units)
                 .then(function(data) {
                     $scope.report = data;
+                    $window.report = $scope.report;
+
 
                     // This isn't quite DRY, but it sets the initial page background
                     // since we don't remember tab state quite yet.

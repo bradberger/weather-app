@@ -1821,7 +1821,7 @@ small {
 .inset-shadow {
   box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.75); }
 
-.no-break, .data-box * {
+.no-break {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
@@ -2293,7 +2293,7 @@ weather-icon {
 
 @media (min-width: 600px) {
   md-tabs.weather-day-tab section.md-header {
-    height: 180px; }
+    height: 140px; }
   weather-icon i, weather-icon .wi {
     font-size: 1.67em;
     line-height: 1.67 !important; } }

@@ -175,7 +175,7 @@ small {
 .inset-shadow {
   box-shadow: inset 0 0 2em rgba(0,0,0,.75);
 }
-.no-break, .data-box * {
+.no-break {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1041,7 +1041,7 @@ weather-icon {
 
   md-tabs.weather-day-tab {
     section.md-header {
-      height: 180px;
+      height: 140px;
     }
   }
 

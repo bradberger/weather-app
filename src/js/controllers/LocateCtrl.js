@@ -8,7 +8,7 @@ angular.module("weatherApp").controller("LocateCtrl", ["$scope", "$window", "$lo
 
     function success(pos) {
         $window.localStorage.setItem("user.position", angular.toJson(pos));
-        $location.url(["", "weather", pos.coords.latitude, pos.coords.longitude + "?title=Current%20Location"].join("/"));
+        $location.url(["", "weather", pos.coords.latitude, pos.coords.longitude + "?title=Current%20location"].join("/"));
     }
 
     function error(err) {

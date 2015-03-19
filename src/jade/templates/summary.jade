@@ -10,7 +10,7 @@
             h3(ng-show='day.temperatureMax') {{ day.time | timestamp:offset | date:'shortDate' | translate:language.translator.current }}
         .row(layout, layout-padding, layout-wrap, flex-gt-sm=60)
                 .data-box.overview(flex=100)
-                    .info {{ day.summary | summary | translate:language.translator.current }}
+                    .info {{ day.summary | translate:language.translator.current }}
                     .label {{ "Summary" | translate:language.translator.current }}
                 .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.apparentTemperature')
                     temperature-item.info(flex, temp='day.apparentTemperature')
@@ -53,7 +53,7 @@
                             small {{ day.sunsetTime | timestamp:offset | date:'a' }}
                     .label {{ "Sunset" | translate:language.translator.current }}
                 .data-box(flex=40, flex-md=50,, flex-sm=50)
-                    barometric-pressure.info(value='day.pressure')
+                    barometric-pressure.info.no-break(value='day.pressure')
                     .label {{ "Pressure" | translate:language.translator.current }}
                 .data-box(flex=20, flex-md=25,, flex-sm=50, ng-show='day.moonPhase')
                     moon-icon.info(value='day.moonPhase')

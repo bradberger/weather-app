@@ -6,7 +6,7 @@ angular.module("weatherApp").directive("weatherBackground", ["$timeout", functio
         restrict: "A",
         link: function ($scope, $element, $attrs) {
 
-            var body = angular.element(document.querySelector("html"));
+            var body = angular.element(document.querySelector("body"));
             var classes = [
                 "clear-day",
                 "clear-night",
