@@ -1,46 +1,45 @@
 md-content(flex, layout='column', layout-fill)
     md-subheader.md-primary(ng-show='title') {{ title | translate:language.translator.current }}
-    md-content.inset-shadow(ng-show='! report && online', flex, layout='row', layout-fill, layout-algin='center center')
+    md-content(ng-show='! report && online', flex, layout='row', layout-fill, layout-algin='center center')
         div(flex)
         div(layout, layout-fill, layout-align='center center')
-            md-progress-circular(md-mode="indeterminate")
+            md-progress-circular.md-accent(md-mode="indeterminate", md-diameter=100)
         div(flex)
-    md-content.inset-shadow(ng-hide='report || online', flex, layout='column', layout-fill, layout-align='center center')
+    md-content(ng-hide='report || online', flex, layout='column', layout-fill, layout-align='center center')
         div(flex)
         div(layout='row', layout-fill)
             div(flex)
             div(flex-sm=66, flex=50) {{ "Please go online to get the the forecast." | translate:language.translator.current }}
             div(flex)
         div(flex)
-    md-content.inset-shadow.weather-container(ng-show='report', flex, layout='column', layout-fill)
-        md-button.md-fab.md-primary.fixed-bottom-right(ng-click='scrollTo()', show, hide-gt-sm)
+    md-content.weather-container(ng-show='report', flex, layout='column', layout-fill)
+        md-button.md-fab.md-primary.fixed-bottom-right(ng-click='scrollTo()', hide, show-sm)
             md-icon(md-font-icon='fa fa-caret-up')
         md-tabs(md-stretch-tabs='always', md-selected="data.selectedIndex", md-swipe-right='next()', md-swipe-left='prev()')
-            md-tab(analytics-on="click", analytics-event="Weather.Hourly", aria-controls="hourlyTab", weather-background='{{ report.hourly.data[0].icon }}', change-day='report.hourly.data[0]')
+            md-tab(analytics-on="click", analytics-event="Weather.Hourly", aria-controls="hourlyTab", weather-background='{{ report.hourly.data[0].icon }}', ng-click-extra='selectedDay = report.hourly.data[0]')
                 md-icon.md-primary(md-font-icon='fa fa-clock-o')
-            md-tab(analytics-on="click", analytics-event="Weather.Week", aria-controls="weekTab", weather-background='{{ report.daily.data[0].icon }}', change-day='report.daily.data[0]')
+            md-tab(analytics-on="click", analytics-event="Weather.Week", aria-controls="weekTab", weather-background='{{ report.daily.data[0].icon }}', ng-click-extra='selectedDay = report.daily.data[0]')
                 md-icon.md-primary(md-font-icon='fa fa-calendar-o')
         ng-switch.tabpanel-container(on="data.selectedIndex", layout='column', layout-fill)
-            #hourlyTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab2", ng-switch-when="0", md-swipe-left="next()", md-swipe-right="previous()")
+            #hourlyTab(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab2", ng-switch-when="0", md-swipe-left="next()", md-swipe-right="previous()")
                 md-tabs.weather-day-tab(md-stretch-tabs='always')
-                    md-tab(ng-repeat='info in report.hourly.data track by $index', weather-background='{{ info.icon }}', change-day='info')
+                    md-tab(ng-repeat='info in report.hourly.data track by $index', weather-background='{{ info.icon }}', ng-click-extra='$parent.$parent.selectedDay = info')
                         md-tab-label
                             div.no-break
                                 small {{ info.time | timestamp:report.offset | date:'h a' | translate:language.translator.current }}
-                            weather-icon.fa-2x(ng-icon='{{ info.icon }}')
                             div
+                                weather-icon(ng-icon='{{ info.icon }}')
                                 temperature-item(temp='info.temperature')
                             div
                                 small
                                     precipitation-summary.info(day='info', ng-show='info.precipIntensity')
-                                    span(ng-hide='info.precipIntensity') &nbsp;
-            #weekTab.inset-shadow(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab3", ng-switch-when="1", md-swipe-left="next()", md-swipe-right="previous()")
+            #weekTab(flex, layout='column', layout-fill, role="tabpanel", aria-labelledby="tab3", ng-switch-when="1", md-swipe-left="next()", md-swipe-right="previous()")
                 md-tabs.weather-day-tab(md-stretch-tabs='always', layout='column', layout-fill)
-                    md-tab(ng-repeat='info in report.daily.data track by $index', weather-background='{{ info.icon }}', change-day='info')
+                    md-tab(ng-repeat='info in report.daily.data track by $index', weather-background='{{ info.icon }}', ng-click-extra='$parent.$parent.selectedDay = info')
                         md-tab-label
                             div.no-break
                                 small {{ info.time | timestamp | date:'EEE' | translate:language.translator.current }}
-                            weather-icon.fa-2x(ng-icon='{{ info.icon }}')
+                            weather-icon(ng-icon='{{ info.icon }}')
                             div
                                 temperature-item(temp='info.temperatureMax')
                                 span.divider &bull;
@@ -49,5 +48,5 @@ md-content(flex, layout='column', layout-fill)
                                 small
                                     precipitation-summary.info(day='info', ng-show='info.precipIntensity')
                                     span(ng-hide='info.precipIntensity') &nbsp;
-        md-content.inset-shadow(flex, ng-show='selectedDay || report.hourly.data[0]')
+        md-content(flex, ng-show='selectedDay || report.hourly.data[0]')
             weather-summary(day='selectedDay || report.hourly.data[0]', offset='report.offset')

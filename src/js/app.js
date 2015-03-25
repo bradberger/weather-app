@@ -302,10 +302,10 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             $analyticsProvider.virtualPageviews(false);
         }
 
-        var secondary = window.localStorage.getItem("user.theme.accent") || "light-blue";
+        var secondary = window.localStorage.getItem("user.theme.accent") || "orange";
         var theme = window.localStorage.getItem("user.theme") ||
             window.localStorage.getItem("user.theme.primary") ||
-            "blue";
+            "blue-grey";
 
         angular.element(document.querySelector("html")).addClass("theme-" + theme);
 

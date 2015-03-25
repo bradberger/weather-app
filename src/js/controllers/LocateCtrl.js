@@ -48,8 +48,8 @@ angular.module("weatherApp").controller("LocateCtrl", ["$scope", "$window", "$lo
         var deferred = $q.defer();
         navigator.geolocation.getCurrentPosition(deferred.resolve, deferred.reject, {
             enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
+            timeout: 10000,
+            maximumAge: 10000
         });
         return deferred.promise;
     };

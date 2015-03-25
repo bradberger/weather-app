@@ -20,24 +20,16 @@ html.no-js(lang='{{ language.current }}', ng-app='weatherApp', ng-csp, ng-cloak)
                         .md-toolbar-tools
                             h3.no-break.app-title(flex, ng-click='toggleNav()')
                                 span {{ "Weather" | translate:language.translator.current }}
+                            md-button(ng-link='/locate')
+                                md-icon(md-font-icon='fa fa-fw fa-location-arrow fa-lg')
                             md-button(aria-label='{{ "Refresh" | translate:language.translator.current }}', ng-click='refresh()', analytics-on="click", analytics-event="Refresh")
-                                i.fa.fa-fw.fa-2x.fa-refresh(ng-class='{"fa-spin": refreshing}')
-                            md-button(hide-gt-sm, aria-label='{{ "Menu" | translate:language.translator.current }}', ng-click='toggleNav()', analytics-on="click", analytics-event="Menu")
-                                i.fa.fa-fw.fa-2x.fa-bars
+                                md-icon(md-font-icon='fa fa-fw fa-lg fa-refresh', ng-class='{"fa-spin": refreshing}')
+                            md-button(aria-label='{{ "Menu" | translate:language.translator.current }}', ng-click='toggleNav()', analytics-on="click", analytics-event="Menu")
+                                md-icon(md-font-icon='fa fa-fw fa-lg fa-bars')
                     md-content(ng-view, layout='column', layout-fill, flex)
-            md-sidenav.md-sidenav-right.md-whiteframe-z1(md-component-id='right', md-is-locked-open="$mdMedia('gt-md')")
-                md-toolbar
-                    .md-toolbar-tools
-                        h3.no-break(flex) {{ "Menu" | translate:language.translator.current }}
-                        md-button.icon(hide-gt-md, ng-click='closeNav()', aria-label='Close nav')
-                            i.fa.fa-fw.fa-2x.fa-times
+            md-sidenav.md-sidenav-right.md-whiteframe-z1(md-component-id='right')
                 md-content(ng-controller='MenuCtrl')
                     md-list
-                        md-item
-                            md-item-content
-                                md-icon(md-font-icon='fa fa-fw fa-location-arrow fa-lg')
-                                a.no-break.block(ng-link='/locate') {{ "Current location" | translate:language.translator.current }}
-                            md-divider
                         md-item
                             md-item-content
                                 a.no-break.block(ng-link='/locations')

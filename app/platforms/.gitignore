@@ -1,8 +1,5 @@
-# We'll add back in as needed.
+*
 !.gitignore
-ubuntu/
-firefoxos/
-browser/
-blackberry10/
-android/
-amazon-fireos/
+!firefoxos/config.xml
+!android/AndroidManifest.xml
+!android/res/xml/config.xml

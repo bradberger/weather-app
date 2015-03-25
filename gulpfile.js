@@ -49,6 +49,7 @@ var gulp = require("gulp"),
     jshint = require("gulp-jshint"),
     jade = require("gulp-jade"),
     sass = require("gulp-sass"),
+    rename = require("gulp-rename"),
     minifyHTML = require("gulp-minify-html"),
     glob = require("glob"),
     replace = require("gulp-replace"),
@@ -118,13 +119,99 @@ gulp.task("jshint:fail", function () {
         .pipe(jshint.reporter("fail"));
 });
 
-gulp.task("images", ["images:background"], function () {
+gulp.task("images", ["images:icons", "images:splash", "images:background"], function () {
     return gulp.src("src/img/**/*")
         .pipe(imagemin())
         .pipe(gulp.dest("app/www/img"));
 });
 
 gulp.task("images:background", ["images:background:240", "images:background:360", "images:background:480", "images:background:600", "images:background:1200", "images:background:1920"]);
+
+gulp.task("images:icons", function() {
+
+    var sizes = [29, 30, 36, 48, 57, 58, 60, 62, 64, 72, 76, 78, 90, 96, 99, 114, 120, 128, 144, 152, 173, 180, 192, 200, 256, 320, 512, 1024];
+    sizes.forEach(function(size) {
+
+        gulp.src("src/img/icons/icon.png")
+            .pipe(imageResize({
+                width: size
+            }))
+            .pipe(rename(size.toString() + ".png"))
+            .pipe(gulp.dest("src/img/icons"));
+
+    });
+
+});
+
+gulp.task("images:splash", function() {
+
+    var sizes = [
+        { w: 64, h: 64 },
+        { w: 86, h: 86 },
+        { w: 150, h: 150 },
+        { w: 200, h: 320 },
+        { w: 250, h: 250 },
+        { w: 240, h: 400 },
+        { w: 320, h: 480 },
+        { w: 480, h: 800 },
+        { w: 720, h: 1280 },
+        { w: 768, h: 1024 },
+        { w: 640, h: 960 },
+        { w: 640, h: 1136 },
+        { w: 640, h: 1146 },
+        { w: 750, h: 1334 },
+        { w: 800, h: 1000 },
+        { w: 1242, h: 2208 }
+    ];
+
+    var orig = opts.path("src/img/splash/splash.png");
+
+    sizes.forEach(function(size) {
+
+        gulp.src(orig)
+            .pipe(imageResize({
+                width: size.w,
+                height: size.h,
+                format: "png",
+                crop: true
+            }))
+            .pipe(rename(size.w + "x" + size.h + ".png"))
+            .pipe(gulp.dest(opts.path("src/img/splash")));
+
+        // Portrait
+        gulp.src(orig)
+            .pipe(imageResize({
+                width: size.h,
+                height: size.w,
+                crop: true
+            }))
+            .pipe(rename(size.h + "x" + size.w + ".png"))
+            .pipe(gulp.dest("src/img/splash"));
+
+        // 2x landscape
+        gulp.src(orig)
+            .pipe(imageResize({
+                width: size.w * 2,
+                height: size.h * 2,
+                crop: true
+            }))
+            .pipe(rename(size.w + "x" + size.h + "@2x.png"))
+            .pipe(gulp.dest("src/img/splash"));
+
+        // 2x portrait
+        gulp.src(orig)
+            .pipe(imageResize({
+                width: size.h * 2,
+                height: size.w * 2,
+                crop: true
+            }))
+            .pipe(rename(size.h + "x" + size.w + "@2x.png"))
+            .pipe(gulp.dest("src/img/splash"));
+
+
+    });
+
+});
 
 gulp.task("images:background:240", function() {
     gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
@@ -340,11 +427,11 @@ gulp.task("package:firefox", ["build:version", "build:fonts"], shell.task([
     "gulp build",
     "gulp test",
     "cp app/www/manifest.webapp app/platforms/firefoxos/platform_www",
-    "cp app/www/img/icon-*.png app/platforms/firefoxos/platform_www/icon",
     "cd app && cordova build firefoxos",
     "rm app/platforms/firefoxos/www/manifest.appcache",
     "rm app/platforms/firefoxos/www/cordova.js",
     "rm app/platforms/firefoxos/www/cordova_plugins.js",
+    "rm app/platforms/firefoxos/www/manifest.json",
     "rm app/platforms/firefoxos/www/offline.html",
     "rm app/platforms/firefoxos/www/robots.txt",
     "rm app/platforms/firefoxos/www/humans.txt",
@@ -355,6 +442,7 @@ gulp.task("package:firefox", ["build:version", "build:fonts"], shell.task([
     "rm app/platforms/firefoxos/www/fonts/Roboto-*",
     "rm app/platforms/firefoxos/www/font/Roboto-*",
     "rm app/platforms/firefoxos/www/apple-touch-icon-precomposed.png",
+    "rm app/platforms/firefoxos/build/*.zip",
     "cd app/platforms/firefoxos/www && zip -r ../../../../build/firefox/" + getZipName("firefox") + " *"
 ]));
 

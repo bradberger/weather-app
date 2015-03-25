@@ -3,7 +3,6 @@
 body, html, button {
   color: #333;
   font-family: Roboto, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 100;
 }
 
 .symbol {
@@ -42,7 +41,7 @@ h1, h2, h3 {
 
 md-tabs.weather-day-tab {
   section.md-header {
-    height: 110px;
+    height: 80px;
   }
 }
 
@@ -80,7 +79,6 @@ weather-summary {
 
     weather-icon {
       display: block;
-      width: 100%;
       font-size: 4em;
     }
 
@@ -98,19 +96,13 @@ sup {
 }
 
 .data-box {
-
   line-height: 1.2;
-  font-weight: 100;
-
   .info {
-
     &temperature-item {
       margin-top: -4px;
     }
-
     display: block;
-    font-size: 2em;
-
+    font-size: 1.8em;
   }
 
   .label {
@@ -135,7 +127,7 @@ small {
 }
 
 .md-subheader {
-  min-height: 3em;
+  padding: 12px;
   &.no-side-padding {
     padding: 16px 0;
   }
@@ -183,8 +175,8 @@ small {
 
 md-tabs.md-default-theme .md-header {
   overflow: hidden;
-  background: rgba(0,0,0,.3);
-  border-bottom: 2px solid rgba(0,0,0,.1);
+  background: rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 md-sidenav {
@@ -208,6 +200,10 @@ md-backdrop.md-opaque.md-default-theme {
   z-index: 9999;
 }
 
+md-toolbar, .md-subheader {
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+
 md-toolbar {
   &.main-nav {
     position: fixed;
@@ -220,13 +216,12 @@ md-toolbar {
     button, .md-button {
       height: 100%;
       text-overflow: ellipsis;
-      min-width: 48px;
     }
   }
 }
 
 .md-button {
-  min-width: 48px;
+  min-width: 2em;
 }
 
 a, .link {
@@ -414,7 +409,10 @@ md-toolbar.md-default-theme .md-button {
 }
 
 md-toolbar, .md-toolbar-tools {
+  height: 48px;
+  min-height: 48px;
   .md-button {
+    font-size: .67em;
     img {
       max-height: 100% !important;
     }
@@ -424,12 +422,9 @@ md-toolbar, .md-toolbar-tools {
   }
 }
 
-
-
-
 html {
 
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, .5), 0 -1px 1px rgba(255, 255, 255, .2);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
   md-content.weather-container {
     background: rgba(0,0,0,.1) !important;
   }
@@ -469,7 +464,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(233, 30, 99, .8);
+      background: rgba(233, 30, 99, 1);
     }
 
     &,
@@ -493,7 +488,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(156, 39, 176, .8);
+      background: rgba(156, 39, 176, 1);
     }
 
     &,
@@ -517,7 +512,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(103, 58, 183, .8);
+      background: rgba(103, 58, 183, 1);
     }
 
     &,
@@ -541,7 +536,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(63, 81, 181, .8);
+      background: rgba(63, 81, 181, 1);
     }
 
     &,
@@ -562,11 +557,12 @@ html {
     md-sidenav {
       background: rgba(33, 150, 243, 1);
     }
+
+    md-sidenav, .md-subheader.md-primary {
+      background: rgba(0,0,0,.5);
+    }
     md-sidenav md-content {
       background: none;
-    }
-    .md-subheader.md-primary {
-      background: rgba(33, 150, 243, .8);
     }
 
     &,
@@ -590,7 +586,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(3, 169, 244, .8);
+      background: rgba(3, 169, 244, 1);
     }
 
     &,
@@ -614,7 +610,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(0, 188, 212, .8);
+      background: rgba(0, 188, 212, 1);
     }
 
     &,
@@ -638,7 +634,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(0, 150, 136, .8);
+      background: rgba(0, 150, 136, 1);
     }
 
     &,
@@ -662,7 +658,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(76, 175, 80, .8);
+      background: rgba(76, 175, 80, 1);
     }
 
     &,
@@ -686,7 +682,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(139, 195, 74, .8);
+      background: rgba(139, 195, 74, 1);
     }
 
     &,
@@ -710,7 +706,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(205, 220, 57, .8);
+      background: rgba(205, 220, 57, 1);
     }
 
     &,
@@ -734,7 +730,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(255, 235, 59, .8);
+      background: rgba(255, 235, 59, 1);
     }
 
     &,
@@ -758,7 +754,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(255, 193, 7, .8);
+      background: rgba(255, 193, 7, 1);
     }
 
     &,
@@ -782,7 +778,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(255, 152, 0, .8);
+      background: rgba(255, 152, 0, 1);
     }
 
     &,
@@ -806,7 +802,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(255, 87, 34, .8);
+      background: rgba(255, 87, 34, 1);
     }
 
     &,
@@ -831,7 +827,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(121, 85, 72, .8);
+      background: rgba(121, 85, 72, 1);
     }
 
     &,
@@ -856,7 +852,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(158, 158, 158, .8);
+      background: rgba(158, 158, 158, 1);
     }
 
     &,
@@ -880,7 +876,7 @@ html {
       background: none;
     }
     .md-subheader.md-primary {
-      background: rgba(96, 125, 139, .8);
+      background: rgba(96, 125, 139, 1);
     }
     &,
     md-input-container.md-default-theme .md-input,
@@ -911,7 +907,7 @@ html {
 }
 
 body {
-  padding-top: 4em;
+  padding-top: 48px;
   height: auto !important;
   min-height: 100% !important;
   max-height: initial;
@@ -937,6 +933,14 @@ md-dialog {
     color: #222 !important;
   }
 
+}
+
+md-tab {
+  padding: 0;
+}
+
+[layout-padding], [layout-padding] > [flex] {
+  padding: 6px;
 }
 
 textarea[auto-grow].md-input {
@@ -977,11 +981,31 @@ md-progress-linear {
 
 weather-icon {
   display: block;
+  min-width: 120px;
   md-icon, .md-font {
     display: block;
     height: auto !important;
     width: auto !important;
   }
+}
+
+temperature-item {
+  sup {
+    margin-left: -.5em;
+  }
+}
+
+.summary-extra-info {
+  h3 {
+    margin-top: 0;
+  }
+}
+
+md-toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 // Medium and lower.
@@ -996,29 +1020,53 @@ weather-icon {
   }
 }
 
+md-tab-label {
+  weather-icon {
+    .wi {
+      line-height: 1.2;
+    }
+  }
+}
+
+html {
+  font-size: 13px;
+}
+
 // Greater than small.
 @media (min-width: 600px) {
 
+  html {
+    font-size: 16px;
+  }
+
   md-tabs.weather-day-tab {
     section.md-header {
-      height: 140px;
+      height: 100px;
     }
   }
 
   weather-icon {
     i, .wi {
       font-size: 1.67em;
-      line-height: 1.67 !important;
     }
 
   }
 
 }
 
-// Small only
+// Small (and smaller, if not overwritten)
 @media (max-width: 600px) {
+
+  .summary-extra-info {
+    padding-left: 1em;
+    position: relative;
+    top: 1em;
+  }
+  .md-sidenav-right {
+    padding-top: 4em;
+  }
   weather-summary {
-    padding-top: 2em;
+//    padding-top: 2em;
   }
   .day-pictogram {
     weather-icon {
@@ -1028,7 +1076,8 @@ weather-icon {
       font-size: 4em !important;
       line-height: 1;
     }
-    margin-bottom: 2em;
+//    margin: 1em 0;
+    min-height: 120px;
   }
 }
 
@@ -1053,7 +1102,7 @@ weather-icon {
   }
   .day-pictogram {
     weather-icon {
-      font-size: 6em !important;
+      font-size: 5em !important;
     }
     temperature-item {
       font-size: 3em !important;
@@ -1062,3 +1111,4 @@ weather-icon {
 }
 
 @import "_backgrounds";
+@import "_platforms";

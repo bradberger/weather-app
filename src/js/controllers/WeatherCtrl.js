@@ -5,6 +5,7 @@ angular.module("weatherApp")
     ["$scope", "$routeParams", "$log", "$location", "Geolocate", "Forecast", "Locations", "$mdToast", "$mdMedia", "$interval", "$filter", "$window",
         function($scope, $routeParams, $log, $location, Geolocate, Forecast, Locations, $mdToast, $mdMedia, $interval, $filter, $window) {
 
+        $scope.selectedDay = false;
         $scope.report = false;
         $scope.title = $routeParams.title;
         $scope.position = {

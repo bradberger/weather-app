@@ -15,7 +15,7 @@ md-content(flex, layout='column', layout-fill)
                 br(hide, show-gt-sm)
                 span.divider {{ "You can add locations manually if you don't want to use geolocation." | translate:language.translator.current }}
         div(ng-hide='error || geolocationDenied', layout, layout-fill, layout-align='center center')
-            md-progress-circular(md-mode="indeterminate")
+            md-progress-circular.md-accent(md-mode="indeterminate", md-diameter=100)
         div(ng-show='error || geolocationDenied', layout='column', layout-padding, layout-align='space-between center')
             p
                 md-button.md-raised(ng-click='refresh()') {{ "Try again" | translate:language.translator.current }}

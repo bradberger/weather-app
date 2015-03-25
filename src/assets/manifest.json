@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Weather",
+  "description": "Ad-free, accurate, private, secure weather app.",
+  "version": "0.1.5",
+  "default_locale": "en",
+  "launch_path": "/",
+  "type": "privileged",
+  "background": {
+    "persistent": false
+  },
+  "offline_enabled": true,
+  "options_ui": {
+    "chrome_style": true
+  },
+  "icons": {
+    "30": "/img/icons/30.png",
+    "36": "/img/icons/36.png",
+    "48": "/img/icons/48.png",
+    "57": "/img/icons/57.png",
+    "60": "/img/icons/60.png",
+    "64": "/img/icons/64.png",
+    "72": "/img/icons/72.png",
+    "76": "/img/icons/76.png",
+    "78": "/img/icons/78.png",
+    "96": "/img/icons/96.png",
+    "114": "/img/icons/114.png",
+    "120": "/img/icons/120.png",
+    "128": "/img/icons/128.png",
+    "144": "/img/icons/144.png",
+    "152": "/img/icons/152.png",
+    "180": "/img/icons/180.png",
+    "256": "/img/icons/256.png",
+    "512": "/img/icons/512.png"
+  },
+  "homepage_url": "https://bitola.co/weather",
+  "author": "Bitola Software Co. <inbox@bitola.co>",
+  "permissions": ["geolocation"]
+}
