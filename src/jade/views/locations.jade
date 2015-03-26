@@ -1,5 +1,4 @@
 md-content(flex, layout='column', layout-fill)
-    md-subheader.md-primary {{ "Locations" | translate:language.translator.current }}
     md-content(flex, layout='row', layout-fill, ng-show='locations.data.length && ! searching && ! searchResults.length')
         md-list(flex)
             md-item(ng-repeat='l in locations.data track by $index')
@@ -28,17 +27,17 @@ md-content(flex, layout='column', layout-fill)
             div(flex-sm=66, flex=50)
                 p.text-center {{ "Enter an address in the search box to find a location to add." | translate:language.translator.current }}
                 p.text-center {{ "Swipe to remove addresses." | translate:language.translator.current }}
+                img(ng-show='online && telemetry', ng-src='https://analytics.bitola.co/piwik.php?idsite=9&rec=1&action_name=Locations')
             div(flex)
         div(flex)
     .search.bottom(layout='row', layout-fill, layout-padding)
         md-input-container(flex)
             label {{ "Search" | translate:language.translator.current }}
             input(type='text', ng-model='searchAddress')
-        md-button.md-warn(ng-click='searchResults = []; searchAddress = "";')
-            i.fa.fa-times(hide, show-sm)
-            span(hide, show-gt-sm) {{ "Clear" | translate:language.translator.current }}
+            md-button.clear-btn(ng-click='searchResults = []; searchAddress = "";')
+                md-icon(md-font-icon='fa fa-times-circle')
         span.divider
-        md-button.md-raised.md-primary(ng-click='search()')
-            i.fa.fa-search(hide, show-sm)
-            span(hide, show-gt-sm) {{ "Search" | translate:language.translator.current }}
+        md-button(ng-click='search()')
+            md-icon(md-font-icon='fa fa-search')
+
 

@@ -59,11 +59,11 @@ angular.module("weatherApp")
                         bg.addClass($scope.report.currently.icon);
                     }
 
-
                     $mdToast.showSimple(
                         $filter("translate")("Report updated.", $scope.language.translator.current)
                     );
                     startUpdate();
+
                 });
         };
 
@@ -73,8 +73,7 @@ angular.module("weatherApp")
 
         var init = function() {
 
-            if ($scope.position.latitude && $scope.position.longitude)
-            {
+            if ($scope.position.latitude && $scope.position.longitude) {
                 return updatePosition($scope.position);
             } else {
                 return locator.init()

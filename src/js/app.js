@@ -235,110 +235,12 @@ function getTelemetryStatus()
     return !! (telemetry === null || !! telemetry);
 }
 
-function getErrorReportingStatus()
-{
-    var reporting = window.localStorage.getItem("user.reporting");
-    return !! (reporting === null || !! reporting);
-}
-
-function disableErrorReports()
-{
-    Rollbar.configure({enabled: false});
-}
-
-function enableErrorReports()
-{
-    Rollbar.configure({enabled: true});
-}
-
-function checkErrorReports()
-{
-
-    if(getErrorReportingStatus()) {
-        enableErrorReports();
-    } else {
-        disableErrorReports();
-    }
-}
-
-function sendTelemetry()
-{
-    window._paq = window._paq || [];
-
-    try {
-        if(getTelemetryStatus()) {
-
-            (function(){
-
-                var u="https://analytics.bitola.co/";
-
-                window._paq.push(["setSiteId", 9]);
-                window._paq.push(["setTrackerUrl", u+"piwik.php"]);
-                window._paq.push(["trackPageView"]);
-                window._paq.push(["enableLinkTracking"]);
-
-                var d=document,
-                    g=d.createElement("script"),
-                    s=d.getElementsByTagName("script")[0];
-                g.type="text/javascript"; g.defer=true;
-                g.async=true;
-                g.src=u+"piwik.js";
-
-                s.parentNode.insertBefore(g,s);
-
-            })();
-
-        }
-    } catch(err) { }
-
-}
-
-sendTelemetry();
-
-angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", "ngLocale", "angular.translate", "ngMonetize", "angulartics", "angulartics.piwik"])
-    .config(["$routeProvider", "$mdThemingProvider", "$analyticsProvider", function($routeProvider, $mdThemingProvider, $analyticsProvider) {
-
-        if(! window.localStorage.getItem("user.telemetry")) {
-            $analyticsProvider.virtualPageviews(false);
-        }
-
-        var secondary = window.localStorage.getItem("user.theme.accent") || "orange";
-        var theme = window.localStorage.getItem("user.theme") ||
-            window.localStorage.getItem("user.theme.primary") ||
-            "blue-grey";
-
-        angular.element(document.querySelector("html")).addClass("theme-" + theme);
-
-        switch(theme) {
-            case "red":
-                break;
-            case "pink":
-                break;
-            case "purple":
-            case "deep-purple":
-            case "indigo":
-            case "blue":
-            case "light-blue":
-            case "cyan":
-            case "teal":
-            case "green":
-            case "light-green":
-            case "lime":
-            case "yellow":
-            case "amber":
-            case "case orange":
-            case "deep-orange":
-            case "brown":
-            case "grey":
-            case "blue-grey":
-                break;
-            default: // blue
-                break;
-        }
+angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "angular.translate", "ngMonetize"])
+    .config(["$routeProvider", "$mdThemingProvider", function($routeProvider, $mdThemingProvider) {
 
         $mdThemingProvider.theme("default")
-            .primaryPalette(theme)
-            .accentPalette(secondary);
+            .primaryPalette("blue")
+            .accentPalette("light-blue");
 
         $routeProvider
             .when("/locations", {
@@ -372,16 +274,12 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             .otherwise({
                 redirectTo: "/weather"
             });
+
     }])
-    .run(["$rootScope", "$mdSidenav", "$mdDialog", "$window", "$location", "$timeout", "$interval", "Language", "FirefoxPushNotifications",
-        function($rootScope, $mdSidenav, $mdDialog, $window, $location, $timeout, $interval, Language, FirefoxPushNotifications) {
+    .run(["$rootScope", "$mdSidenav", "$mdDialog", "$window", "$location", "$timeout", "$interval", "Language", "FirefoxPushNotifications", "Locations",
+        function($rootScope, $mdSidenav, $mdDialog, $window, $location, $timeout, $interval, Language, FirefoxPushNotifications, Locations) {
 
             $rootScope.language = new Language();
-
-            $rootScope.go = function(str) {
-                $rootScope.closeNav();
-                $location.url(str);
-            };
 
             // Use this to correct units.
             var units = $window.localStorage.getItem("user.units");
@@ -392,9 +290,7 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             }
 
             $rootScope.telemetry = getTelemetryStatus();
-            $rootScope.reporting = getErrorReportingStatus();
-
-            $rootScope.version = "0.1.4";
+            $rootScope.version = "0.1.6";
             $rootScope.versions = {
                 "0.1.3": [
                     "Simplified the user interface",
@@ -421,7 +317,14 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
                     "Set proper time for locations in other timezones.",
                     "Added more unit options.",
                     "Fixed bug with moon phase icon."
+                ],
+                "0.1.6": [
+                    "Redesigned from ground up for performance, low memory usage."
                 ]
+            };
+
+            var updateLocations = function() {
+                $rootScope.locations = (new Locations()).data;
             };
 
             $rootScope.versionAlert = function(force) {
@@ -448,10 +351,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             };
 
             // Check error/telemetry settings and disable if not desired
-            var TELEMETRY_INTERVAL = 1000 * 60 * 5;
-            $interval(checkErrorReports, TELEMETRY_INTERVAL);
-            $interval(sendTelemetry, TELEMETRY_INTERVAL);
-
             $timeout($rootScope.versionAlert, 1000);
 
             $rootScope.toggleNav = function() {
@@ -466,6 +365,8 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
                 $window.scrollTo(x || 0, y || 0);
             };
 
+            updateLocations();
+
             $rootScope.refresh = function() {
                 $rootScope.refreshing = true;
                 $rootScope.$broadcast("refresh");
@@ -476,15 +377,11 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngSanitize", "ngTouch", 
             });
 
             $rootScope.$on("locations.updated", function() {
+                updateLocations();
                 $rootScope.$broadcast("locations.updated");
             });
 
             $rootScope.online = !! $window.navigator.onLine;
-
-            $window.addEventListener("load", function() {
-                checkErrorReports();
-                sendTelemetry();
-            });
 
             $window.addEventListener("online", function() {
 

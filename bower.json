@@ -25,13 +25,9 @@
     "fastclick": "~1.0.6",
     "weather-icons": "*",
     "monetizejs": "~0.2.0",
-    "rollbar": "~1.2.1",
     "fontawesome": "~4.3.0",
-    "gaia-fonts": "gaia-components/gaia-fonts#~0.2.1",
-    "roboto-fontface": "~0.3.0",
-    "angulartics": "~0.17.2",
-    "piwik": "~2.11.2",
-    "nvd3": "~1.7.1"
+    "nvd3": "~1.7.1",
+    "open-sans-fontface": "*"
   },
   "resolutions": {
     "fontawesome": "~4.3.0",

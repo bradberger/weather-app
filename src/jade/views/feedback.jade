@@ -1,5 +1,4 @@
 md-content(layout='column')
-    md-subheader.md-primary {{ "Feedback" | translate:language.translator.current }}
     md-content(ng-hide='online')
         div(flex, layout='column', layout-align='center center')
             p You are not online. Please connect to a network to send feedback.
@@ -32,4 +31,4 @@ md-content(layout='column')
                         i.fa.fa-paper-plane
                     span(ng-show='sending')
                         i.fa.fa-spin.fa-spinner.fa-pulse
-
+        img(ng-show='online && telemetry', ng-src='https://analytics.bitola.co/piwik.php?idsite=9&rec=1&action_name=Feedback')

@@ -85,20 +85,17 @@ var CSS_SRC = [
 ];
 var JS_DEST = opts.path("app/www/js");
 var JS_SRC = [
-    opts.path("src/components/d3/d3.min.js"),
-    opts.path("src/components/nvd3/build/nv.d3.min.js"),
+    //opts.path("src/components/d3/d3.min.js"),
+    //opts.path("src/components/nvd3/build/nv.d3.min.js"),
     opts.path("src/components/monetizejs/dist/monetize.min.js"),
-    opts.path("src/components/fastclick/lib/fastclick.js"),
     opts.path("src/components/angular/angular.min.js"),
     opts.path("src/components/angular-route/angular-route.min.js"),
     opts.path("src/components/angular-animate/angular-animate.min.js"),
-    opts.path("src/components/angular-sanitize/angular-sanitize.min.js"),
+    //opts.path("src/components/angular-sanitize/angular-sanitize.min.js"),
     opts.path("src/components/angular-touch/angular-touch.min.js"),
     opts.path("src/components/angular-aria/angular-aria.min.js"),
     opts.path("src/components/angular-material/angular-material.min.js"),
     opts.path("src/components/angular-translatability/angular-translate.min.js"),
-    opts.path("src/components/angulartics/dist/angulartics.min.js"),
-    opts.path("src/components/angulartics/dist/angulartics-piwik.min.js"),
     opts.path("src/js/app.js"),
     opts.path("src/js/directives/*.js"),
     opts.path("src/js/services/*.js"),
@@ -403,10 +400,9 @@ gulp.task("build:version:blackberry", function() {
 });
 
 gulp.task("build:fonts", shell.task([
-    "cp src/components/gaia-fonts/fonts/* app/www/fonts",
-    "cp src/components/fontawesome/fonts/* app/www/fonts",
     "cp src/components/weather-icons/font/* app/www/font",
-    "cp src/components/roboto-fontface/fonts/* app/www/fonts"
+    "cp -R src/components/open-sans-fontface/fonts/Light/* src/assets/font/open-sans/Light",
+    "cp src/components/fontawesome/fonts/* src/assets/font/font-awesome"
 ]));
 
 gulp.task("build:blackberry", ["build:version:blackberry"], shell.task([

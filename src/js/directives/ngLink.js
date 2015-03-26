@@ -6,11 +6,17 @@ angular.module("weatherApp").directive("ngLink", ["$location", function ($locati
         restrict: "A",
         link: function ($scope, $element, $attrs) {
 
-            $element.on("click", function () {
-                $scope.closeNav();
+            function goToUrl() {
                 $location.url($attrs.ngLink);
-            });
+            }
 
+            $element.on("click", function () {
+                if ($scope.$$phase) {
+                    goToUrl();
+                } else {
+                    $scope.$apply(goToUrl);
+                }
+            });
         }
     };
 
