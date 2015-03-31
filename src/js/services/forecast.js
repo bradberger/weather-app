@@ -2,23 +2,25 @@
 
 angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$mdToast", function($window, $q, $http, $mdToast) {
 
-    function Forecast(apiKey, endpoint) {
+    function Forecast(endpoint) {
 
         var self = this;
 
-        this.apiKey = apiKey || "APIKEY";
         this.results = angular.fromJson($window.localStorage.getItem("user.results") || "{}");
         this.endpoint = endpoint || "https://weather.bitola.co/api/v1/weather";
-
+        this.cacheDuration = 900;
         this.limits = {
             daily: false,
             hourly: false,
             currently: false
         };
 
+        this.getCacheKey = function(latitude, longitude) {
+            return ["user", "results", latitude.toString().replace(/[^0-9]/g, ""), longitude.toString().replace(/[^0-9]/g, "")].join(".");
+        };
+
         this.saveResult = function(latitude, longitude, result) {
-            this.results[latitude][longitude] = result;
-            $window.localStorage.setItem("user.results", angular.toJson(this.results));
+            $window.localStorage.setItem(this.getCacheKey(latitude, longitude), angular.toJson(result));
         };
 
         this.get = function(lat, long, lang, units) {
@@ -32,21 +34,22 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
                         "&language=" + (lang || "en") +
                         "&units=" + (units || "us");
 
-            if (! this.results[latitude]) {
-                this.results[latitude] = {};
-            }
-
-            if (! this.results[latitude][longitude]) {
-                this.results[latitude][longitude] = false;
+            var cachedResult = $window.localStorage.getItem(this.getCacheKey(lat, long));
+            if (cachedResult) {
+                var now = (new Date()).valueOf() / 1000;
+                cachedResult = angular.fromJson(cachedResult);
+                if (! $window.navigator.onLine ||
+                    (now - cachedResult.currently.time) <= this.cacheDuration
+                ) {
+                    cachedResult.currently.time = now;
+                    deferred.resolve(cachedResult);
+                    return deferred.promise;
+                }
             }
 
             if (! $window.navigator.onLine) {
-                if (this.results[latitude][longitude]) {
-                    deferred.resolve(this.results[latitude][longitude]);
-                } else {
-                    $mdToast.showSimple("Please go online to get the forecast");
-                    deferred.reject("Not online");
-                }
+                $mdToast.showSimple("Please go online to get the forecast");
+                deferred.reject("Not online");
                 return deferred.promise;
             }
 

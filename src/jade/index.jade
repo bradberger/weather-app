@@ -9,38 +9,36 @@ html.no-js(lang='{{ language.current }}', ng-app='weatherApp', ng-csp, ng-cloak)
         link(rel='icon', href='img/logo.svg', sizes='any')
         link(rel='icon', href='img/icon-32', type='image/png', sizes='32x32')
         link(rel='stylesheet', href='css/app.css')
-    body(layout='column', layout-fill)
-        .background
-        section(layout='row', layout-fill, flex)
-            md-content(flex, layout='row')
-                div(layout='column', layout-fill)
-                    md-toolbar.main-nav
-                        .md-toolbar-tools
-                            h3.no-break.app-title(flex, ng-click='showLocations = ! showLocations')
-                                md-icon(md-font-icon='fa fa-bars')
-                                span {{ "Weather" | translate:language.translator.current }}
-                            md-list.location-selector.md-whiteframe-z1(ng-show='showLocations', ng-click='showLocations = false')
-                                md-item
-                                    md-item-content
-                                        a(ng-link='/locate')
-                                            md-icon(md-font-icon='fa fa-location-arrow fa-fw')
-                                            span {{ "Current location" | translate:language.translator.current }}
-                                    md-divider
-                                md-item(ng-repeat='location in locations track by $index', ng-hide='location.longitude == position.longitude && location.latitude == position.latitude')
-                                    md-item-content
-                                        a(ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
-                                            md-icon(md-font-icon='fa fa-map-marker fa-fw')
-                                            span {{ location.label | translate:language.translator.current }}
-                                    md-divider
-                                md-item
-                                    md-item-content
-                                        a(ng-link='/locations')
-                                            md-icon(md-font-icon='fa fa-plus fa-fw')
-                                            span {{ "Add location" | translate:language.translator.current }}
-                            md-button(ng-link='/settings')
-                                md-icon(md-font-icon='fa fa-cog fa-lg')
-                            md-button(ng-link='/feedback')
-                                md-icon(md-font-icon='fa fa-comment fa-lg')
-                    md-content(ng-view, layout='column', layout-fill, flex)
-        img(ng-show='online && telemetry', ng-src='https://analytics.bitola.co/piwik.php?idsite=9&rec=1&action_name=Index')
-        script(src='js/app.js')
+    body(layout='column')
+        section(layout='row', flex)
+            md-sidenav.md-sidenav-right(md-component-id='right')
+                md-toolbar.md-theme-default
+                    h1.md-toolbar-tools(close-nav) {{ "Menu" }}
+                md-content.md-padding(ng-controller='MenuCtrl')
+                    md-list(close-nav)
+                        md-item(ng-link='/locations')
+                            md-item-content
+                                p Locations
+                            md-divider
+                        md-item(ng-link='/settings')
+                            md-item-content
+                                p Settings
+                            md-divider
+                        md-item(ng-link='/feedback')
+                            md-item-content
+                                p Feedback
+                            md-divider
+                        md-item(ng-link='/account', ng-show='')
+                            md-item-content
+                                p Account
+                            md-divider
+            md-content(flex, layout='column', layout-fill)
+                md-toolbar.main-nav
+                    .md-toolbar-tools
+                        .md-title(flex, ng-link='/home')
+                            span {{ "Weather" | translate:language.translator.current }}
+                        md-button(aria-label='Menu', ng-click='toggleRight()')
+                            md-icon(md-font-icon='fa fa-bars')
+                md-content.main-content(ng-view, layout, layout-fill)
+                telemetry-item(data-title='Index')
+    script(src='js/app.js')

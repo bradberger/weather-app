@@ -132,5 +132,15 @@
   "Your Name (optional)": "Ваше имя (необязательно)",
   "Your Email (optional)": "Ваш электронный адрес (необязательно)",
   "Details": "Детали",
-  "Moon phase": "фазы Луны"
+  "Moon phase": "фазы Луны",
+  "Edit locations": "Редактировать места",
+  "Get started by adding a location or enabling geolocation.": "Начните добавление местоположения или включение геолокации.",
+  "Getting the forecast...": "Получение прогноз ...",
+  "Delete App Data": "Удалить данные приложение",
+  "Deleting app data will clear all your locations and preferences.": "Удаление данных приложения будут удалены все ваши места и предпочтения.",
+  "Yes, delete all data": "Да, удалить все данные",
+  "Cancel": "отменить",
+  "Data deleted successfully": "Данные успешно удалены",
+  "User canceled deleting of data": "Пользователь отменил удаление данных",
+  "Settings saved. Reloading.": "Настройки сохраняются. Перезагрузка."
 }

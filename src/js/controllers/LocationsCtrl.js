@@ -1,8 +1,8 @@
 
 "use strict";
 
-angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$location", "Locations", "$mdToast", "$log",
-    function($scope, $filter, $window, $location, Locations, $mdToast, $log) {
+angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$location", "Locations", "$mdToast",
+    function($scope, $filter, $window, $location, Locations, $mdToast) {
 
         $scope.locations = new Locations();
         $scope.searchAddress = "";
@@ -19,12 +19,13 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
 
                         $scope.searchResults = [];
 
-                        if (err.status==="ZERO_RESULTS") {
+                        if (err.status==="ZERO_RESULTS" && $scope.searchAddress.length >= 6) {
                             $mdToast.showSimple("No results found. Try again.");
                             $scope.searchAddress = "";
                         } else {
-                            $log.error(err);
-                            $mdToast.showSimple(err.status || "Unknown error. Please try again.");
+                            if($scope.searchAddress.length >= 6) {
+                                $mdToast.showSimple(err.status || "Unknown error. Please try again.");
+                            }
                         }
 
                     })
@@ -46,11 +47,14 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
                 $scope.searchAddress = "";
                 $mdToast.showSimple("Location added");
                 $scope.$emit("locations.updated");
-                $location.url(
-                    "/weather/" + location.latitude + "/" +
-                    location.longitude + "?title=" +     encodeURIComponent(location.label)
-                );
             });
+        };
+
+        $scope.geolocation = $window.localStorage.getItem("user.geolocation") ? true : false;
+        $scope.toggleGeolocation = function() {
+           $window.localStorage.setItem(
+               "user.geolocation", $scope.geolocation || false ? "yes" : ""
+           );
         };
 
         $scope.removeLocation = function(index) {

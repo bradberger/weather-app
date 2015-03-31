@@ -133,5 +133,15 @@
   "Your Name (optional)": "Uw naam (optioneel)",
   "Your Email (optional)": "Uw e-mail (optioneel)",
   "Details": "Details",
-  "Moon phase": "maanfase"
+  "Moon phase": "maanfase",
+  "Edit locations": "locaties bewerken",
+  "Get started by adding a location or enabling geolocation.": "Ga aan de slag door het toevoegen van een locatie of waardoor geolocatie.",
+  "Getting the forecast...": "Het krijgen van de verwachte ...",
+  "Delete App Data": "Applicatiegegevens verwijderen",
+  "Deleting app data will clear all your locations and preferences.": "Het verwijderen van applicatie data zal duidelijk al uw locaties en voorkeuren.",
+  "Yes, delete all data": "Ja, verwijder alle gegevens",
+  "Cancel": "annuleren",
+  "Data deleted successfully": "Gegevens succesvol verwijderd",
+  "User canceled deleting of data": "Gebruiker geannuleerd verwijdering van gegevens",
+  "Settings saved. Reloading.": "Instellingen opgeslagen. Herladen."
 }

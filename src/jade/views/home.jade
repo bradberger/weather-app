@@ -1,0 +1,17 @@
+md-content(layout='row', layout-fill, layout-wrap, layout-align='center center')
+    div(ng-hide='geolocation || locations.length')
+        md-card(ng-link='/locations')
+            md-card-content
+                h2 {{ "Welcome" | translate:language.translator.current }}
+                p {{ "Get started by adding a location or enabling geolocation." | translate:language.translator.current }}
+                hr
+                p.text-center
+                    md-button.md-raised.md-primary(ng-link='/locations')
+                        span {{ "Edit locations" | translate:language.translator.current }}
+                        span.divider &raquo;
+
+    div(ng-show='geolocation', flex='{{ $parent.locations.length <= 5 ? "flex" : 20 }}', flex-md=50, flex-sm=100)
+        weather-overview(location='currentLocation', ng-link='/weather/{{ currentLocation.latitude }}/{{ currentLocation.longitude }}?title=Current location')
+    div(ng-repeat='location in locations', flex='{{ $parent.locations.length <= 5 ? "flex" : 20 }}', flex-md=50, flex-sm=100)
+        weather-overview(location='location', ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
+    telemetry-item(data-title='Home')

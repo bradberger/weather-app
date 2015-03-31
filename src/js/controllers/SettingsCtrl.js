@@ -1,6 +1,9 @@
 "use strict";
 
-angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", function($scope, $window, Locations, $mdToast) {
+angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", "Forecast", "$mdDialog", "$filter",
+    function ($scope, $window, Locations, $mdToast, Forecast, $mdDialog, $filter) {
+
+        var forecast = new Forecast();
 
         $scope.color = $window.localStorage.getItem("user.theme.primary") || "blue-grey";
         $scope.accent = $window.localStorage.getItem("user.theme.accent") || "blue-grey";
@@ -14,70 +17,103 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
             "blue-grey"
         ];
 
-        var updateSuccess = function(msg) {
-            $mdToast.showSimple(msg || "Settings saved. Reloading");
+        var translate = function(str) {
+            return $filter("translate")(str, $scope.language.translator.current);
+        };
+
+        var clearCachedResults = function() {
+            angular.forEach($scope.locations, function(location) {
+                $window.localStorage.removeItem(forecast.getCacheKey(location.latitude, location.longitude));
+            });
+        };
+
+        var updateSuccess = function (msg) {
+            $mdToast.showSimple(translate(msg || "Settings saved. Reloading."));
             $window.location.reload();
         };
 
-        var switchTheme = function(color) {
+        var switchTheme = function (color) {
             if ($scope.colors.indexOf(color) >= 0) {
                 $window.localStorage.setItem("user.theme.primary", color);
                 updateSuccess();
             }
         };
 
-        var switchAccent = function(color) {
+        var switchAccent = function (color) {
             if ($scope.colors.indexOf(color) >= 0) {
                 $window.localStorage.setItem("user.theme.accent", color);
                 updateSuccess();
             }
         };
 
-        var switchUnits = function(unit) {
+        var switchUnits = function (unit) {
             $window.localStorage.setItem("user.units", unit);
+            clearCachedResults();
             updateSuccess();
         };
 
-        var switchLanguage = function(lang) {
-            return $scope.language.use(lang).then(function() {
+        var switchLanguage = function (lang) {
+            return $scope.language.use(lang).then(function () {
+                clearCachedResults();
                 updateSuccess();
             });
         };
 
-        $scope.toggleErrorReporting = function() {
+        $scope.clearAll = function() {
+
+            var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title(translate("Delete App Data"))
+                .content(translate("Deleting app data will clear all your locations and preferences."))
+                .ok(translate("Yes, delete all data"))
+                .cancel(translate("Cancel"));
+
+            $mdDialog.show(confirm).then(function() {
+
+                $window.localStorage.clear();
+                $mdToast.showSimple(translate("Data deleted successfully"));
+                $window.location.reload();
+
+            }, function() {
+                $mdToast.showSimple(translate("User canceled deleting of data"));
+            });
+
+        };
+
+        $scope.toggleErrorReporting = function () {
             $window.localStorage.setItem("user.reporting", $scope.reporting ? "" : "1");
             $window.location.reload();
         };
 
-        $scope.toggleTelemetry = function() {
+        $scope.toggleTelemetry = function () {
             $window.localStorage.setItem("user.telemetry", $scope.telemetry ? "" : "1");
             $window.location.reload();
         };
 
-        $scope.$on("refresh", function() {
+        $scope.$on("refresh", function () {
             $window.location.reload();
         });
 
-        $scope.$watch("units", function(val, old) {
-            if(old && val && old !== val) {
+        $scope.$watch("units", function (val, old) {
+            if (old && val && old !== val) {
                 switchUnits(val);
             }
         });
 
-        $scope.$watch("color", function(val, old) {
-            if(old && val && old !== val) {
+        $scope.$watch("color", function (val, old) {
+            if (old && val && old !== val) {
                 switchTheme(val);
             }
         });
 
-        $scope.$watch("accent", function(val, old) {
-            if(old && val && old !== val) {
+        $scope.$watch("accent", function (val, old) {
+            if (old && val && old !== val) {
                 switchAccent(val);
             }
         });
 
-        $scope.$watch("lang", function(val, old) {
-            if(old && val && old !== val) {
+        $scope.$watch("lang", function (val, old) {
+            if (old && val && old !== val) {
                 switchLanguage(val);
             }
         });

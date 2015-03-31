@@ -148,5 +148,15 @@
   "Your Name (optional)": "Вашето име (опционално)",
   "Your Email (optional)": "Вашата е-маил (опционално)",
   "Details": "детали",
-  "Moon phase": "фаза на месечината"
+  "Moon phase": "фаза на месечината",
+  "Edit locations": "уреди локации",
+  "Get started by adding a location or enabling geolocation.": "Започнете со додавање на локација или овозможување Прецизни.",
+  "Getting the forecast...": "Добивање на прогноза ...",
+  "Delete App Data": "Избришете ги апликациските податоци",
+  "Deleting app data will clear all your locations and preferences.": "Бришењето на апликациските податоци ќе го исчистите сите локации и преференции.",
+  "Yes, delete all data": "Да, избришете ги сите податоци",
+  "Cancel": "Откажи",
+  "Data deleted successfully": "Податоци успешно избришани",
+  "User canceled deleting of data": "Корисникот откажана бришење на податоци",
+  "Settings saved. Reloading.": "Поставките. Претовар."
 }

@@ -20,12 +20,22 @@ angular.module("weatherApp").service("Geolocate", ["$window", "$q", function($wi
             heading: null
         };
 
+        this.timeout = 30000;
+        this.maximumAge = 900000;
+        this.age = 0;
         this.watch = false;
 
         this.init = function(watch) {
 
             var deferred = $q.defer(),
                 watching = watch || false;
+
+            this.age = parseInt($window.localStorage.getItem("user.geolocation.age") || 0);
+
+            var storedCoords = $window.localStorage.getItem("user.geolocation.coords");
+            if (storedCoords) {
+                this.coords = angular.fromJson(storedCoords);
+            }
 
             self.locate()
                 .then(function(position) {
@@ -73,9 +83,17 @@ angular.module("weatherApp").service("Geolocate", ["$window", "$q", function($wi
         };
 
         this.updatePosition = function(position) {
+
+            var age = (new Date()).valueOf();
+            $window.localStorage.setItem("user.geolocation.age", age);
+            $window.localStorage.setItem("user.geolocation.coords", angular.toJson(position));
+
+            this.age = age;
             this.error = false;
             this.coords = position;
+
         };
+
 
         this.onError = function(err) {
             this.error = err;
@@ -83,13 +101,21 @@ angular.module("weatherApp").service("Geolocate", ["$window", "$q", function($wi
 
         this.locate = function() {
 
+            var deferred = $q.defer();
             var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
+                enableHighAccuracy: false,
+                timeout: this.timeout || 30000,
+                maximumAge: this.maximumAge || 900000
             };
 
-            var deferred = $q.defer();
+            // Don't call updatePosition here, or else we'll never get a fresh
+            // position, since that sets the this.age property.
+            if (this.age && ((new Date()).valueOf() - this.age) <= this.maximumAge) {
+                if (this.coords.latitude && this.coords.longitude) {
+                    deferred.resolve(this.coords);
+                    return deferred.promise;
+                }
+            }
 
             $window.navigator.geolocation.getCurrentPosition(
                 function(position) {

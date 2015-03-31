@@ -116,13 +116,11 @@ gulp.task("jshint:fail", function () {
         .pipe(jshint.reporter("fail"));
 });
 
-gulp.task("images", ["images:icons", "images:splash", "images:background"], function () {
+gulp.task("images", ["images:icons", "images:splash"], function () {
     return gulp.src("src/img/**/*")
         .pipe(imagemin())
         .pipe(gulp.dest("app/www/img"));
 });
-
-gulp.task("images:background", ["images:background:240", "images:background:360", "images:background:480", "images:background:600", "images:background:1200", "images:background:1920"]);
 
 gulp.task("images:icons", function() {
 
@@ -208,60 +206,6 @@ gulp.task("images:splash", function() {
 
     });
 
-});
-
-gulp.task("images:background:240", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 240 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/240"));
-});
-
-gulp.task("images:background:360", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 360 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/360"));
-});
-
-gulp.task("images:background:480", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 480 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/480"));
-});
-
-gulp.task("images:background:600", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 600 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/600"));
-});
-
-gulp.task("images:background:1200", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 1200 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/1200"));
-});
-
-gulp.task("images:background:1920", function() {
-    gulp.src("src/img/backgrounds/full/**/*.{jpg,png}")
-        .pipe(parallel(
-            imageResize({ width: 1920 }),
-            os.cpus().length
-        ))
-        .pipe(gulp.dest("src/img/backgrounds/1920"));
 });
 
 gulp.task("jade", function () {
@@ -401,7 +345,6 @@ gulp.task("build:version:blackberry", function() {
 
 gulp.task("build:fonts", shell.task([
     "cp src/components/weather-icons/font/* app/www/font",
-    "cp -R src/components/open-sans-fontface/fonts/Light/* src/assets/font/open-sans/Light",
     "cp src/components/fontawesome/fonts/* src/assets/font/font-awesome"
 ]));
 
@@ -433,10 +376,7 @@ gulp.task("package:firefox", ["build:version", "build:fonts"], shell.task([
     "rm app/platforms/firefoxos/www/humans.txt",
     "rm app/platforms/firefoxos/www/favicon.ico",
     "rm app/platforms/firefoxos/www/js/index.js",
-    "rm app/platforms/firefoxos/www/css/index.css",
-    "rm app/platforms/firefoxos/www/fonts/FiraSans-*",
-    "rm app/platforms/firefoxos/www/fonts/Roboto-*",
-    "rm app/platforms/firefoxos/www/font/Roboto-*",
+    "rm app/platforms/firefoxos/www/manifest.mobile.json",
     "rm app/platforms/firefoxos/www/apple-touch-icon-precomposed.png",
     "rm app/platforms/firefoxos/build/*.zip",
     "cd app/platforms/firefoxos/www && zip -r ../../../../build/firefox/" + getZipName("firefox") + " *"

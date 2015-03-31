@@ -1,28 +1,28 @@
 md-content(flex, layout='column', layout-fill)
-    md-subheader.md-primary {{ "My Account" | translate:language.translator.current }}
-    md-content(flex, ng-hide='online', layout='column', layout-align='center center')
-        p You are not online. Please connect to a network to check your account status.
-    md-content(flex, ng-show='online && ! payments.signedIn', layout='column', layout-fill, layout-align='center center')
-        div(flex)
-        div.text-center
-            p You are not signed in.
-            md-button.md-primary.md-raised(ng-click='signIn()', aria-label='Sign In') Sign In
-        div(flex)
-        p
-            small Powered by
-            span.divider
-            img.middle(src='//cdn.monetizejs.com/resources/button-26.png', alt='MonetizeJS')
-    md-list(ng-show='online && payments.signedIn')
-        md-item
-            md-item-content(ng-show='payments.subscriptions')
-                a(layout='row', layout-fill, layout-padding, external-link, href="https://monetizejs.com/authorize?client_id={{ payments.appId }}&summary=true")
-                    div
-                        img.middle.monetize-logo(src='img/monetizejs.svg', alt='MonetizeJS Subscription')
-                    div.divider {{ payments.subscriptions.title }}
-                    div(flex)
-                    div ${{ payments.subscriptions.amount }}/{{ payments.subscriptions.interval }}
-            md-divider
-        md-item
-            md-item-content
-                pre {{ payments | json }}
-            md-divider
+    md-card
+        md-card-content
+            div(flex, ng-hide='online', layout='column', layout-align='center center')
+                p You are not online. Please connect to a network to check your account status.
+            div(flex, ng-show='online && ! payments.signedIn', layout='column', layout-fill, layout-align='center center')
+                div(flex)
+                div.text-center
+                    p You are not signed in.
+                    md-button.md-primary.md-raised(ng-click='signIn()', aria-label='Sign In') Sign In
+                small(flex, layout='row', layout-align='center center')
+                    p Powered by
+                    span.divider
+                    img.monetize-logo(src='img/monetizejs.svg', alt='MonetizeJS')
+            md-list(ng-show='online && payments.signedIn')
+                md-item
+                    md-item-content(ng-show='payments.subscriptions')
+                        a(layout='row', layout-fill, layout-padding, external-link, href="https://monetizejs.com/authorize?client_id={{ payments.appId }}&summary=true")
+                            div
+                                img.middle.monetize-logo(src='img/monetizejs.svg', alt='MonetizeJS Subscription')
+                            div.divider {{ payments.subscriptions.title }}
+                            div(flex)
+                            div ${{ payments.subscriptions.amount }}/{{ payments.subscriptions.interval }}
+                    md-divider
+                md-item
+                    md-item-content
+                        pre {{ payments | json }}
+                    md-divider

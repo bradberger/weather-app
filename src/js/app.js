@@ -235,7 +235,7 @@ function getTelemetryStatus()
     return !! (telemetry === null || !! telemetry);
 }
 
-angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "angular.translate", "ngMonetize"])
+angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "ngLocale", "angular.translate", "ngMonetize"])
     .config(["$routeProvider", "$mdThemingProvider", function($routeProvider, $mdThemingProvider) {
 
         $mdThemingProvider.theme("default")
@@ -243,6 +243,10 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
             .accentPalette("light-blue");
 
         $routeProvider
+            .when("/home", {
+                templateUrl: "views/home.html",
+                controller: "HomeCtrl"
+            })
             .when("/locations", {
                 templateUrl: "views/locations.html",
                 controller: "LocationsCtrl"
@@ -251,7 +255,7 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
                 templateUrl: "views/locate.html",
                 controller: "LocateCtrl"
             })
-            .when("/weather/:latitude?/:longitude?", {
+            .when("/weather/:latitude/:longitude", {
                 templateUrl: "views/weather.html",
                 controller: "WeatherCtrl"
             })
@@ -272,12 +276,12 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
                 controller: "AboutCtrl"
             })
             .otherwise({
-                redirectTo: "/weather"
+                redirectTo: "/home"
             });
 
     }])
-    .run(["$rootScope", "$mdSidenav", "$mdDialog", "$window", "$location", "$timeout", "$interval", "Language", "FirefoxPushNotifications", "Locations",
-        function($rootScope, $mdSidenav, $mdDialog, $window, $location, $timeout, $interval, Language, FirefoxPushNotifications, Locations) {
+    .run(["$rootScope", "$mdSidenav", "$mdDialog", "$window", "$timeout", "Language", "FirefoxPushNotifications", "Locations",
+        function($rootScope, $mdSidenav, $mdDialog, $window, $timeout, Language, FirefoxPushNotifications, Locations) {
 
             $rootScope.language = new Language();
 
@@ -292,18 +296,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
             $rootScope.telemetry = getTelemetryStatus();
             $rootScope.version = "0.1.6";
             $rootScope.versions = {
-                "0.1.3": [
-                    "Simplified the user interface",
-                    "Improved offline support",
-                    "Fixed a bug with metric snow accumulations",
-                    "Added moon phase icons",
-                    "Added sunrise/sunset",
-                    "Added more icons",
-                    "Added error reporting and telemetry",
-                    "Improved translations",
-                    "Added feedback form",
-                    "Added version alerts"
-                ],
                 "0.1.4": [
                     "Updated user interface",
                     "Minor bugfixes"
@@ -353,12 +345,8 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
             // Check error/telemetry settings and disable if not desired
             $timeout($rootScope.versionAlert, 1000);
 
-            $rootScope.toggleNav = function() {
+            $rootScope.toggleRight = function() {
                 $mdSidenav("right").toggle();
-            };
-
-            $rootScope.closeNav = function() {
-                $mdSidenav("right").close();
             };
 
             $rootScope.scrollTo = function(x, y) {
@@ -366,15 +354,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngLocale", "a
             };
 
             updateLocations();
-
-            $rootScope.refresh = function() {
-                $rootScope.refreshing = true;
-                $rootScope.$broadcast("refresh");
-            };
-
-            $rootScope.$on("refresh:complete", function() {
-                $rootScope.refreshing = false;
-            });
 
             $rootScope.$on("locations.updated", function() {
                 updateLocations();

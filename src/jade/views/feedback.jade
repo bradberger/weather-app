@@ -1,34 +1,33 @@
-md-content(layout='column')
-    md-content(ng-hide='online')
-        div(flex, layout='column', layout-align='center center')
-            p You are not online. Please connect to a network to send feedback.
-    md-content(ng-show='online')
-        div(layout='row', layout-padding, layout-wrap, layout-align='center')
-            div(flex=50, flex-sm=100, layout='column')
-                .row(layout)
-                    p {{ "I'm Feeling..." | translate:language.translator.current }}
+md-content.container-narrow(flex)
+    md-card(layout='column')
+        md-card-content
+            div(ng-hide='online', flex, layout='column', layout-align='center center')
+                p You are not online. Please connect to a network to send feedback.
+            div(ng-show='online', layout='column', layout-fill)
+                    .row(layout)
+                        p {{ "I'm Feeling..." | translate:language.translator.current }}
+                        div(flex)
+                        p
+                            md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", arial-label='Happy')
+                                i.fa.fa-smile-o.fa-2x
+                            span.divider
+                            md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", arial-label='Sad')
+                                i.fa.fa-frown-o.fa-2x
+                    md-input-container
+                        label {{ "Details" | translate:language.translator.current }}
+                        textarea(ng-model='feedback.description', auto-grow)
+                    md-input-container
+                        label {{ "Your Name (optional)" | translate:language.translator.current }}
+                        input(ng-model='feedback.name')
+                    md-input-container
+                        label {{ "Your Email (optional)" | translate:language.translator.current }}
+                        input(ng-model='feedback.email')
                     div(flex)
-                    p
-                        md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", arial-label='Happy')
-                            i.fa.fa-smile-o.fa-2x
+                    md-button.md-primary.md-raised(ng-click='send()', aria-label='Send', ng-disabled="sending || (! feedback.subject && ! feedback.description)")
+                        span {{ "Send" | translate:language.translator.current }}
                         span.divider
-                        md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", arial-label='Sad')
-                            i.fa.fa-frown-o.fa-2x
-                md-input-container
-                    label {{ "Details" | translate:language.translator.current }}
-                    textarea(ng-model='feedback.description', auto-grow)
-                md-input-container
-                    label {{ "Your Name (optional)" | translate:language.translator.current }}
-                    input(ng-model='feedback.name')
-                md-input-container
-                    label {{ "Your Email (optional)" | translate:language.translator.current }}
-                    input(ng-model='feedback.email')
-                div(flex)
-                md-button.md-primary.md-raised(ng-click='send()', aria-label='Send', ng-disabled="sending || (! feedback.subject && ! feedback.description)")
-                    span {{ "Send" | translate:language.translator.current }}
-                    span.divider
-                    span(ng-hide='sending')
-                        i.fa.fa-paper-plane
-                    span(ng-show='sending')
-                        i.fa.fa-spin.fa-spinner.fa-pulse
-        img(ng-show='online && telemetry', ng-src='https://analytics.bitola.co/piwik.php?idsite=9&rec=1&action_name=Feedback')
+                        span(ng-hide='sending')
+                            i.fa.fa-paper-plane
+                        span(ng-show='sending')
+                            i.fa.fa-spin.fa-spinner.fa-pulse
+            telemetry-item(data-title='Feedback')

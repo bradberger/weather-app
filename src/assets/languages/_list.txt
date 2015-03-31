@@ -133,3 +133,6 @@ Your Name (optional)
 Your Email (optional)
 Details
 Moon phase
+Go to locations
+Get started by adding a location or enabling geolocation.
+Getting the forecast...

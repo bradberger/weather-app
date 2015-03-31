@@ -1,98 +1,120 @@
-.row.details(layout='row', layout-sm='column', layout-align='center center')
-    .row.day-pictogram(flex=30, flex-sm=100, layout='column', layout-sm='row', layout-align='center center', layout-padding, ng-class='day.icon')
-        weather-icon(ng-icon='{{ day.icon }}')
-        .summary-extra-info(layout='column', layout-fill, layout-align='center center')
-            temperature-item(ng-show='day.temperature', temp='day.temperature')
-            temperature-item(ng-show='day.temperatureMax', temp='day.temperatureMax')
-            precipitation-summary.info(day='day', ng-show='day.precipIntensity')
-            small(ng-show='day.apparentTemperature') {{ day.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
-            small(ng-show='day.temperatureMax') {{ day.time | timestamp:offset | date:'shortDate' | translate:language.translator.current }}
-    .day-data(flex, flex-sm=100, layout='row', layout-fill, layout-padding, layout-wrap, layout-align='center center')
-        .data-box(flex=50, ng-show='day.apparentTemperature')
-            .info
-                md-button
-                    md-tooltip {{ "Feels Like" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-thermometer')
-                temperature-item(flex, temp='day.apparentTemperature')
-        .data-box(flex=50, ng-show='day.temperatureMin')
-            .info
-                md-button
-                    md-tooltip {{ "Low
-                    md-icon(md-font-icon='wi wi-thermometer-exterior')
-                temperature-item(flex, temp='day.temperatureMin')
-        .data-box(flex=50, ng-show='day.temperatureMax')
-            .info
-                md-button
-                    md-tooltip {{ "High
-                    md-icon(md-font-icon='wi wi-thermometer')
-                temperature-item(flex, temp='day.temperatureMax')
-        .data-box(flex=50)
-            .info
-                md-button
-                    md-tooltip {{ "Humidity" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-fog')
-                humidity(value='day.humidity')
-        .data-box(flex=50)
-            .info
-                md-button
-                    md-tooltip {{ "Cloud Cover" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-cloud')
-                cloud-cover(value='day.cloudCover')
-        .data-box(flex=50)
-            .info
-                md-button
-                    md-tooltip {{ "Dew Point" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-sprinkles')
-                temperature-item(temp='day.dewPoint')
-        .data-box(flex=50)
-            .info
-                md-button
-                    md-tooltip {{ "Wind" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-strong-wind')
-                wind-speed(speed='day.windSpeed')
-        .data-box(flex=50)
-            .info
-                md-button
-                    md-tooltip {{ "Ozone" | translate:language.translator.current }}
-                    md-icon(md-font-icon='fa fa-sun-o')
-                ozone(ozone='day.ozone')
-        .data-box(flex=50,ng-show='day.visibility')
-            .info
-                md-button
-                    md-tooltip {{ "Visibility" | translate:language.translator.current }}
-                    md-icon(md-font-icon='fa fa-eye')
-                visibility(value='day.visibility')
-        .data-box(flex=50,ng-show='day.nearestStormDistance')
-            .info
-                md-button
-                    md-tooltip {{ "Nearest storm" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-night-thunderstorm')
-                nearest-storm(value='day.nearestStormDistance')
-        .data-box(flex=50, ng-show='day.moonPhase', hide, show-gt-sm)
-            .info
-                md-button
-                    md-tooltip {{ "Moon phase" | translate:language.translator.current }}
-                    moon-icon(value='day.moonPhase')
-        .data-box(flex=50, ng-show='day.sunriseTime')
-            .info
-                md-button
-                    md-tooltip {{ "Sunrise" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-sunrise')
-                span {{ day.sunriseTime | timestamp:offset | date:'h:mm' }}
-                    sup
-                        small {{ day.sunriseTime | timestamp:offset | date:'a' }}
-        .data-box(flex=50, ng-show='day.sunsetTime')
-            .info
-                md-button
-                    md-tooltip {{ "Sunset" | translate:language.translator.current }}
-                    md-icon(md-font-icon='wi wi-sunset')
-                span {{ day.sunsetTime | timestamp:offset | date:'h:mm' }}
-                    sup
-                        small {{ day.sunsetTime | timestamp:offset | date:'a' }}
-        .data-box(flex=50, hide, show-gt-sm)
-            .info
-                md-button
-                    md-tooltip {{ "Pressure" | translate:language.translator.current }}
-                    barometric-pressure.info.no-break(value='day.pressure')
-.overview
-    .summary {{ day.summary | translate:language.translator.current }}
+.animate-switch-container.container-narrow(ng-show='location', ng-switch="selection", ng-swipe-left='nextFrame()', ng-click='nextFrame()')
+    md-card.animate-switch-animation(ng-switch-when='extended')
+        .weather-background(ng-class='daily.icon', ng-show='report')
+            .location-title
+                .location-label {{ location.label }}
+                .location-temperature
+                    temperature-item(temp='currently.temperature')
+                .location-label {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
+        md-card-content(layout='column')
+            div(ng-hide='report', layout='column', layout-align='space-around center')
+                md-progress-circular(md-mode="indeterminate")
+                p {{ "Getting the forecast..." | translate:language.translator.current }}
+            div(ng-show='report')
+                    p {{ daily.summary }}
+                    md-list
+                        md-item(ng-repeat='day in daily.data')
+                            md-item-content
+                                .md-tile-left
+                                    weather-icon(ng-icon='{{ day.icon }}')
+                                .md-tile-content
+                                    h3 {{ day.time | timestamp:offset | date:'EEEE' }}
+                                    h4
+                                        | High
+                                        span.divider
+                                        temperature-item(temp='day.temperatureMax')
+                                        | &mdash; Low
+                                        span.divider
+                                        temperature-item(temp='day.temperatureMin')
+                                    p {{ day.summary }}
+                            md-divider(ng-hide='$last')
+    md-card.animate-switch-animation(ng-switch-when='hourly')
+        .weather-background(ng-class='hourly.icon', ng-show='report')
+            .location-title
+                .location-label {{ location.label }}
+                .location-temperature
+                    temperature-item(temp='currently.temperature')
+                .location-label {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
+        md-card-content(layout='column')
+            div(ng-hide='report', layout='column', layout-align='space-around center')
+                md-progress-circular(md-mode="indeterminate")
+                p {{ "Getting the forecast..." | translate:language.translator.current }}
+            div(ng-show='report')
+                p {{ hourly.summary }}
+                md-list
+                    md-item(ng-repeat='hour in hourly.data')
+                        md-item-content(layout='row', layout-fill, layout-wrap, layout-padding, layout-align='center center')
+                            .md-tile-left
+                                weather-icon(ng-icon='{{ hour.icon }}')
+                            .md-tile-content
+                                h3 {{ hour.time | timestamp:offset | date:'EEEE' }}, {{ hour.time | timestamp:offset | date:'h a' }}
+                                p
+                                    temperature-item(temp='hour.temperature')
+                                    span.divider &mdash;
+                                    span {{ hour.summary }}
+                        md-divider(ng-hide='$last')
+    md-card.animate-switch-animation(ng-switch-default)
+        .weather-background(ng-class='currently.icon', ng-show='report')
+            .location-title
+                .location-label {{ location.label }}
+                .location-temperature
+                    temperature-item(temp='currently.temperature')
+                .location-label {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
+        md-card-content(layout='column')
+            div(ng-hide='report', layout='column', layout-align='space-around center')
+                md-progress-circular(md-mode="indeterminate")
+                p {{ "Getting the forecast..." | translate:language.translator.current }}
+            div(ng-show='report')
+                p.summary {{ currently.summary | translate:language.translator.current }}
+                div(ng-hide='report', layout='column', layout-align='space-around center')
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.apparentTemperature')
+                        .info
+                            md-icon(md-font-icon='wi wi-thermometer')
+                            temperature-item(flex, temp='currently.apparentTemperature')
+                    .data-box(flex=20, flex-md=25, flex-sm=50)
+                        .info
+                            md-icon(md-font-icon='wi wi-fog')
+                            humidity(value='currently.humidity')
+                    .data-box(flex=20, flex-md=25, flex-sm=50)
+                        .info
+                            md-icon(md-font-icon='wi wi-cloud')
+                            cloud-cover(value='currently.cloudCover')
+                    .data-box(flex=20, flex-md=25, flex-sm=50)
+                        .info
+                            md-icon(md-font-icon='wi wi-sprinkles')
+                            temperature-item(temp='currently.dewPoint')
+                    .data-box(flex=20, flex-md=25, flex-sm=50)
+                        .info
+                            md-icon(md-font-icon='wi wi-strong-wind')
+                            wind-speed(speed='currently.windSpeed')
+                    .data-box(flex=20, flex-md=25, flex-sm=50)
+                        .info
+                            md-icon(md-font-icon='fa fa-sun-o')
+                            ozone(ozone='currently.ozone')
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.visibility')
+                        .info
+                            md-icon(md-font-icon='fa fa-eye')
+                            visibility(value='currently.visibility')
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.nearestStormDistance')
+                        .info
+                            md-icon(md-font-icon='wi wi-night-thunderstorm')
+                            nearest-storm(value='currently.nearestStormDistance')
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.moonPhase', hide, show-gt-sm)
+                        .info
+                            moon-icon(value='currently.moonPhase')
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.sunriseTime')
+                        .info
+                            md-icon(md-font-icon='wi wi-sunrise')
+                            span {{ currently.sunriseTime | timestamp:offset | date:'h:mm' }}
+                                sup
+                                    small {{ currently.sunriseTime | timestamp:offset | date:'a' }}
+                    .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.sunsetTime')
+                        .info
+                            md-icon(md-font-icon='wi wi-sunset')
+                            span {{ currently.sunsetTime | timestamp:offset | date:'h:mm' }}
+                                sup
+                                    small {{ currently.sunsetTime | timestamp:offset | date:'a' }}
+                    .data-box(flex=20, flex-md=25, flex-sm=50, hide, show-gt-sm)
+                        .info
+                            barometric-pressure.info.no-break(value='currently.pressure')
+

@@ -133,5 +133,15 @@
   "Your Name (optional)": " Emri juaj (e detyrueshme)",
   "Your Email (optional)": " Email juaj (e detyrueshme)",
   "Details": "detalet",
-  "Moon phase": "fazat e hënës"
+  "Moon phase": "fazat e hënës",
+  "Edit locations": "lokacionet redaktoni",
+  "Get started by adding a location or enabling geolocation.": "Get filluar duke shtuar një vend apo duke bërë të mundur geolocation.",
+  "Getting the forecast...": "Getting parashikimin e motit ...",
+  "Delete App Data": "Fshij App dhënave",
+  "Deleting app data will clear all your locations and preferences.": "Fshirja e të dhënave app do të qartë të gjitha vendndodhjet tuaja dhe preferencat.",
+  "Yes, delete all data": "Po, fshini të gjitha të dhënat",
+  "Cancel": "anuloj",
+  "Data deleted successfully": "Data fshi me sukses",
+  "User canceled deleting of data": "Të ruaj të anuluar fshirja e të dhënave",
+  "Settings saved. Reloading.": "Cilësimet ruajtur. Rimbushja."
 }

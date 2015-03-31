@@ -133,5 +133,15 @@
   "Your Name (optional)": "Vaše ime (nije obavezno)",
   "Your Email (optional)": "Vaša e-mail (nije obavezno)",
   "Details": "Detalji",
-  "Moon phase": "Mjesec faza"
+  "Moon phase": "Mjesec faza",
+  "Edit locations": "Uredite mjesta",
+  "Get started by adding a location or enabling geolocation.": "Započnite dodavanjem mjesto ili omogućujući geolokaciju.",
+  "Getting the forecast...": "Dobivanje prognozu ...",
+  "Delete App Data": "Brisanje aplikacija podataka",
+  "Deleting app data will clear all your locations and preferences.": "Brisanje podataka aplikacija će izbrisati sve svoje lokacije i željama.",
+  "Yes, delete all data": "Da, izbrisati sve podatke",
+  "Cancel": "otkazati",
+  "Data deleted successfully": "Podaci su uspješno izbrisana",
+  "User canceled deleting of data": "Korisnik otkazao brisanja podataka",
+  "Settings saved. Reloading.": "Postavke su spremljene. Pretovar."
 }

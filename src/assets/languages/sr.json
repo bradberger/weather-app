@@ -134,5 +134,15 @@
   "Your Name (optional)": "",
   "Your Email (optional)": "",
   "Details": "",
-  "Moon phase": ""
+  "Moon phase": "",
+  "Edit locations": "Едит локације",
+  "Get started by adding a location or enabling geolocation.": "Почните тако што ћете додати локацију или омогућавање геолоцатион",
+  "Getting the forecast...": "Добијање прогнозу ...",
+  "Delete App Data": "",
+  "Deleting app data will clear all your locations and preferences.": "",
+  "Yes, delete all data": "",
+  "Cancel": "",
+  "Data deleted successfully": "",
+  "User canceled deleting of data": "",
+  "Settings saved. Reloading.": ""
 }

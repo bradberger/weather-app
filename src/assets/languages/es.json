@@ -122,5 +122,15 @@
   "Your Name (optional)": "Tu nombre (opcional)",
   "Your Email (optional)": "Su correo electrónico (opcional)",
   "Details": "Detalles",
-  "Moon phase": "fase de la luna"
+  "Moon phase": "fase de la luna",
+  "Edit locations": "Edita las ubicaciones",
+  "Get started by adding a location or enabling geolocation.": "Comience agregando un lugar o de activar la geolocalización.",
+  "Getting the forecast...": "Conseguir el pronóstico del tiempo ...",
+  "Delete App Data": "Eliminar datos de la aplicación",
+  "Deleting app data will clear all your locations and preferences.": "Eliminación de datos de la aplicación se borrarán todas las ubicaciones y preferencias.",
+  "Yes, delete all data": "Sí, eliminar todos los datos",
+  "Cancel": "cancelar",
+  "Data deleted successfully": "",
+  "User canceled deleting of data": "El usuario ha cancelado Eliminación de los datos",
+  "Settings saved. Reloading.": "Configuración guardados. La recarga."
 }
