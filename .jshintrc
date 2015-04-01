@@ -70,10 +70,8 @@
     "__dirname": false,
     "require": false,
     "angular": false,
-    "FastClick": false,
     "MonetizeJS": false,
     "MozActivity": false,
-    "Rollbar": false,
-    "Piwik": false
+    "$script": false
   }
 }

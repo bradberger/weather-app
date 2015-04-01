@@ -1,13 +1,13 @@
 "use strict";
 
-angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", "Forecast", "$mdDialog", "$filter",
-    function ($scope, $window, Locations, $mdToast, Forecast, $mdDialog, $filter) {
+angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", "Forecast", "$mdDialog", "$filter", "$timeout",
+    function ($scope, $window, Locations, $mdToast, Forecast, $mdDialog, $filter, $timeout) {
 
         var forecast = new Forecast();
 
         $scope.color = $window.localStorage.getItem("user.theme.primary") || "blue-grey";
         $scope.accent = $window.localStorage.getItem("user.theme.accent") || "blue-grey";
-        $scope.lang = $window.localStorage.getItem("user.language") || "en";
+        $scope.lang = $scope.getLanguage($window);
         $scope.units = $window.localStorage.getItem("user.units") || "imperial";
 
         $scope.colors = [
@@ -17,12 +17,13 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
             "blue-grey"
         ];
 
-        var translate = function(str) {
+
+        var translate = function (str) {
             return $filter("translate")(str, $scope.language.translator.current);
         };
 
-        var clearCachedResults = function() {
-            angular.forEach($scope.locations, function(location) {
+        var clearCachedResults = function () {
+            angular.forEach($scope.locations, function (location) {
                 $window.localStorage.removeItem(forecast.getCacheKey(location.latitude, location.longitude));
             });
         };
@@ -54,12 +55,16 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
 
         var switchLanguage = function (lang) {
             return $scope.language.use(lang).then(function () {
-                clearCachedResults();
-                updateSuccess();
+
+                $timeout(function () {
+                    clearCachedResults();
+                    updateSuccess();
+                }, 500);
+
             });
         };
 
-        $scope.clearAll = function() {
+        $scope.clearAll = function () {
 
             var confirm = $mdDialog.confirm()
                 .parent(angular.element(document.body))
@@ -68,13 +73,13 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
                 .ok(translate("Yes, delete all data"))
                 .cancel(translate("Cancel"));
 
-            $mdDialog.show(confirm).then(function() {
+            $mdDialog.show(confirm).then(function () {
 
                 $window.localStorage.clear();
                 $mdToast.showSimple(translate("Data deleted successfully"));
                 $window.location.reload();
 
-            }, function() {
+            }, function () {
                 $mdToast.showSimple(translate("User canceled deleting of data"));
             });
 

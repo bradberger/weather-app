@@ -1816,7 +1816,7 @@ md-content {
     transform: translateZ(0);
     perspective: 1000px;
     backface-visibility: hidden;
-    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
+    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) .67s;
     position: relative;
     overflow: hidden; }
   .animate-switch-container .animate-switch-animation.ng-enter {
@@ -1833,24 +1833,18 @@ md-content {
     opacity: 0;
     z-index: 0; }
 
-[ng-view] {
+[ng-view].ng-enter, [ng-view].ng-leave {
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) .67s;
   transform: translateZ(0);
-  perspective: 1000px;
-  backface-visibility: hidden; }
-  [ng-view].ng-enter, [ng-view].ng-leave {
-    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
-    transform: translateZ(0);
-    perspective: 1000px;
-    backface-visibility: hidden;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    right: 0; }
-  [ng-view].ng-enter {
-    left: 200%;
-    z-index: 1; }
-  [ng-view].ng-leave, [ng-view].ng-enter.ng-enter-active {
-    left: 0; }
-  [ng-view].ng-leave.ng-leave-active {
-    left: -200%;
-    z-index: 0; }
+  backface-visibility: hidden;
+  left: 0;
+  right: 0;
+  position: absolute; }
+[ng-view].ng-enter {
+  left: 200%;
+  z-index: 1; }
+[ng-view].ng-leave, [ng-view].ng-enter.ng-enter-active {
+  left: 0; }
+[ng-view].ng-leave.ng-leave-active {
+  left: -200%;
+  z-index: 0; }

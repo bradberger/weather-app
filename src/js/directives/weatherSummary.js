@@ -15,7 +15,7 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             $scope.language = $rootScope.language;
 
             var units = $window.localStorage.getItem("user.units") || "us";
-            var lang = $window.localStorage.getItem("user.language") || "en";
+            var lang = $rootScope.getLanguage();
             var forecastio = new Forecast();
             var updatePosition = function(latitude, longitude) {
                 return forecastio.get(latitude, longitude, lang, units)
@@ -25,8 +25,6 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
                         $scope.daily = angular.copy(data.daily);
                         $scope.hourly = angular.copy(data.hourly);
                         $scope.offset = angular.copy(data.offset);
-                        startUpdate();
-
                     })
                     .catch(onError);
             };
@@ -36,19 +34,22 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             };
 
             var init = function() {
-                return updatePosition($scope.location.latitude, $scope.location.longitude);
+                return updatePosition(
+                    $scope.location.latitude,
+                    $scope.location.longitude
+                );
             };
 
             // These handle background updates.
             var autoUpdate;
-            var AUTO_UPDATE_INTERVAL = 30 * 60 * 1000;
+            var AUTO_UPDATE_INTERVAL = 1800000;
 
             var startUpdate = function() {
-                cancelUpdate();
-                if ($scope.online) {
+                if (! autoUpdate) {
                     autoUpdate = $interval(init, AUTO_UPDATE_INTERVAL);
                 }
             };
+
             var cancelUpdate = function() {
                 if (autoUpdate || false) {
                     $interval.cancel(autoUpdate);
@@ -78,8 +79,10 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             $scope.$watch("location", function(location) {
                 if (location) {
                     init();
+                    startUpdate();
                 }
             });
+
 
         }
     };

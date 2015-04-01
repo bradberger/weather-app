@@ -2,7 +2,7 @@ div(ng-show='location')
     md-card
         .weather-background(ng-show='report', ng-class='currently.icon')
             .location-title
-                .location-label {{ location.label }}
+                .location-label {{ location.label | translate:language.translator.current }}
                 .location-temperature
                     temperature-item(temp='currently.temperature')
                 .location-label {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}

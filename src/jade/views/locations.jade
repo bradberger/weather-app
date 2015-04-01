@@ -2,7 +2,7 @@ md-content.container-narrow(flex, layout='column', layout-padding)
     .search-box
         .md-whiteframe-z1
             md-progress-linear(ng-show='fale && searching', md-mode='indeterminate')
-            input(ng-model='searchAddress', ng-change='search()', placeholder='Search', ng-model-options='{ updateOn: "default blur", debounce: {"default": 500, "blur": 0} }')
+            input(ng-model='searchAddress', ng-change='search()', placeholder='{{ "Search" | translate:language.translator.current }}', ng-model-options='{ updateOn: "default blur", debounce: {"default": 500, "blur": 0} }')
     .user-locations(ng-hide='searchAddress')
         md-card(ng-hide='locations.data.length')
             md-card-content
@@ -11,7 +11,7 @@ md-content.container-narrow(flex, layout='column', layout-padding)
         md-card
             md-card-content
                 md-checkbox(ng-model='geolocation', aria-label='Current location', ng-change='toggleGeolocation()')
-                    | Enable current location
+                    | {{ "Current location" | translate:language.translator.current }}
         md-card(ng-show='geolocation', ng-link='/locate')
             md-card-content
                 div(layout='row')

@@ -2,8 +2,10 @@
 
 angular.module("weatherApp").service("Locations", ["$window", "$q", "$http", "$timeout", function($window, $q, $http, $timeout) {
 
-    function Locations()
+    function Locations(endpoint)
     {
+
+        this.endpoint = endpoint || "https://weather.bitola.co/api/v1/geocode";
         this.data = [];
 
         this.load = function() {
@@ -36,11 +38,15 @@ angular.module("weatherApp").service("Locations", ["$window", "$q", "$http", "$t
 
         };
 
-        this.query = function(address) {
+        this.query = function(address, lang) {
 
             var deferred = $q.defer();
 
-            $http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address)
+            lang = lang || "en";
+
+            console.log("query.lang", lang);
+
+            $http.get(this.endpoint + "?language=" + lang + "&address=" + address)
                 .success(function(data) {
 
                     if(data.status !== "OK") {

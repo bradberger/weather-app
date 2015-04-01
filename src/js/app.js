@@ -293,6 +293,13 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "
                 $window.localStorage.setItem("user.units", "ca");
             }
 
+            $rootScope.getLanguage = function() {
+                return (
+                    $window.localStorage.getItem("user.language") ||
+                    $window.navigator.language || "en"
+                ).split("-")[0];
+            };
+
             $rootScope.telemetry = getTelemetryStatus();
             $rootScope.version = "0.1.6";
             $rootScope.versions = {
@@ -376,7 +383,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "
                 }
 
             });
-
 
             $rootScope.push = {
                 regs: null

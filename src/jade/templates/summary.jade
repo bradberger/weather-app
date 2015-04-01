@@ -1,4 +1,4 @@
-.animate-switch-container.container-narrow(ng-show='location', ng-switch="selection", ng-swipe-left='nextFrame()', ng-click='nextFrame()')
+.animate-switch-container.container-narrow(ng-show='location', ng-switch="selection", ng-swipe-right='goBack()', ng-swipe-left='nextFrame()', ng-click='nextFrame()')
     md-card.animate-switch-animation(ng-switch-when='extended')
         .weather-background(ng-class='daily.icon', ng-show='report')
             .location-title
@@ -20,10 +20,10 @@
                                 .md-tile-content
                                     h3 {{ day.time | timestamp:offset | date:'EEEE' }}
                                     h4
-                                        | High
+                                        | {{ "High" | translate:language.translator.current }}
                                         span.divider
                                         temperature-item(temp='day.temperatureMax')
-                                        | &mdash; Low
+                                        | &mdash; {{ "Low" | translate:language.translator.current }}
                                         span.divider
                                         temperature-item(temp='day.temperatureMin')
                                     p {{ day.summary }}
@@ -47,7 +47,7 @@
                             .md-tile-left
                                 weather-icon(ng-icon='{{ hour.icon }}')
                             .md-tile-content
-                                h3 {{ hour.time | timestamp:offset | date:'EEEE' }}, {{ hour.time | timestamp:offset | date:'h a' }}
+                                h3 {{ hour.time | timestamp:offset | date:'EEEE' }}, {{ hour.time | timestamp:offset | date:'shortTime' }}
                                 p
                                     temperature-item(temp='hour.temperature')
                                     span.divider &mdash;
@@ -105,15 +105,11 @@
                     .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.sunriseTime')
                         .info
                             md-icon(md-font-icon='wi wi-sunrise')
-                            span {{ currently.sunriseTime | timestamp:offset | date:'h:mm' }}
-                                sup
-                                    small {{ currently.sunriseTime | timestamp:offset | date:'a' }}
+                            span {{ currently.sunriseTime | timestamp:offset | date:'h:mm a' }}
                     .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.sunsetTime')
                         .info
                             md-icon(md-font-icon='wi wi-sunset')
-                            span {{ currently.sunsetTime | timestamp:offset | date:'h:mm' }}
-                                sup
-                                    small {{ currently.sunsetTime | timestamp:offset | date:'a' }}
+                            span {{ currently.sunriseTime | timestamp:offset | date:'h:mm a' }}
                     .data-box(flex=20, flex-md=25, flex-sm=50, hide, show-gt-sm)
                         .info
                             barometric-pressure.info.no-break(value='currently.pressure')

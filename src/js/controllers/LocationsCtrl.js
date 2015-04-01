@@ -4,6 +4,8 @@
 angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$location", "Locations", "$mdToast",
     function($scope, $filter, $window, $location, Locations, $mdToast) {
 
+        var lang = $scope.getLanguage();
+
         $scope.locations = new Locations();
         $scope.searchAddress = "";
         $scope.searchResults = [];
@@ -11,7 +13,7 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
         $scope.search = function() {
             if ($scope.searchAddress) {
                 $scope.searching = true;
-                $scope.locations.query($scope.searchAddress)
+                $scope.locations.query($scope.searchAddress, lang)
                     .then(function(data) {
                         $scope.searchResults = data;
                     })

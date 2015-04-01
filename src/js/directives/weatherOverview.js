@@ -15,7 +15,7 @@ angular.module("weatherApp").directive("weatherOverview", ["$rootScope", "$windo
                 $scope.language = $rootScope.language;
 
                 var units = $window.localStorage.getItem("user.units") || "us";
-                var lang = $window.localStorage.getItem("user.language") || "en";
+                var lang = $rootScope.getLanguage();
                 var forecastio = new Forecast();
 
                 var updatePosition = function(latitude, longitude) {
@@ -26,8 +26,6 @@ angular.module("weatherApp").directive("weatherOverview", ["$rootScope", "$windo
                             $scope.daily = angular.copy(data.daily);
                             $scope.hourly = angular.copy(data.hourly);
                             $scope.offset = angular.copy(data.offset);
-                            startUpdate();
-
                         })
                         .catch(onError);
                 };
@@ -42,11 +40,9 @@ angular.module("weatherApp").directive("weatherOverview", ["$rootScope", "$windo
 
                 // These handle background updates.
                 var autoUpdate;
-                var AUTO_UPDATE_INTERVAL = 30 * 60 * 1000;
-
+                var AUTO_UPDATE_INTERVAL = 1800000;
                 var startUpdate = function() {
-                    cancelUpdate();
-                    if ($scope.online) {
+                    if (! autoUpdate) {
                         autoUpdate = $interval(init, AUTO_UPDATE_INTERVAL);
                     }
                 };
@@ -57,12 +53,10 @@ angular.module("weatherApp").directive("weatherOverview", ["$rootScope", "$windo
                 };
 
                 $scope.$on("$destroy", cancelUpdate);
-                $scope.$on("offline", cancelUpdate);
-                $scope.$on("online", startUpdate);
-                $scope.$on("refresh", init);
                 $scope.$watch("location", function(location) {
                     if (location) {
                         init();
+                        startUpdate();
                     }
                 });
 
