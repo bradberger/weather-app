@@ -8,10 +8,10 @@ md-content.container-narrow(flex)
                         p {{ "I'm Feeling..." | translate:language.translator.current }}
                         div(flex)
                         p
-                            md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", arial-label='Happy')
+                            md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", aria-label='Happy')
                                 i.fa.fa-smile-o.fa-2x
                             span.divider
-                            md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", arial-label='Sad')
+                            md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", aria-label='Sad')
                                 i.fa.fa-frown-o.fa-2x
                     md-input-container
                         label {{ "Details" | translate:language.translator.current }}

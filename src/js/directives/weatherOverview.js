@@ -39,8 +39,9 @@ angular.module("weatherApp").directive("weatherOverview", ["$rootScope", "$windo
                 };
 
                 // These handle background updates.
+                // Let the forecast service and backend handle the real rates.
                 var autoUpdate;
-                var AUTO_UPDATE_INTERVAL = 1800000;
+                var AUTO_UPDATE_INTERVAL = 60000;
                 var startUpdate = function() {
                     if (! autoUpdate) {
                         autoUpdate = $interval(init, AUTO_UPDATE_INTERVAL);
