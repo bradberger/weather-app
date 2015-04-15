@@ -3,6 +3,7 @@
 angular.module("weatherApp").controller("HomeCtrl", ["$scope", "$window", "$q", "Locations", "Geolocate",
     function ($scope, $window, $q, Locations, Geolocate) {
 
+        $scope.now = new Date();
         $scope.geolocation = $window.localStorage.getItem("user.geolocation");
         $scope.currentLocation = false;
 

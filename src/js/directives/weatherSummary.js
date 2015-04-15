@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window", "$mdMedia", "$mdToast", "$filter", "$interval", "Forecast",
-    function ($rootScope, $window, $mdMedia, $mdToast, $filter, $interval, Forecast) {
+angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window", "$mdMedia", "$mdToast", "$filter", "$interval", "Forecast", "$ionicSlideBoxDelegate",
+    function ($rootScope, $window, $mdMedia, $mdToast, $filter, $interval, Forecast, $ionicSlideBoxDelegate) {
 
     return {
         restrict: "E",
@@ -20,11 +20,19 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             var updatePosition = function(latitude, longitude) {
                 return forecastio.get(latitude, longitude, lang, units)
                     .then(function(data) {
+
                         $scope.report = true;
-                        $scope.currently = angular.copy(data.currently);
                         $scope.daily = angular.copy(data.daily);
                         $scope.hourly = angular.copy(data.hourly);
                         $scope.offset = angular.copy(data.offset);
+                        $scope.currently = angular.extend(
+                            angular.copy($scope.daily.data[0]),
+                            angular.copy(data.currently)
+                        );
+
+                        $ionicSlideBoxDelegate.update();
+
+
                     })
                     .catch(onError);
             };
@@ -70,6 +78,10 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             $scope.nextFrame = function() {
                 var pos = frames.indexOf($scope.selection);
                 $scope.setSelection(frames[pos >= (frames.length - 1) ? 0 : pos + 1]);
+            };
+
+            $scope.scrollTo = function (x, y) {
+                $window.scrollTo(x || 0, y || 0);
             };
 
             $scope.$on("$destroy", cancelUpdate);

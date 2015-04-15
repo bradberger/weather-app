@@ -1,17 +1,20 @@
-md-content(layout='row', layout-fill, layout-wrap, layout-align='center center')
+div(flex)
+    .home-banner(layout, layout-fill)
+        .background-sf-paper.md-padding(flex, layout, layout-fill)
+            section.container-narrow(flex, layout, layout-fill, layout-align='space-between center')
+                .text-center(flex)
+                    img.logo(hide-tiny, src='img/logo.svg')
+                    h1.md-display-3 Private Weather
+                    h3.md-headline The most secure weather forecasts on the planet.&trade;
     div(ng-hide='geolocation || locations.length')
         md-card(ng-link='/locations')
             md-card-content
-                h2 {{ "Welcome" | translate:language.translator.current }}
                 p {{ "Get started by adding a location or enabling geolocation." | translate:language.translator.current }}
-                hr
-                p.text-center
-                    md-button.md-raised.md-primary(ng-link='/locations')
-                        span {{ "Edit locations" | translate:language.translator.current }}
-                        span.divider &raquo;
-
-    div(ng-show='geolocation', flex='{{ $parent.locations.length <= 5 ? "flex" : 20 }}', flex-md=50, flex-sm=100)
-        weather-overview(location='currentLocation', ng-link='/weather/{{ currentLocation.latitude }}/{{ currentLocation.longitude }}?title=Current location')
-    div(ng-repeat='location in locations', flex='{{ $parent.locations.length <= 5 ? "flex" : 20 }}', flex-md=50, flex-sm=100)
-        weather-overview(location='location', ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
+    div(ng-show='geolocation')
+        weather-overview(location='currentLocation')
+    div(ng-repeat='location in locations')
+        weather-overview(location='location')
+    div(layout='row', layout-padding, layout-align='center center')
+        md-button(ng-link='/locations') {{ "Locations" | translate:language.translator.current }}
+        md-button(ng-link='/feedback') {{ "Feedback" | translate:language.translator.current }}
     telemetry-item(data-title='Home')

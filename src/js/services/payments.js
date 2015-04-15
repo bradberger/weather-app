@@ -15,7 +15,7 @@ angular.module("weatherApp")
             this.charges = false;
             this.subscriptions = false;
             this.redirectURL = "";
-            this.pricingOptions = false;
+            this.pricingOptions = ["montly", "yearly"];
 
             if (settings || false) {
                 angular.forEach(settings, function(val, key) {
@@ -93,23 +93,33 @@ angular.module("weatherApp")
 
                 var deferred = $q.defer();
 
-                self.monetize.getPaymentsImmediate()
+                self.monetize.getPayments()
                     .then(deferred.resolve)
-                    .catch(function() {
+                    .catch(deferred.reject);
 
-                        var options = {
-                            redirectURL: self.getRedirectURL(true)
-                        };
+                return deferred.promise;
 
-                        if (angular.isArray(self.pricingOptions)) {
-                            options.pricingOptions = self.pricingOptions;
-                        }
+            };
 
-                        self.monetize.getPaymentsInteractive(options)
-                            .then(deferred.resolve)
-                            .error(deferred.reject);
+            this.getPaymentsInteractive = function(additionalOpts) {
 
-                    });
+                var deferred = $q.defer();
+
+                var options = {
+                    redirectURL: self.getRedirectURL(true)
+                };
+
+                if(additionalOpts || false) {
+                    angular.extend(options, additionalOpts);
+                }
+
+                if (angular.isArray(self.pricingOptions)) {
+                    options.pricingOptions = self.pricingOptions;
+                }
+
+                self.monetize.getPaymentsInteractive(options)
+                    .then(deferred.resolve)
+                    .catch(deferred.reject);
 
                 return deferred.promise;
 

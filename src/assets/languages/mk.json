@@ -158,5 +158,10 @@
   "Cancel": "Откажи",
   "Data deleted successfully": "Податоци успешно избришани",
   "User canceled deleting of data": "Корисникот откажана бришење на податоци",
-  "Settings saved. Reloading.": "Поставките. Претовар."
+  "Settings saved. Reloading.": "Поставките. Претовар.",
+  "Yes": "Да",
+  "More": "повеќе",
+  "Delete location?": "Избриши локација?",
+  "Delete": "Избриши",
+  "Local time": "Локално време"
 }

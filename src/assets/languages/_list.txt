@@ -138,8 +138,12 @@ Get started by adding a location or enabling geolocation.
 Getting the forecast...
 Delete App Data
 Deleting app data will clear all your locations and preferences.
-Yes, delete all data
 Cancel
 Data deleted successfully
 User canceled deleting of data
 Settings saved. Reloading.
+Yes
+More
+Delete location?
+Delete
+Local time

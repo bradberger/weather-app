@@ -143,5 +143,10 @@
   "Cancel": "otkazati",
   "Data deleted successfully": "Podaci su uspješno izbrisana",
   "User canceled deleting of data": "Korisnik otkazao brisanja podataka",
-  "Settings saved. Reloading.": "Postavke su spremljene. Pretovar."
+  "Settings saved. Reloading.": "Postavke su spremljene. Pretovar.",
+  "Yes": "da",
+  "More": "više",
+  "Delete location?": "Izbrišite mjesto?",
+  "Delete": "Izbriši",
+  "Local time": "Lokalno vrijeme"
 }

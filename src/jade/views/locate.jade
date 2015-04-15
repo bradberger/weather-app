@@ -5,9 +5,7 @@ md-content(flex, layout='column', layout-fill)
                 p.text-center {{ error | translate:language.translator.current }}
             div(ng-show='geolocationDenied', layout='column', layout-fill, layout-align='center center')
                 h2.text-center
-                    span.fa-stack.fa-2x
-                        i.fa.fa-stack-1x.fa-map-marker
-                        i.fa.fa-ban.fa-stack-2x
+                    span.icon.ion-ios-location
                     br
                     span {{ "Geolocation Disabled" | translate:language.translator.current }}
                 p.text-center

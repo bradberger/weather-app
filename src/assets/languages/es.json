@@ -132,5 +132,10 @@
   "Cancel": "cancelar",
   "Data deleted successfully": "",
   "User canceled deleting of data": "El usuario ha cancelado Eliminación de los datos",
-  "Settings saved. Reloading.": "Configuración guardados. La recarga."
+  "Settings saved. Reloading.": "Configuración guardados. La recarga.",
+  "Yes": "sí",
+  "More": "más",
+  "Delete location?": "Eliminar ubicación?",
+  "Delete": "borrar",
+  "Local time": "hora local"
 }

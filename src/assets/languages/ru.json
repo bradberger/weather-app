@@ -142,5 +142,10 @@
   "Cancel": "отменить",
   "Data deleted successfully": "Данные успешно удалены",
   "User canceled deleting of data": "Пользователь отменил удаление данных",
-  "Settings saved. Reloading.": "Настройки сохраняются. Перезагрузка."
+  "Settings saved. Reloading.": "Настройки сохраняются. Перезагрузка.",
+  "Yes": "Да",
+  "More": "больше",
+  "Delete location?": "Удалить местоположение?",
+  "Delete": "удалять",
+  "Local time": "местное время"
 }

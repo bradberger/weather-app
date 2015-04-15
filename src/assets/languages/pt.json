@@ -142,5 +142,10 @@
   "Cancel": "cancelar",
   "Data deleted successfully": "Dados excluídos com sucesso",
   "User canceled deleting of data": "Exclusão de dados cancelado Usuário",
-  "Settings saved. Reloading.": "Configurações salvas. Recarregar."
+  "Settings saved. Reloading.": "Configurações salvas. Recarregar.",
+  "Yes": "sim",
+  "More": "mais",
+  "Delete location?": "Excluir localização?",
+  "Delete": "excluir",
+  "Local time": "horário local"
 }

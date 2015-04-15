@@ -1,9 +1,11 @@
 md-dialog(aria-label='{{ "New Version" | translate:language.translator.current }}')
     md-content
-        md-subheader {{ "Welcome to Weather" | translate:language.translator.current }} {{ version }}
-        p {{ "Thanks for downloading the latest version!" | translate:language.translator.current }}
+        h3 {{ "Welcome to Weather" | translate:language.translator.current }}
+            span.divider
+            small v{{ version }}
+        hr
         p {{ "Here's what's new:" | translate:language.translator.current }}
-        ul
+        ul.bullets
             li(ng-repeat='item in changes track by $index') {{ item | translate:language.translator.current }}
     .md-actions(layout='row')
         md-button.md-primary(ng-click='done()') {{ "Ok, got it!" | translate:language.translator.current }}

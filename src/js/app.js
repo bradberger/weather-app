@@ -1,242 +1,21 @@
 "use strict";
 
-Number.isNaN = Number.isNaN || function(value) {
+Number.isNaN = Number.isNaN || function (value) {
     return typeof value === "number" && isNaN(value);
 };
 
-Number.roundTo = function(num, places) {
+Number.roundTo = function (num, places) {
     var multiplier = Math.pow(10, places);
     return Math.round(num * multiplier) / multiplier;
 };
 
-angular.module("ngMonetize", [])
-    .service("Monetize", ["$window", "$q", "$http", "$log", function($window, $q, $http, $log) {
-
-        function Monetize(appId) {
-
-            var self = this;
-
-            this.appId = appId || false;
-            this.debug = true;
-            this.payments = false;
-            this.error = false;
-            this.token = false;
-            this.monetize = false;
-
-            this.init = function() {
-
-                var err, deferred = $q.defer();
-
-                if("undefined" === typeof MonetizeJS) {
-                    err = "MonetizeJS client library is not included.";
-                    deferred.reject(err);
-                    if (self.debug) {
-                        $log.error(err);
-                    }
-                } else {
-
-                    if (! self.appId) {
-                        err = "No MonetizeJS app id was provided";
-                        deferred.reject(err);
-                        if (self.debug) {
-                            $log.error(err);
-                        }
-                    } else {
-                        self.monetize = new MonetizeJS({
-                            applicationID: self.appId
-                        });
-                        deferred.resolve(self.monetize);
-                    }
-
-                }
-
-                return deferred.promise;
-
-            };
-
-            this.getTokenImmediate = function(options) {
-
-                var deferred = $q.defer();
-
-                if (! self.monetize) {
-                    deferred.reject("Monetize library not initialized");
-                    return deferred.promise;
-                }
-
-                self.monetize.getTokenImmediate(options || null, function(err, token) {
-                    if (err) {
-                        self.token = false;
-                        self.error = err;
-                        deferred.reject(err);
-                        if (self.debug) {
-                            $log.error("monetize.getTokenInteractive", err);
-                        }
-                    } else if(token) {
-                        self.token = token;
-                        self.error = false;
-                        deferred.resolve(token);
-                        if (self.debug) {
-                            $log.info("monetize.getTokenInteractive", token);
-                        }
-                    }
-                });
-
-                return deferred.promise;
-
-            };
-
-            /**
-             * Perform a redirection to the MonetizeJS platform for sign in and/or payment
-             * and get an access token as a result.
-             *
-             * @see https://github.com/monetizejs/monetize.js
-             * @param options
-             * @param onSuccess
-             * @param onError
-             * @returns {*}
-             */
-            this.getTokenInteractive = function(options, onSuccess, onError) {
-
-                var deferred = $q.defer();
-
-                if (! self.monetize) {
-                    deferred.reject("Monetize library not initialized");
-                    return deferred.promise;
-                }
-
-                // Use the callback. Easier and cleaner.
-                if(onSuccess || onError || false) {
-
-                    self.monetize.getTokenInteractive(options || null, function(err, token) {
-                        if (err) {
-                            self.token = false;
-                            self.error = err;
-                            deferred.reject(err);
-                            if (self.debug) {
-                                $log.error("monetize.getTokenInteractive", err);
-                            }
-                            if("function" === typeof onSuccess) {
-                                onError();
-                            }
-                        } else if(token) {
-                            self.token = token;
-                            self.error = false;
-                            deferred.resolve(token);
-                            if (self.debug) {
-                                $log.info("monetize.getTokenInteractive", token);
-                            }
-                            if("function" === typeof onSuccess) {
-                                onSuccess();
-                            }
-                        }
-                    });
-
-                } else {
-
-                    // This redirects in-page, so there's no need to finish with the promise,
-                    // as the user is going to be send away from the page anyways.
-                    self.monetize.getTokenInteractive(options);
-
-                }
-
-
-
-                return deferred.promise;
-
-            };
-
-            this.getPaymentsImmediate = function() {
-
-                var deferred = $q.defer();
-
-                if (! self.monetize) {
-                    deferred.reject("Monetize library not initialized");
-                    return deferred.promise;
-                }
-
-                self.monetize.getPaymentsImmediate(function(err, payments) {
-                    if (payments) {
-                        self.payments = payments;
-                        deferred.resolve(payments);
-                        if (self.debug) {
-                            $log.debug("monetize.getPaymentsImmediate", payments);
-                        }
-                    } else {
-                        self.payments = false;
-                        self.err = err;
-                        deferred.reject(err);
-                        if (self.debug) {
-                            $log.error("monetize.getPaymentsImmediate", err);
-                        }
-                    }
-                });
-
-                return deferred.promise;
-
-            };
-
-
-            /**
-             * Wrapper for MonetizeJS.getPaymentsInteractive.
-             * Perform a redirection to the MonetizeJS platform for sign in and/or payment and
-             * get user's payment object as a result.
-             *
-             * @see http://api.monetizejs.com/#api
-             * @param options
-             */
-            this.getPaymentsInteractive = function(options) {
-                self.monetize.getPaymentsInteractive(options || { summary: true });
-            };
-
-            this.getPayments = function() {
-
-                var deferred = $q.defer();
-
-                if (! this.token) {
-                    deferred.reject("No access token");
-                    if (self.debug) {
-                        $log.info("No access token");
-                    }
-                    return deferred.promise;
-                }
-
-                $http.get("https://monetizejs.com/api/payments?access_token=" + this.token)
-                    .success(function(payments) {
-                        self.err = false;
-                        self.payments = payments;
-                        deferred.resolve(payments);
-                        if (self.debug) {
-                            $log.debug(payments);
-                        }
-                    })
-                    .error(function(err) {
-                        self.err = err;
-                        self.payments = false;
-                        deferred.reject(err);
-                        if (self.debug) {
-                            $log.debug(err);
-                        }
-                    });
-
-                return deferred.promise;
-
-            };
-
-        }
-
-        return Monetize;
-
-    }]);
-
-
-function getTelemetryStatus()
-{
+function getTelemetryStatus() {
     var telemetry = window.localStorage.getItem("user.telemetry");
-    return !! (telemetry === null || !! telemetry);
+    return !!(telemetry === null || !!telemetry);
 }
 
-angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "ngLocale", "angular.translate", "ngMonetize"])
-    .config(["$routeProvider", "$mdThemingProvider", function($routeProvider, $mdThemingProvider) {
+angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", "angular.translate", "ionic"])
+    .config(["$routeProvider", "$mdThemingProvider", function ($routeProvider, $mdThemingProvider) {
 
         $mdThemingProvider.theme("default")
             .primaryPalette("blue")
@@ -267,21 +46,13 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "
                 templateUrl: "views/feedback.html",
                 controller: "FeedbackCtrl"
             })
-            .when("/account", {
-                templateUrl: "views/account.html",
-                controller: "AccountCtrl"
-            })
-            .when("/about", {
-                templateUrl: "views/about.html",
-                controller: "AboutCtrl"
-            })
             .otherwise({
                 redirectTo: "/home"
             });
 
     }])
-    .run(["$rootScope", "$mdSidenav", "$mdDialog", "$window", "$timeout", "Language", "FirefoxPushNotifications", "Locations",
-        function($rootScope, $mdSidenav, $mdDialog, $window, $timeout, Language, FirefoxPushNotifications, Locations) {
+    .run(["$rootScope", "$mdDialog", "$window", "$timeout", "Language", "FirefoxPushNotifications", "$ionicPlatform", "$location",
+        function ($rootScope, $mdDialog, $window, $timeout, Language, FirefoxPushNotifications, $ionicPlatform, $location) {
 
             $rootScope.language = new Language();
 
@@ -289,59 +60,40 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "
             var units = $window.localStorage.getItem("user.units");
             if (units === "metric") {
                 $window.localStorage.setItem("user.units", "us");
-            } else if(units === "imperial") {
+            } else if (units === "imperial") {
                 $window.localStorage.setItem("user.units", "ca");
             }
 
-            $rootScope.getLanguage = function() {
+            $rootScope.getLanguage = function () {
                 return (
                     $window.localStorage.getItem("user.language") ||
-                    $window.navigator.language || "en"
+                    $window.navigator.language ||
+                    "en"
                 ).split("-")[0];
             };
 
             $rootScope.telemetry = getTelemetryStatus();
-            $rootScope.version = "0.1.6";
+            $rootScope.version = "0.1.7";
             $rootScope.versions = {
-                "0.1.4": [
-                    "Updated user interface",
-                    "Minor bugfixes"
-                ],
-                "0.1.5": [
-                    "Added languages: Spanish, French, Italian, Bosnian, Dutch, German, Portuguese, Russian",
-                    "Major user interface and theme updates.",
-                    "Major performance improvements.",
-                    "Removed the now tab.",
-                    "Fixed bug with locations link.",
-                    "Set proper time for locations in other timezones.",
-                    "Added more unit options.",
-                    "Fixed bug with moon phase icon."
-                ],
-                "0.1.6": [
-                    "Redesigned from ground up for performance, low memory usage."
-                ]
+                "0.1.7": ["Improved navigation", "Improved performance", "Updated icons", "Bug fixes"]
             };
 
-            var updateLocations = function() {
-                $rootScope.locations = (new Locations()).data;
-            };
-
-            $rootScope.versionAlert = function(force) {
+            $rootScope.versionAlert = function (force) {
                 force = force || false;
-                angular.forEach($rootScope.versions, function(changes, version) {
-                    if(version === $rootScope.version) {
-                        if(force || ! $window.localStorage.getItem("alerts.version." + $rootScope.version)) {
+                angular.forEach($rootScope.versions, function (changes, version) {
+                    if (version === $rootScope.version) {
+                        if (force || !$window.localStorage.getItem("alerts.version." + $rootScope.version)) {
                             $mdDialog.show({
                                 templateUrl: "templates/version.html",
                                 controller: ["$scope", "$mdDialog", function ($scope, $mdDialog) {
                                     $scope.language = $rootScope.language;
                                     $scope.version = version;
                                     $scope.changes = changes;
-                                    $scope.done = function() {
+                                    $scope.done = function () {
                                         $mdDialog.hide(true);
                                     };
                                 }]
-                            }).then(function() {
+                            }).then(function () {
                                 $window.localStorage.setItem("alerts.version." + $rootScope.version, "1");
                             });
                         }
@@ -349,46 +101,100 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngTouch", "ngAnimate", "
                 });
             };
 
-            // Check error/telemetry settings and disable if not desired
-            $timeout($rootScope.versionAlert, 1000);
+            var history = [];
 
-            $rootScope.toggleRight = function() {
-                $mdSidenav("right").toggle();
+            $rootScope.$on("$routeChangeSuccess", function() {
+
+                var url = $location.url();
+
+                // Don't add the previous entry.
+                if (history.length && history[history.length - 1] !== url) {
+                    history.push(url);
+                }
+
+                // Store the last view.
+                $window.localStorage.setItem("user.view", url);
+
+                // Show back button if not home.
+                $rootScope.showBack = url !== "/home";
+
+            });
+
+            $rootScope.back = function() {
+                var newUrl = "/home";
+                if (history.length > 1) {
+                    newUrl = history[history.length - 2];
+                    history.splice(history.length - 1, 1);
+                }
+                $location.url(newUrl);
             };
 
-            $rootScope.scrollTo = function(x, y) {
+            $window.user = $rootScope.user = { subscriptions: false, charges: false, paid: false };
+            $rootScope.setUserPaymentStatus = function() {
+
+                var user = { subscriptions: false, charges: false, paid: false };
+                var subscriptions = $window.localStorage.getItem("user.subscriptions");
+                var charges = $window.localStorage.getItem("user.charges");
+
+                if (subscriptions) {
+                    user.subscriptions = angular.fromJson(subscriptions);
+                }
+
+                if (charges) {
+                    user.charges = angular.fromJson(charges);
+                }
+
+                user.paid = !! (user.charges || user.subscriptions);
+
+                $window.user = $rootScope.user = angular.copy(user);
+
+            };
+
+            $rootScope.scrollTo = function (x, y) {
                 $window.scrollTo(x || 0, y || 0);
             };
 
-            updateLocations();
-
-            $rootScope.$on("locations.updated", function() {
-                updateLocations();
-                $rootScope.$broadcast("locations.updated");
-            });
-
-            $rootScope.online = !! $window.navigator.onLine;
-
-            $window.addEventListener("online", function() {
-
-                var online = !! navigator.onLine,
-                    now = new Date();
-
-                $rootScope.online = online;
-
-                if (online) {
-                    $rootScope.$broadcast("online", now);
-                } else {
-                    $rootScope.$broadcast("offline", now);
-                }
-
-            });
+            $rootScope.online = !!$window.navigator.onLine;
 
             $rootScope.push = {
                 regs: null
             };
 
             var notifications = new FirefoxPushNotifications();
-            notifications.init();
+            $ionicPlatform.ready(function() {
 
-    }]);
+                var lastView =$window.localStorage.getItem("user.view");
+                if (lastView) {
+                    $location.url(lastView);
+                }
+
+                // Check error/telemetry settings and disable if not desired
+                $timeout($rootScope.versionAlert, 1000);
+                $window.addEventListener("online", function () {
+
+                    var online = !! navigator.onLine,
+                        now = new Date();
+
+                    $rootScope.online = online;
+                    if (online) {
+                        $rootScope.$broadcast("online", now);
+                    } else {
+                        $rootScope.$broadcast("offline", now);
+                    }
+
+                });
+
+                $ionicPlatform.onHardwareBackButton(function () {
+                    $rootScope.back();
+                });
+
+                $rootScope.setUserPaymentStatus();
+                $rootScope.$on("user.account.update", $rootScope.setUserPaymentStatus());
+
+                notifications.init();
+
+            });
+
+
+
+        }]);

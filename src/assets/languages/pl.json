@@ -142,5 +142,10 @@
   "Cancel": "anulować",
   "Data deleted successfully": "Dane skasowany",
   "User canceled deleting of data": "Użytkownik anulował usuwanie danych",
-  "Settings saved. Reloading.": "Ustawienia zapisane. Przeładowywania."
+  "Settings saved. Reloading.": "Ustawienia zapisane. Przeładowywania.",
+  "Yes": "tak",
+  "More": "więcej",
+  "Delete location?": "Usuń lokalizację?",
+  "Delete": "usunąć",
+  "Local time": "czas lokalny"
 }

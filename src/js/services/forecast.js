@@ -6,13 +6,26 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
 
         var self = this;
 
-        this.results = angular.fromJson($window.localStorage.getItem("user.results") || "{}");
         this.endpoint = endpoint || "https://weather.bitola.co/api/v1/weather";
         this.cacheDuration = 900;
         this.limits = {
             daily: false,
             hourly: false,
             currently: false
+        };
+
+        this.clearCache = function() {
+            var re = /^user\.results/;
+            for (var i = 0, n = localStorage.length; i < n; ++i) {
+                var key = localStorage.key(i);
+                if (re.test(key)) {
+                    $window.localStorage.removeItem(key);
+                }
+            }
+        };
+
+        this.clearLocationCache = function(location) {
+            $window.localStorage.removeItem(this.getCacheKey(location.latitude, location.longitude));
         };
 
         this.getCacheKey = function(latitude, longitude) {
@@ -57,10 +70,6 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
                 .success(function(data) {
 
                     var results = angular.copy(data);
-
-                    // Since first hourly is actually *now*, let's use now instead,
-                    // thus eliminating the need for one tab.
-                    results.hourly.data[0] = results.currently;
 
                     self.saveResult(latitude, longitude, results);
                     deferred.resolve(results);

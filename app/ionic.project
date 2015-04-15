@@ -1,0 +1,11 @@
+{
+  "name": "weather",
+  "app_id": "com.bitola.weather",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "13.41.318.0"
+    }
+  ]
+}

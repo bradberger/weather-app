@@ -1,33 +1,33 @@
-md-content.container-narrow(flex)
-    md-card(layout='column')
-        md-card-content
+div(flex)
+    .home-banner(layout, layout-fill)
+        .background-sf-paper.md-padding(flex, layout, layout-fill)
+            section.container-narrow(flex, layout, layout-fill, layout-align='start center')
+                h1.md-display-2 {{ "Feedback" | translate:language.translator.current }}
+    md-content.container-narrow.md-padding(flex)
             div(ng-hide='online', flex, layout='column', layout-align='center center')
                 p You are not online. Please connect to a network to send feedback.
             div(ng-show='online', layout='column', layout-fill)
-                    .row(layout)
-                        p {{ "I'm Feeling..." | translate:language.translator.current }}
-                        div(flex)
-                        p
-                            md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", aria-label='Happy')
-                                i.fa.fa-smile-o.fa-2x
-                            span.divider
-                            md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", aria-label='Sad')
-                                i.fa.fa-frown-o.fa-2x
-                    md-input-container
-                        label {{ "Details" | translate:language.translator.current }}
-                        textarea(ng-model='feedback.description', auto-grow)
-                    md-input-container
-                        label {{ "Your Name (optional)" | translate:language.translator.current }}
-                        input(ng-model='feedback.name')
-                    md-input-container
-                        label {{ "Your Email (optional)" | translate:language.translator.current }}
-                        input(ng-model='feedback.email')
+                .row(layout)
+                    p {{ "I'm Feeling..." | translate:language.translator.current }}
                     div(flex)
-                    md-button.md-primary.md-raised(ng-click='send()', aria-label='Send', ng-disabled="sending || (! feedback.subject && ! feedback.description)")
-                        span {{ "Send" | translate:language.translator.current }}
+                    p
+                        md-button.md-fab.md-raised(ng-click='feedback.mood = "happy";', ng-class="{'md-primary': feedback.mood == 'happy'}", aria-label='Happy')
+                            md-icon(md-font-icon='icon ion-android-happy')
                         span.divider
-                        span(ng-hide='sending')
-                            i.fa.fa-paper-plane
+                        md-button.md-fab.md-raised(ng-click='feedback.mood = "sad";', ng-class="{'md-primary': feedback.mood == 'sad'}", aria-label='Sad')
+                            md-icon(md-font-icon='icon ion-android-sad')
+                md-input-container
+                    label {{ "Details" | translate:language.translator.current }}
+                    textarea(ng-model='feedback.description', auto-grow)
+                md-input-container
+                    label {{ "Your Name (optional)" | translate:language.translator.current }}
+                    input(ng-model='feedback.name')
+                md-input-container
+                    label {{ "Your Email (optional)" | translate:language.translator.current }}
+                    input(ng-model='feedback.email')
+                div(layout='row', layout-align='end center')
+                    md-button.md-primary.md-raised(ng-click='send()', aria-label='Send', ng-disabled="sending || (! feedback.subject && ! feedback.description)")
+                        span(ng-hide='sending') {{ "Send" | translate:language.translator.current }}
                         span(ng-show='sending')
-                            i.fa.fa-spin.fa-spinner.fa-pulse
+                            md-progress-circular(md-mode='indeterminate')
             telemetry-item(data-title='Feedback')

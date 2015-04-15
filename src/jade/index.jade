@@ -1,9 +1,9 @@
 doctype html
-html.no-js(lang='{{ language.current }}', ng-csp)
+html.no-js(lang='{{ language.current || "en" }}')
     head
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        title {{ "Weather" | translate:language.translator.current }}
+        title(ng-bind='{{ "Weather" | translate:language.translator.current }}') Weather
         meta(name='description', content='')
         meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
         link(rel='icon', href='img/logo.svg', sizes='any')
@@ -11,35 +11,17 @@ html.no-js(lang='{{ language.current }}', ng-csp)
         link(rel='stylesheet', href='css/app.css')
     body(layout='column')
         section(layout='row', flex, ng-cloak)
-            md-sidenav.md-sidenav-right(md-component-id='right')
-                md-toolbar.md-theme-default
-                    h1.md-toolbar-tools(close-nav) {{ "Menu" | translate:language.translator.current }}
-                md-content.md-padding(ng-controller='MenuCtrl')
-                    md-list(close-nav)
-                        md-item(ng-link='/locations')
-                            md-item-content
-                                p {{ "Locations" | translate:language.translator.current }}
-                            md-divider
-                        md-item(ng-link='/settings')
-                            md-item-content
-                                p {{ "Settings" | translate:language.translator.current }}
-                            md-divider
-                        md-item(ng-link='/feedback')
-                            md-item-content
-                                p {{ "Feedback" | translate:language.translator.current }}
-                            md-divider
-                        md-item(ng-link='/account', ng-show='')
-                            md-item-content
-                                p {{ "Account" | translate:language.translator.current }}
-                            md-divider
             md-content(flex, layout='column', layout-fill)
-                md-toolbar.main-nav
-                    .md-toolbar-tools
+                md-toolbar.main-nav.md-whiteframe-z1
+                    h3.md-toolbar-tools
+                        md-button(ng-click='back()', aria-label='Back', ng-show='showBack')
+                            md-icon(md-font-icon='icon ion-chevron-left')
                         .md-title(flex, ng-link='/home')
                             span {{ "Weather" | translate:language.translator.current }}
-                        md-button(aria-label='Menu', ng-click='toggleRight()')
-                            md-icon(md-font-icon='fa fa-bars')
-                md-content.main-content(ng-view, layout, layout-fill)
+                        md-button(ng-link='/settings', aria-label='Settings')
+                            md-icon(md-font-icon='icon ion-android-settings')
+                md-content.main-content(ng-view, flex, layout, layout-fill)
                 telemetry-item(data-title='Index')
+        script(src='js/index.js')
         script(src='js/script.min.js')
         script(src='boot.js')

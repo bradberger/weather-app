@@ -144,5 +144,10 @@
   "Cancel": "Stornieren",
   "Data deleted successfully": "Daten wurde erfolgreich gelöscht",
   "User canceled deleting of data": "Vom Benutzer abgebrochen Löschung von Daten",
-  "Settings saved. Reloading.": "Einstellungen gespeichert. Nachladen."
+  "Settings saved. Reloading.": "Einstellungen gespeichert. Nachladen.",
+  "Yes": "",
+  "More": "",
+  "Delete location?": "",
+  "Delete": "",
+  "Local time": ""
 }

@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", "Forecast", "$mdDialog", "$filter", "$timeout",
-    function ($scope, $window, Locations, $mdToast, Forecast, $mdDialog, $filter, $timeout) {
+angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "Locations", "$mdToast", "Forecast", "$mdDialog", "$filter",
+    function ($scope, $window, Locations, $mdToast, Forecast, $mdDialog, $filter) {
 
         var forecast = new Forecast();
 
@@ -23,9 +23,7 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
         };
 
         var clearCachedResults = function () {
-            angular.forEach($scope.locations, function (location) {
-                $window.localStorage.removeItem(forecast.getCacheKey(location.latitude, location.longitude));
-            });
+            forecast.clearCache();
         };
 
         var updateSuccess = function (msg) {
@@ -54,14 +52,8 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
         };
 
         var switchLanguage = function (lang) {
-            return $scope.language.use(lang).then(function () {
-
-                $timeout(function () {
-                    clearCachedResults();
-                    updateSuccess();
-                }, 500);
-
-            });
+            clearCachedResults();
+            return $scope.language.use(lang).then(updateSuccess);
         };
 
         $scope.clearAll = function () {
@@ -70,7 +62,7 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
                 .parent(angular.element(document.body))
                 .title(translate("Delete App Data"))
                 .content(translate("Deleting app data will clear all your locations and preferences."))
-                .ok(translate("Yes, delete all data"))
+                .ok(translate("Yes"))
                 .cancel(translate("Cancel"));
 
             $mdDialog.show(confirm).then(function () {

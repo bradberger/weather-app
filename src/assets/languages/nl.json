@@ -143,5 +143,10 @@
   "Cancel": "annuleren",
   "Data deleted successfully": "Gegevens succesvol verwijderd",
   "User canceled deleting of data": "Gebruiker geannuleerd verwijdering van gegevens",
-  "Settings saved. Reloading.": "Instellingen opgeslagen. Herladen."
+  "Settings saved. Reloading.": "Instellingen opgeslagen. Herladen.",
+  "Yes": "ja",
+  "More": "Meer",
+  "Delete location?": "Delete locatie?",
+  "Delete": "verwijderen",
+  "Local time": "lokale tijd"
 }

@@ -29,10 +29,22 @@ angular.module("weatherApp").service("Locations", ["$window", "$q", "$http", "$t
 
         this.add = function(location) {
             var deferred = $q.defer();
-            this.data.push(location);
-            this.save()
-                .then(deferred.resolve)
-                .catch(deferred.reject);
+
+            var existing = false;
+            angular.forEach(this.data, function(l) {
+                if(angular.equals(location, l)) {
+                    existing = true;
+                }
+            });
+
+            if(existing) {
+                deferred.resolve(location);
+            } else {
+                this.data.push(location);
+                this.save()
+                    .then(deferred.resolve)
+                    .catch(deferred.reject);
+            }
 
             return deferred.promise;
 
@@ -43,8 +55,6 @@ angular.module("weatherApp").service("Locations", ["$window", "$q", "$http", "$t
             var deferred = $q.defer();
 
             lang = lang || "en";
-
-            console.log("query.lang", lang);
 
             $http.get(this.endpoint + "?language=" + lang + "&address=" + address)
                 .success(function(data) {
@@ -70,6 +80,16 @@ angular.module("weatherApp").service("Locations", ["$window", "$q", "$http", "$t
                 });
 
             return deferred.promise;
+
+        };
+
+        this.remove = function(index) {
+
+            if (this.data[index]) {
+                this.data.splice(index, 1);
+            }
+
+            return this.save();
 
         };
 

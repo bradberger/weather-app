@@ -36,7 +36,6 @@ function getZipName(platform) {
 
 var gulp = require("gulp"),
     manifest = require("gulp-manifest"),
-    webserver = require("gulp-webserver"),
     uglify = require("gulp-uglify"),
     changed = require("gulp-changed"),
     minifyCSS = require("gulp-minify-css"),
@@ -61,13 +60,7 @@ var gulp = require("gulp"),
         html: { empty: true, quotes: true, spare: true },
         autoprefixer: { browsers: ["last 2 versions"], cascade: true },
         css: { keepBreaks: false },
-        clean: {force: true},
-        webserver: {
-            livereload: true,
-            directoryListing: false,
-            open: false,
-            fallback: "index.html"
-        }
+        clean: {force: true}
     };
 
 
@@ -78,21 +71,21 @@ var CSS_SRC = [
     opts.path("src/components/gaia-fonts/style.css"),
     opts.path("src/components/weather-icons/css/weather-icons.css"),
     opts.path("src/components/angular/angular-csp.css"),
+    opts.path("src/components/ionic/css/ionic.min.css"),
     opts.path("src/components/angular-material/angular-material.css"),
     opts.path("src/css/app.css")
 ];
 var JS_DEST = opts.path("app/www/js");
 var JS_SRC = [
-    //opts.path("src/components/d3/d3.min.js"),
-    //opts.path("src/components/nvd3/build/nv.d3.min.js"),
-    opts.path("src/components/monetizejs/dist/monetize.min.js"),
+    opts.path("src/components/ionic/js/ionic.min.js"),
     opts.path("src/components/angular/angular.min.js"),
+    opts.path("src/components/ionic/js/ionic-angular.min.js"),
     opts.path("src/components/angular-route/angular-route.min.js"),
+    opts.path("src/components/angular-sanitize/angular-sanitize.min.js"),
     opts.path("src/components/angular-animate/angular-animate.min.js"),
-    //opts.path("src/components/angular-sanitize/angular-sanitize.min.js"),
-    opts.path("src/components/angular-touch/angular-touch.min.js"),
     opts.path("src/components/angular-aria/angular-aria.min.js"),
     opts.path("src/components/angular-material/angular-material.min.js"),
+    opts.path("src/components/angular-ui-router/release/angular-ui-router.min.js"),
     opts.path("src/components/angular-translatability/angular-translate.min.js"),
     opts.path("src/js/app.js"),
     opts.path("src/js/directives/*.js"),
@@ -122,7 +115,13 @@ gulp.task("images", ["images:icons", "images:splash"], function () {
 
 gulp.task("images:icons", function() {
 
-    var sizes = [29, 30, 36, 48, 57, 58, 60, 62, 64, 72, 76, 78, 90, 96, 99, 114, 120, 128, 144, 152, 173, 180, 192, 200, 256, 320, 512, 1024];
+    var sizes = [
+        29, 30, 36, 48, 57, 58, 60, 62, 64,
+        72, 76, 78, 90, 96, 99, 114, 120, 128,
+        144, 152, 173, 180, 192, 200, 256,
+        320, 512, 1024
+    ];
+
     sizes.forEach(function(size) {
 
         gulp.src("src/img/icons/icon.png")
@@ -306,14 +305,9 @@ gulp.task("js:build", ["jshint:fail"], function() {
 
 });
 
-gulp.task("webserver", function() {
-    return gulp.src(opts.path("app/www"))
-        .pipe(webserver(opts.webserver));
-});
-
 gulp.task("test", ["jshint:fail"]);
 
-gulp.task("watch", ["webserver"], function () {
+gulp.task("watch", /*["webserver"], */function () {
     gulp.watch(["src/html/**/*.html"], function() {
         runSequence("html");
     });
@@ -342,8 +336,8 @@ gulp.task("build:version:blackberry", function() {
 });
 
 gulp.task("build:fonts", shell.task([
-    "cp src/components/weather-icons/font/* app/www/font",
-    "cp src/components/fontawesome/fonts/* src/assets/font/font-awesome"
+    "cp src/components/ionic/fonts/* src/assets/fonts",
+    "cp src/components/weather-icons/font/* src/assets/font"
 ]));
 
 gulp.task("build:blackberry", ["build:version:blackberry"], shell.task([

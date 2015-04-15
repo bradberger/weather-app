@@ -143,5 +143,10 @@
   "Cancel": "anuloj",
   "Data deleted successfully": "Data fshi me sukses",
   "User canceled deleting of data": "Të ruaj të anuluar fshirja e të dhënave",
-  "Settings saved. Reloading.": "Cilësimet ruajtur. Rimbushja."
+  "Settings saved. Reloading.": "Cilësimet ruajtur. Rimbushja.",
+  "Yes": "",
+  "More": "",
+  "Delete location?": "",
+  "Delete": "",
+  "Local time": ""
 }
