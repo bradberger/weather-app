@@ -46,14 +46,41 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
         };
 
         var switchUnits = function (unit) {
-            $window.localStorage.setItem("user.units", unit);
             clearCachedResults();
+            $window.localStorage.setItem("user.units", unit);
             updateSuccess();
         };
 
         var switchLanguage = function (lang) {
             clearCachedResults();
             return $scope.language.use(lang).then(updateSuccess);
+        };
+
+        var unitsHelpCtrl = function($scope, $mdDialog) {
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+
+        };
+
+        $scope.unitsHelp = function(ev) {
+
+            $mdDialog.show({
+                controller: unitsHelpCtrl,
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                templateUrl: "templates/units-help.html"
+            }).then(function(unit) {
+                if (unit) {
+                    $scope.units = unit;
+                }
+            });
+
         };
 
         $scope.clearAll = function () {

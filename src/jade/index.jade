@@ -12,14 +12,21 @@ html.no-js(lang='{{ language.current || "en" }}')
     body(layout='column')
         section(layout='row', flex, ng-cloak)
             md-content(flex, layout='column', layout-fill)
-                md-toolbar.main-nav.md-whiteframe-z1
-                    h3.md-toolbar-tools
-                        md-button(ng-click='back()', aria-label='Back', ng-show='showBack')
-                            md-icon(md-font-icon='icon ion-chevron-left')
-                        .md-title(flex, ng-link='/home')
-                            span {{ "Weather" | translate:language.translator.current }}
-                        md-button(ng-link='/settings', aria-label='Settings')
+                md-fab-speed-dial.top-left.md-scale(md-direction='up')
+                    md-fab-trigger
+                        md-button.md-fab.md-raised.md-primary
+                            md-icon(md-font-icon='icon ion-android-more-vertical')
+                    md-fab-actions
+                        md-button.md-fab.md-raised.md-mini(ng-link='/', aria-label='{{ "Back" | translate:language.translator.current }}', ng-show='showBack')
+                            md-icon(md-font-icon='icon ion-home')
+                        md-button.md-fab.md-raised.md-mini(ng-link='/settings', aria-label='{{ "Settings" | translate:language.translator.current }}')
                             md-icon(md-font-icon='icon ion-android-settings')
+                        md-button.md-fab.md-raised.md-mini(ng-link='/locations', aria-label='{{ "Locations" | translate:language.translator.current }}')
+                            md-icon(md-font-icon='icon ion-ios-location')
+                        md-button.md-fab.md-raised.md-mini(ng-link='/feedback', aria-label='{{ "Feedback" | translate:language.translator.current }}')
+                            md-icon(md-font-icon='icon ion-android-chat')
+                        md-button.md-fab.md-raised.md-mini(ng-link='/about', aria-label='{{ "Privacy" | translate:language.translator.current }}')
+                            md-icon(md-font-icon='icon ion-information-circled')
                 md-content.main-content(ng-view, flex, layout, layout-fill)
                 telemetry-item(data-title='Index')
         script(src='js/index.js')

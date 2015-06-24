@@ -89,16 +89,40 @@
             "id": "org.chromium.polyfill.xhr_features"
         }
     },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "local",
-            "path": "engine/cordova-crosswalk-engine-c0.7.1"
-        }
-    },
     "org.apache.cordova.splashscreen": {
         "source": {
             "type": "registry",
             "id": "org.apache.cordova.splashscreen"
         }
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        }
+    },
+    "cordova-plugin-crosswalk-webview": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-crosswalk-webview"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

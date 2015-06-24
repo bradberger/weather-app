@@ -4,7 +4,6 @@ $text-color: #445A64;
 
 .ionic-body, body {
   overflow: auto;
-  padding-top: 48px;
   color: $text-color;
 }
 
@@ -48,6 +47,10 @@ hr {
   border-color: transparent;
   border-bottom: 1px solid rgba(0, 0, 0, .12);
   margin: 2em auto;
+}
+
+md-content.md-default-theme {
+  background: #eee;
 }
 
 md-sidenav {
@@ -182,20 +185,11 @@ md-card {
   border: 4px solid #fff;
 }
 
-.md-button {
-  .md-font.icon {
-    line-height: initial;
-    position: relative;
-    top: -.5em;
-  }
-}
-
 md-toolbar {
   .md-button {
-    top: 6px;
-    font-size: 1.33em;
+    font-size: 1em;
     margin: 0;
-    min-width: 0;
+    min-width: 48px;
   }
   * {
     color: #fff;
@@ -212,9 +206,17 @@ md-toolbar {
     }
   }
 }
-
+.locations-list {
+  md-card-content {
+    padding: .5em 0 .33em;
+  }
+}
 .md-button {
   min-width: 48px;
+
+  .md-font.icon {
+    font-size: 1.33em;
+  }
 }
 
 md-sidenav, .settings-list {
@@ -286,6 +288,7 @@ md-sidenav, .settings-list {
 }
 
 .container-narrow {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -293,6 +296,12 @@ md-sidenav, .settings-list {
   padding: 8px 0;
   &, * {
     color: #fff
+  }
+}
+
+h3, .h3 {
+  &.wi {
+    margin-bottom: 0;
   }
 }
 
@@ -308,30 +317,46 @@ md-sidenav, .settings-list {
       width: 128px;
       max-width: 80%;
   }
+
+  .banner-logo {
+    font-size: 12em;
+  }
+
+  h3, .banner-logo {
+    margin: 0;
+  }
+
 }
 
-weather-summary {
-  .home-banner {
-    height: auto;
-    min-height: 300px;
-  }
+.home-banner {
+  height: auto;
+  min-height: 300px;
 }
 
 .background-sf-paper {
   background: transparent url("../img/sf-paper.png") no-repeat scroll center bottom / 100% auto;
 }
-
+md-fab-speed-dial.top-left {
+  position: fixed;
+  right: .5em;
+  bottom: .5em;
+  z-index: 999;
+}
 md-toolbar {
   min-height: 48px;
-}
-.md-toolbar-tools {
+  .md-toolbar-tools {
 
-  &, .md-title {
-    font-size: 1.67rem;
+    &, .md-title {
+      font-size: 1em;
+    }
+
+    .md-font.icon {
+      font-size: .8em;
+    }
+
+    height: 48px;
+    max-height: 48px;
   }
-
-  height: 48px;
-  max-height: 48px;
 }
 
 .summary-inner {
@@ -353,10 +378,22 @@ md-toolbar {
   }
 }
 
+.user-locations {
+  p {
+    padding: 1em 1.5em .5em;
+  }
+}
+
+.search-results {
+  md-card-content {
+    padding: 2em 1.5em;
+  }
+}
+
 .search-box {
 
   min-height: 2.67em;
-  padding: 0 16px !important;
+  padding: 0 8px !important;
   margin-top: 8px;
 
   md-progress-linear {
@@ -367,8 +404,8 @@ md-toolbar {
   input {
     border: 0;
     width: 100%;
-    height: 3em;
-    padding: .5em;
+    height: 4em;
+    padding: .5em 1.5em;
   }
 
 }
@@ -408,6 +445,12 @@ md-card, md-card-content {
   list-style: none;
   box-sizing: border-box;
   overflow-y: hidden;
+}
+
+[ng-view] {
+  * > {
+    max-width: 100%;
+  }
 }
 
 .animate-repeat.ng-move,
@@ -491,7 +534,9 @@ md-backdrop.md-opaque.md-default-theme {
 }
 
 @media(max-width: 600px) {
+
   .home-banner {
+    min-height: 0;
     height: auto;
     padding: 8px;
     .logo {
@@ -499,10 +544,10 @@ md-backdrop.md-opaque.md-default-theme {
       margin: 0 auto;
     }
     .md-display-3 {
-      font-size: 4rem;
+      font-size: 3rem;
     }
     .md-headline {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
   weather-summary {
@@ -521,12 +566,17 @@ md-backdrop.md-opaque.md-default-theme {
   }
   weather-summary {
     .home-banner {
-      min-height: 200px;
+      min-height: 0;
     }
   }
 }
 
 @media(max-width: 480px) {
+
+  .banner-logo {
+    font-size: 8em !important;
+  }
+
   weather-overview {
     .mini-forecast:nth-child(n+6) {
       display: none;

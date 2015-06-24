@@ -38,6 +38,10 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
                 templateUrl: "views/weather.html",
                 controller: "WeatherCtrl"
             })
+            .when("/about", {
+                templateUrl: "views/about.html",
+                controller: "AboutCtrl"
+            })
             .when("/settings", {
                 templateUrl: "views/settings.html",
                 controller: "SettingsCtrl"

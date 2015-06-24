@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window", "$mdMedia", "$mdToast", "$filter", "$interval", "Forecast", "$ionicSlideBoxDelegate",
-    function ($rootScope, $window, $mdMedia, $mdToast, $filter, $interval, Forecast, $ionicSlideBoxDelegate) {
+angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window", "$mdMedia", "$mdToast", "$filter", "$q", "$interval", "Forecast", "$ionicSlideBoxDelegate",
+    function ($rootScope, $window, $mdMedia, $mdToast, $filter, $q, $interval, Forecast, $ionicSlideBoxDelegate) {
 
     return {
         restrict: "E",
@@ -18,7 +18,10 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
             var lang = $rootScope.getLanguage();
             var forecastio = new Forecast();
             var updatePosition = function(latitude, longitude) {
-                return forecastio.get(latitude, longitude, lang, units)
+
+                var deferred = $q.defer();
+
+                forecastio.get(latitude, longitude, lang, units)
                     .then(function(data) {
 
                         $scope.report = true;
@@ -32,9 +35,14 @@ angular.module("weatherApp").directive("weatherSummary", ["$rootScope", "$window
 
                         $ionicSlideBoxDelegate.update();
 
+                        deferred.resolve(data);
 
                     })
                     .catch(onError);
+
+                return deferred.promise;
+
+
             };
 
             var onError = function(err) {

@@ -1,12 +1,14 @@
 div(flex)
     .home-banner(layout, layout-fill)
-        .background-sf-paper.md-padding(flex, layout, layout-fill)
+        .background-sf-paper.md-padded(flex, layout, layout-fill)
             section.container-narrow(flex, layout, layout-fill, layout-align='space-between center')
                 .text-center(flex)
-                    img.logo(hide-tiny, src='img/logo.svg')
-                    h1.md-display-3 Private Weather
-                    h3.md-headline The most secure weather forecasts on the planet.&trade;
-    div(ng-hide='geolocation || locations.length')
+                    img.logo.hide(hide-tiny, src='img/logo.svg')
+                    .banner-logo
+                        span.icon-sun.rotate
+                    h1.md-display-2 {{ "Weather" | translate:language.translator.current }}
+                    h4.md-subhead The most secure, privacy focused weather forecast on the planet.&trade;
+    .container-narrow(ng-hide='geolocation || locations.length')
         md-card(ng-link='/locations')
             md-card-content
                 p {{ "Get started by adding a location or enabling geolocation." | translate:language.translator.current }}
@@ -14,7 +16,4 @@ div(flex)
         weather-overview(location='currentLocation')
     div(ng-repeat='location in locations')
         weather-overview(location='location')
-    div(layout='row', layout-padding, layout-align='center center')
-        md-button(ng-link='/locations') {{ "Locations" | translate:language.translator.current }}
-        md-button(ng-link='/feedback') {{ "Feedback" | translate:language.translator.current }}
     telemetry-item(data-title='Home')

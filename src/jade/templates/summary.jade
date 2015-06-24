@@ -16,9 +16,10 @@ div(flex, ng-show='location')
                                 | &mdash; {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
     .summary-inner.container-narrow(layout='column')
         div(ng-hide='report', layout='column', layout-align='space-around center', layout-padding)
-            md-progress-circular(md-mode="indeterminate")
+            md-progress-circular.md-accent(md-mode="indeterminate")
             p {{ "Getting the forecast..." | translate:language.translator.current }}
-        div(ng-show='report')
+
+        div(flex, ng-show='report')
             .summary-view-menu(layout, layout-align='center center')
                 div
                     md-button.md-primary(ng-click='currentView = "now"', ng-class='{"md-primary": currentView == "now" || ! currentView }')
@@ -144,3 +145,8 @@ div(flex, ng-show='location')
                                     .data-box(flex=20, flex-md=25, flex-sm=50, hide, show-gt-sm)
                                         .info
                                             barometric-pressure.info.no-break(value='currently.pressure')
+            .summary-view-menu(layout, layout-align='center center')
+                div
+                    md-button(ng-link='/home', aria-label='{{ "Back" | translate:language.translator.current }}')
+                        md-icon(md-font-icon='icon ion-ios-arrow-back')
+                        span.divider {{ "Back" | translate:language.translator.current }}

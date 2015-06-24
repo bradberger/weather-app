@@ -31,10 +31,13 @@
         "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "com.bitola.weather"
         },
+        "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.bitola.Weather"
+        },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.bitola.Weather"
         },
-        "org.apache.cordova.splashscreen": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.bitola.Weather"
         }
     },

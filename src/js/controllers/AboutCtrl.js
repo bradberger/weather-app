@@ -2,6 +2,4 @@
 
 angular.module("weatherApp").controller("AboutCtrl", [function() {
 
-
-
     }]);

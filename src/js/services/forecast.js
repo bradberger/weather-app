@@ -16,12 +16,12 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
 
         this.clearCache = function() {
             var re = /^user\.results/;
-            for (var i = 0, n = localStorage.length; i < n; ++i) {
-                var key = localStorage.key(i);
-                if (re.test(key)) {
-                    $window.localStorage.removeItem(key);
+            var items = angular.copy($window.localStorage);
+            angular.forEach(items, function(v, k) {
+                if (re.test(k)) {
+                    $window.localStorage.removeItem(k);
                 }
-            }
+            });
         };
 
         this.clearLocationCache = function(location) {

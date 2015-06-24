@@ -1,36 +1,48 @@
 div(flex)
     .home-banner(layout, layout-fill)
         .background-sf-paper.md-padding(flex, layout, layout-fill)
-            section.container-narrow(flex, layout, layout-fill, layout-align='start center')
-                h1.md-display-2 {{ "Settings" | translate:language.translator.current }}
+            section(flex, layout, layout-fill)
+                .container-narrow(layout)
+                    div(flex, layout='row', column, layout-fill, layout-align='start end')
+                        h1.md-display-2 {{ "Settings" | translate:language.translator.current }}
     md-content.container-narrow.md-padding
-        div(layout)
-            md-list.settings-list(flex)
-                md-item
-                    md-item-content(layout='row', layout-fill, layout-align='start center')
-                        label.no-break(flex-sm=40, flex-gt-sm=33)
-                            span {{ "Units" | translate:language.translator.current }}
-                        div(flex)
-                            md-button(ng-click='units = "us"') us
-                            md-button(ng-click='units = "si"') si
-                            md-button(ng-click='units = "ca"') ca
-                            md-button(ng-click='units = "uk"') uk
-                md-item
-                    md-item-content(layout='row', layout-fill, layout-align='start center')
-                        label.no-break(flex-sm=40, flex-gt-sm=33)
-                            span {{ "Language" | translate:language.translator.current }}
-                        md-select(flex, ng-model="lang", placeholder="{{ 'Language' | translate:language.translator.current }}")
-                            md-option(ng-value="l.code", ng-repeat="l in language.languages track by $index") {{ l.title | translate:language.translator.current }}
-                md-item
-                    md-item-content(layout='row', layout-fill, layout-align='start center')
-                        label.no-break(flex-sm=40, flex-gt-sm=33)
-                            span {{ "Telemetry" | translate:language.translator.current }}
-                        md-checkbox(ng-model='telemetry', ng-click='toggleTelemetry()',aria-label='{{ "Telemetry" | translate:language.translator.current }}')
-                md-item
-                    md-item-content(layout='row', layout-fill, layout-align='start center')
-                        label.no-break(flex-sm=40, flex-gt-sm=33)
-                            span {{ "Version" | translate:language.translator.current }}
-                        div(ng-click='versionAlert(true)') {{ version }}
-                md-item
-                    md-item-content(layout='row', layout-fill, layout-align='space-around center')
-                        md-button.md-warn.md-raised(ng-click='clearAll()') {{ "Delete App Data" | translate:language.translator.current }}
+        md-card
+            md-card-content
+                div(layout)
+                    md-list.settings-list(flex)
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='start center')
+                                label.no-break(flex-sm=40, flex-gt-sm=33)
+                                    span {{ "Units" | translate:language.translator.current }}
+                                    span.divider
+                                        md-button(ng-click='unitsHelp()')
+                                            md-icon(md-font-icon='icon ion-help-circled')
+                                div(flex)
+                                    md-button(ng-click='units = "us"') us
+                                    md-button(ng-click='units = "si"') si
+                                    md-button(ng-click='units = "ca"') ca
+                                    md-button(ng-click='units = "uk"') uk
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='start center')
+                                label.no-break(flex-sm=40, flex-gt-sm=33)
+                                    span {{ "Locations" | translate:language.translator.current }}
+                                div {{ "Edit" | translate:language.translator.current }}
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='start center')
+                                label.no-break(flex-sm=40, flex-gt-sm=33)
+                                    span {{ "Language" | translate:language.translator.current }}
+                                md-select(flex, ng-model="lang", placeholder="{{ 'Language' | translate:language.translator.current }}")
+                                    md-option(ng-value="l.code", ng-repeat="l in language.languages track by $index") {{ l.title | translate:language.translator.current }}
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='start center')
+                                label.no-break(flex-sm=40, flex-gt-sm=33)
+                                    span {{ "Telemetry" | translate:language.translator.current }}
+                                md-checkbox(ng-model='telemetry', ng-click='toggleTelemetry()',aria-label='{{ "Telemetry" | translate:language.translator.current }}')
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='start center')
+                                label.no-break(flex-sm=40, flex-gt-sm=33)
+                                    span {{ "Version" | translate:language.translator.current }}
+                                div(ng-click='versionAlert(true)') {{ version }}
+                        md-item
+                            md-item-content(layout='row', layout-fill, layout-align='space-around center')
+                                md-button.md-warn.md-raised(ng-click='clearAll()') {{ "Delete App Data" | translate:language.translator.current }}

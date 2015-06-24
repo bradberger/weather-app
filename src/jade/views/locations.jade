@@ -1,45 +1,41 @@
 div(flex)
     .home-banner(layout, layout-fill)
-        .background-sf-paper.md-padding(flex, layout, layout-fill)
-            section.container-narrow(flex, layout, layout-fill, layout-align='start center')
-                h1.md-display-2 {{ "Locations" | translate:language.translator.current }}
-    md-content.container-narrow(flex, layout='column', layout-padding)
-        .search-box
-            .md-whiteframe-z1
-                input(
-                    ng-model='searchAddress', ng-change='search()',
-                    placeholder='{{ "Search" | translate:language.translator.current }}',
-                    ng-model-options='{ updateOn: "default blur", debounce: {"default": 500, "blur": 0} }'
-                )
-        .user-locations(ng-hide='searchAddress')
-            md-card(ng-hide='locations.data.length')
-                md-card-content
-                    p {{ "Enter an address in the search box to find a location to add." | translate:language.translator.current }}
-                    p {{ "Swipe to remove addresses." | translate:language.translator.current }}
-            md-card
-                md-card-content
-                    md-switch(ng-model="geolocation", aria-label="Current location")
-                        span {{ "Current location" | translate:language.translator.current }}
-            md-card(ng-repeat='l in locations.data track by $index')
-                md-card-content
-                    ion-slide-box
-                        ion-slide
-                            div(
-                                layout='row', layout-align='space-around center', layout-fill, layout-padding,
-                                ng-link='/weather/{{ l.latitude }}/{{ l.longitude }}?title={{ l.label }}'
-                            )
-                                div(flex) {{ l.label }}
-                                div
+        .background-sf-paper.md-padding(layout, layout-fill)
+            section(flex, layout, layout-fill)
+                .container-narrow(layout)
+                    div(flex, layout='row', column, layout-fill, layout-align='start end')
+                        h1.md-display-2 {{ "Locations" | translate:language.translator.current }}
+    md-content(flex, layout='column', layout-padding)
+        .container-narrow
+            .search-box
+                .md-whiteframe-z1
+                    input(
+                        ng-model='searchAddress', ng-change='search()',
+                        placeholder='{{ "Search" | translate:language.translator.current }}',
+                        ng-model-options='{ updateOn: "default blur", debounce: {"default": 500, "blur": 0} }'
+                    )
+            .user-locations(ng-hide='searchAddress')
+                p(ng-hide='searchAddress') {{ "Enter an address in the search box to find a location to add." | translate:language.translator.current }}
+                md-card
+                    md-card-content
+                        md-switch(ng-model="geolocation", aria-label="Current location")
+                            span {{ "Current location" | translate:language.translator.current }}
+                md-card.locations-list(ng-repeat='l in locations.data track by $index')
+                    md-card-content
+                        div(
+                            layout='row', layout-align='space-around center', layout-fill, layout-padding,
+                            ng-link='/weather/{{ l.latitude }}/{{ l.longitude }}?title={{ l.label }}'
+                        )
+                            div
+                                md-button.md-warn(ng-click='removeLocation($index)', aria-label='Delete')
+                                    md-icon(md-font-icon='icon ion-trash-b')
+                            div(flex) {{ l.label }}
+                            div
+                                md-button
                                     md-icon(md-font-icon='icon ion-chevron-right')
-                        ion-slide
-                            div(layout='row', layout-align='center center', layout-fill)
-                                div(flex) {{ "Delete location?" | translate:language.translator.current }}
-                                div
-                                    md-button.md-raised.md-warn(ng-click='removeLocation($index)', aria-label='Delete')
-                                        | {{ "Delete" | translate:language.translator.current }}
-        .search-results(ng-show='searchAddress')
-            md-card.animate-repeat(ng-repeat='addr in searchResults track by $index')
-                md-card-content(layout='row', layout-fill, layout-align='center center', ng-click='addLocation(addr)')
-                    div(flex) {{ addr.label }}
-                    md-icon(md-font-icon='icon ion-chevron-right')
+            .search-results(ng-show='searchAddress')
+                md-card.animate-repeat(ng-repeat='addr in searchResults track by $index')
+                    md-card-content(layout='row', layout-fill, layout-align='center center', ng-click='addLocation(addr)')
+                        div(flex) {{ addr.label }}
+                        md-icon(md-font-icon='icon ion-chevron-right')
 

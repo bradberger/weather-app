@@ -359,7 +359,6 @@ weather-overview .icon-mist::before, weather-summary .icon-mist::before {
 
 .ionic-body, body {
   overflow: auto;
-  padding-top: 48px;
   color: #445A64; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -393,6 +392,9 @@ hr {
   border-color: transparent;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   margin: 2em auto; }
+
+md-content.md-default-theme {
+  background: #eee; }
 
 md-sidenav md-content.md-default-theme {
   background: #fff; }
@@ -486,16 +488,10 @@ md-card .caret {
   padding-top: 4px;
   border: 4px solid #fff; }
 
-.md-button .md-font.icon {
-  line-height: initial;
-  position: relative;
-  top: -.5em; }
-
 md-toolbar .md-button {
-  top: 6px;
-  font-size: 1.33em;
+  font-size: 1em;
   margin: 0;
-  min-width: 0; }
+  min-width: 48px; }
 md-toolbar * {
   color: #fff; }
 
@@ -505,8 +501,13 @@ md-toolbar * {
   position: relative;
   top: -.5em; }
 
+.locations-list md-card-content {
+  padding: .5em 0 .33em; }
+
 .md-button {
   min-width: 48px; }
+  .md-button .md-font.icon {
+    font-size: 1.33em; }
 
 md-sidenav md-item-content, .settings-list md-item-content {
   line-height: 3;
@@ -554,6 +555,7 @@ md-sidenav md-item-content, .settings-list md-item-content {
   line-height: 1; }
 
 .container-narrow {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto; }
 
@@ -561,6 +563,9 @@ md-sidenav md-item-content, .settings-list md-item-content {
   padding: 8px 0; }
   .overview-location, .overview-location *, .home-banner, .home-banner * {
     color: #fff; }
+
+h3.wi, .h3.wi {
+  margin-bottom: 0; }
 
 .home-banner {
   background: transparent linear-gradient(#0143A3, #0273D4) repeat scroll 0% 0%;
@@ -571,22 +576,33 @@ md-sidenav md-item-content, .settings-list md-item-content {
   .home-banner .logo {
     width: 128px;
     max-width: 80%; }
+  .home-banner .banner-logo {
+    font-size: 12em; }
+  .home-banner h3, .home-banner .banner-logo {
+    margin: 0; }
 
-weather-summary .home-banner {
+.home-banner {
   height: auto;
   min-height: 300px; }
 
 .background-sf-paper {
   background: transparent url("../img/sf-paper.png") no-repeat scroll center bottom/100% auto; }
 
+md-fab-speed-dial.top-left {
+  position: fixed;
+  right: .5em;
+  bottom: .5em;
+  z-index: 999; }
+
 md-toolbar {
   min-height: 48px; }
-
-.md-toolbar-tools {
-  height: 48px;
-  max-height: 48px; }
-  .md-toolbar-tools, .md-toolbar-tools .md-title {
-    font-size: 1.67rem; }
+  md-toolbar .md-toolbar-tools {
+    height: 48px;
+    max-height: 48px; }
+    md-toolbar .md-toolbar-tools, md-toolbar .md-toolbar-tools .md-title {
+      font-size: 1em; }
+    md-toolbar .md-toolbar-tools .md-font.icon {
+      font-size: .8em; }
 
 .summary-inner {
   padding: 0 0 4em; }
@@ -601,9 +617,15 @@ md-toolbar {
   .summary-now-header weather-icon {
     font-size: 1.5em; }
 
+.user-locations p {
+  padding: 1em 1.5em .5em; }
+
+.search-results md-card-content {
+  padding: 2em 1.5em; }
+
 .search-box {
   min-height: 2.67em;
-  padding: 0 16px !important;
+  padding: 0 8px !important;
   margin-top: 8px; }
   .search-box md-progress-linear {
     position: relative;
@@ -611,8 +633,8 @@ md-toolbar {
   .search-box input {
     border: 0;
     width: 100%;
-    height: 3em;
-    padding: .5em; }
+    height: 4em;
+    padding: .5em 1.5em; }
 
 .text-center {
   text-align: center; }
@@ -643,6 +665,9 @@ md-card, md-card-content {
   list-style: none;
   box-sizing: border-box;
   overflow-y: hidden; }
+
+[ng-view] *> {
+  max-width: 100%; }
 
 .animate-repeat.ng-move, .animate-repeat.ng-enter, .animate-repeat.ng-leave {
   transform: translateZ(0);
@@ -702,15 +727,16 @@ md-backdrop.md-opaque.md-default-theme {
 
 @media (max-width: 600px) {
   .home-banner {
+    min-height: 0;
     height: auto;
     padding: 8px; }
     .home-banner .logo {
       max-width: 33%;
       margin: 0 auto; }
     .home-banner .md-display-3 {
-      font-size: 4rem; }
+      font-size: 3rem; }
     .home-banner .md-headline {
-      font-size: 1.5rem; }
+      font-size: 1.2rem; }
   weather-summary .home-banner {
     padding: 0; }
   .summary-view-menu {
@@ -720,9 +746,11 @@ md-backdrop.md-opaque.md-default-theme {
   .summary-inner {
     padding: 0 1rem; }
   weather-summary .home-banner {
-    min-height: 200px; } }
+    min-height: 0; } }
 
 @media (max-width: 480px) {
+  .banner-logo {
+    font-size: 8em !important; }
   weather-overview .mini-forecast:nth-child(n+6) {
     display: none; } }
 

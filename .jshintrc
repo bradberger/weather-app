@@ -72,6 +72,7 @@
     "angular": false,
     "MonetizeJS": false,
     "MozActivity": false,
-    "$script": false
+    "$script": false,
+    "ga": false
   }
 }

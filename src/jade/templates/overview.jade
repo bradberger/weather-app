@@ -1,7 +1,7 @@
 div(flex, ng-show='location')
     .overview-inner.container-narrow(layout='column')
         div(ng-hide='report', layout='column', layout-align='space-around center')
-            md-progress-circular(md-mode="indeterminate")
+            md-progress-circular.md-accent(md-mode="indeterminate")
             p {{ "Getting the forecast..." | translate:language.translator.current }}
         div(ng-show='report')
             md-card

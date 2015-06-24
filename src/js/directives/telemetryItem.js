@@ -1,23 +1,24 @@
 "use strict";
 
-angular.module("weatherApp").directive("telemetryItem", function() {
+angular.module("weatherApp").directive("telemetryItem", ["$location", function($location) {
 
     return {
         restrict: "E",
         scope: true,
-        template: "<img ng-src='{{ telemetryImgSrc }}' class='telemetry-img'>",
-        link: function($scope, $element, $attrs) {
+        link: function($scope) {
 
-            function update() {
-                var src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-                if ($scope.online && $scope.telemetry) {
-                    src = "https://analytics.bitola.co/piwik.php?idsite=9&rec=1";
-                    if($attrs.title) {
-                        src += "&action_name=" + $attrs.title;
-                    }
+            var update = function() {
+
+                if($scope.online && $scope.telemetry && "undefined" !== typeof ga) {
+                    ga("set", "appName", "Weather");
+                    ga("set", "appId", "com.bitola.weather");
+                    ga("set", "appVersion", $scope.version);
+                    ga("set", "anonymizeIp", true);
+                    ga("set", "forceSSL", true);
+                    ga("send", "pageview", $location.url());
                 }
-                $scope.telemetryImgSrc = src;
-            }
+
+            };
 
             $scope.$watch("online", update);
 
@@ -26,4 +27,4 @@ angular.module("weatherApp").directive("telemetryItem", function() {
         }
     };
 
-});
+}]);

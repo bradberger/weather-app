@@ -1,0 +1,55 @@
+md-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
+    md-content.md-padding
+        h3 {{ "Units" | translate:language.translator.current }}
+        hr
+        div(layout='column', layout-fill, layout-padding)
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+                div(flex)
+                    strong {{ "Unit" | translate:language.translator.current }}
+                div(flex)
+                    strong
+                        h3.wi.wi-thermometer
+                div(flex)
+                    strong
+                        h3.wi.wi-sprinkles
+                div(flex)
+                    strong
+                        h3.icon.ion-map
+                div(flex)
+                    strong
+                        h3.wi.wi-strong-wind
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+                div(flex)
+                    strong US
+                div(flex)
+                    h3.wi.wi-fahrenheit
+                div(flex) IN
+                div(flex) MI
+                div(flex) mi/h
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+                div(flex)
+                    strong SI
+                div(flex)
+                    h3.wi.wi-celsius
+                div(flex) cm
+                div(flex) km
+                div(flex) m/s
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+                div(flex)
+                    strong CA
+                div(flex)
+                    h3.wi.wi-celsius
+                div(flex) cm
+                div(flex) km
+                div(flex) km/h
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+                div(flex)
+                    strong UK
+                div(flex)
+                    h3.wi.wi-celsius
+                div(flex) cm
+                div(flex) km
+                div(flex) mi/h
+
+    .md-actions(layout='row')
+        md-button.md-primary(ng-click='hide()') {{ "Ok, got it!" | translate:language.translator.current }}
