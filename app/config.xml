@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.bitola.Weather" version="0.1.6.1435150788" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.bitola.Weather" version="0.1.6.1435154802" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Weather</name>
   <description>Ad-free, accurate, private, secure weather app.</description>
   <author email="inbox@bitola.co" href="https://bitola.co">Bitola Software Co. &lt;inbox@bitola.co&gt;</author>

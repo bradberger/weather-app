@@ -1,7 +1,5 @@
-md-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
+md-dialog.units-help-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
     md-content.md-padding
-        h3 {{ "Units" | translate:language.translator.current }}
-        hr
         div(layout='column', layout-fill, layout-padding)
             div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
                 div(flex)
@@ -18,15 +16,15 @@ md-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
                 div(flex)
                     strong
                         h3.wi.wi-strong-wind
-            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center', ng-click='answer("us")')
                 div(flex)
                     strong US
                 div(flex)
                     h3.wi.wi-fahrenheit
-                div(flex) IN
-                div(flex) MI
+                div(flex) in
+                div(flex) mi
                 div(flex) mi/h
-            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center',, ng-click='answer("si")')
                 div(flex)
                     strong SI
                 div(flex)
@@ -34,7 +32,7 @@ md-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
                 div(flex) cm
                 div(flex) km
                 div(flex) m/s
-            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center', ng-click='answer("ca")')
                 div(flex)
                     strong CA
                 div(flex)
@@ -42,7 +40,7 @@ md-dialog(aria-label='{{ "Units" | translate:language.translator.current }}')
                 div(flex) cm
                 div(flex) km
                 div(flex) km/h
-            div(layout='row', layout-fill, layout-padding, layout-align='space-between center')
+            div(layout='row', layout-fill, layout-padding, layout-align='space-between center', ng-click='answer("uk")')
                 div(flex)
                     strong UK
                 div(flex)

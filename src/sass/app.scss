@@ -338,8 +338,8 @@ h3, .h3 {
 }
 md-fab-speed-dial.top-left {
   position: fixed;
-  right: .5em;
-  bottom: .5em;
+  right: 1em;
+  top: .5em;
   z-index: 999;
 }
 md-toolbar {
@@ -529,12 +529,20 @@ md-backdrop.md-opaque.md-default-theme {
 
 }
 
+.units-help-dialog {
+  width: 300px;
+  max-width: 95%;
+}
+
 .spacer-bottom {
   padding-bottom: 3em !important;
 }
 
 @media(max-width: 600px) {
 
+  md-fab-speed-dial.top-left {
+    right: .5em;
+  }
   .home-banner {
     min-height: 0;
     height: auto;
