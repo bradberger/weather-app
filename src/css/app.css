@@ -302,11 +302,12 @@
   100% {
     opacity: .5; } }
 
-.rotate {
-  -webkit-animation: rotation 12s infinite linear;
-  -moz-animation: rotation 12s infinite linear;
-  -o-animation: rotation 12s infinite linear;
-  animation: rotation 12s infinite linear; }
+@media (min-width: 360px) {
+  .rotate {
+    -webkit-animation: rotation 30s infinite linear;
+    -moz-animation: rotation 30s infinite linear;
+    -o-animation: rotation 30s infinite linear;
+    animation: rotation 30s infinite linear; } }
 
 @-webkit-keyframes rotation {
   from {
@@ -357,6 +358,9 @@ weather-overview .icon-mist::before, weather-summary .icon-mist::before {
   margin-left: 0;
   font-size: .8em; }
 
+.md-toolbar-tools .basecloud:before, .md-toolbar-tools .windysnowcloud:before, .md-toolbar-tools .icon-hail::before, .md-toolbar-tools .icon-cloud::after, .md-toolbar-tools .icon-basecloud-full::before, .md-toolbar-tools .icon-mist:before, .md-toolbar-tools .icon-moon:before {
+  color: #fff; }
+
 .ionic-body, body {
   overflow: auto;
   color: #445A64; }
@@ -393,21 +397,6 @@ hr {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   margin: 2em auto; }
 
-md-content.md-default-theme {
-  background: #eee; }
-
-md-sidenav md-content.md-default-theme {
-  background: #fff; }
-md-sidenav a {
-  display: block; }
-md-sidenav .icon, md-sidenav .fa {
-  margin: 0 .5em 0 1em;
-  font-size: 1.5em;
-  line-height: 2.33;
-  display: inline-block;
-  vertical-align: middle;
-  width: 1.3em; }
-
 weather-overview, weather-summary {
   display: block;
   height: auto; }
@@ -429,7 +418,7 @@ weather-icon {
       left: .5em; }
 
 weather-overview {
-  margin: 0 auto; }
+  margin: 1em auto; }
 
 weather-overview weather-icon, weather-summary weather-icon {
   font-size: 2em; }
@@ -488,12 +477,14 @@ md-card .caret {
   padding-top: 4px;
   border: 4px solid #fff; }
 
-md-toolbar .md-button {
-  font-size: 1em;
-  margin: 0;
-  min-width: 48px; }
-md-toolbar * {
-  color: #fff; }
+md-toolbar {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15); }
+  md-toolbar .md-button {
+    font-size: 1em;
+    margin: 0;
+    min-width: 48px; }
+  md-toolbar * {
+    color: #fff; }
 
 .md-fab md-icon .icon.md-font {
   font-size: 2em;
@@ -546,9 +537,6 @@ md-sidenav md-item-content, .settings-list md-item-content {
 .mini-forecast {
   height: 100px; }
 
-.mini-forecast-container {
-  margin: 1em 0 0; }
-
 .location-title .location-temperature {
   font-weight: bold;
   font-size: 4em;
@@ -567,6 +555,9 @@ md-sidenav md-item-content, .settings-list md-item-content {
 h3.wi, .h3.wi {
   margin-bottom: 0; }
 
+[ng-link] {
+  cursor: pointer; }
+
 .home-banner {
   background: transparent linear-gradient(#0143A3, #0273D4) repeat scroll 0% 0%;
   margin-bottom: 2em;
@@ -577,13 +568,26 @@ h3.wi, .h3.wi {
     width: 128px;
     max-width: 80%; }
   .home-banner .banner-logo {
-    font-size: 12em; }
-  .home-banner h3, .home-banner .banner-logo {
+    font-size: 10em;
+    margin: -16px 0; }
+  .home-banner h3 {
     margin: 0; }
 
+md-list-item md-select {
+  padding: 0 0 4px; }
+  md-list-item md-select .md-select-label {
+    border-bottom-color: transparent; }
+
+.add-btn {
+  position: fixed;
+  bottom: .5em;
+  right: .5em; }
+
+.padding {
+  padding: 1em .5em; }
+
 .home-banner {
-  height: auto;
-  min-height: 300px; }
+  height: auto; }
 
 .background-sf-paper {
   background: transparent url("../img/sf-paper.png") no-repeat scroll center bottom/100% auto; }
@@ -609,7 +613,11 @@ md-toolbar {
   .summary-inner md-card {
     margin: 1em 0; }
 
+weather-overview [show-xs].md-toolbar-tools [flex] > * {
+  line-height: 2.33 !important; }
+
 .summary-now-header {
+  margin-top: -4px;
   padding: 0 !important; }
   .summary-now-header strong {
     font-size: 0.5em;
@@ -768,14 +776,7 @@ md-backdrop.md-opaque.md-default-theme {
   .md-sidenav-right {
     transform: translate3d(-85%, 0px, 0px); }
   weather-overview .mini-forecast:nth-child(n+5), weather-summary .mini-forecast:nth-child(n+5) {
-    display: none; }
-  .md-tile-left {
-    margin-right: 4px;
-    margin-left: -12px; }
-    .md-tile-left .md-font.wi, .md-tile-left .md-font.icon {
-      font-size: 3em; }
-  weather-summary .mini-forecast-container {
-    margin: 1em 0; } }
+    display: none; } }
 
 @media (max-width: 240px) {
   [hide-tiny] {

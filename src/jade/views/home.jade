@@ -1,24 +1,22 @@
 div(flex)
-    .home-banner(layout, layout-fill)
+    .home-banner(layout, layout-fill, ng-link='/about')
         .background-sf-paper.md-padded(flex, layout, layout-fill)
-            section.container-narrow(flex, layout, layout-fill, layout-align='space-between center')
-                .text-center(flex)
-                    img.logo.hide(hide-tiny, src='img/logo.svg')
-                    .banner-logo
-                        span.icon-sun.rotate
-                    h1.md-display-2 {{ "Weather" | translate:language.translator.current }}
-                    h4.md-subhead The most secure, privacy focused weather forecast on the planet.&trade;
+            section(flex, layout, layout-fill)
+                .container-narrow(layout)
+                    div(flex, layout='row', column, layout-fill, layout-align='start end')
+                        div.padding
+                            h1.md-display-2 {{ "Weather" | translate:language.translator.current }}
+                            h4.md-subhead The most secure, privacy focused weather forecast on the planet.&trade;
     .container-narrow(ng-hide='geolocation || locations.length')
         md-card(ng-link='/locations')
             md-card-content
                 p {{ "Get started by adding a location or enabling geolocation." | translate:language.translator.current }}
-    div(ng-show='geolocation')
-        weather-overview(location='currentLocation')
-    div(ng-repeat='location in locations')
-        weather-overview(location='location')
-    div(layout, layout-align='center center')
-        md-button.md-fab.md-raised.md-mini(ng-link='/feedback', aria-label='{{ "Feedback" | translate:language.translator.current }}')
-            md-icon(md-font-icon='icon ion-android-chat')
-        md-button.md-fab.md-raised.md-mini(ng-link='/about', aria-label='{{ "Privacy" | translate:language.translator.current }}')
-            md-icon(md-font-icon='icon ion-information-circled')
-    telemetry-item(data-title='Home')
+    md-content.md-padding
+        div(ng-show='geolocation')
+            weather-overview(location='currentLocation')
+        div(ng-repeat='location in locations')
+            weather-overview(location='location')
+        telemetry-item(data-title='Home')
+
+md-button.add-btn.md-fab.md-primary(ng-link='/locations', aria-label='{{ "Locations" | translate:language.translator.current }}')
+    md-icon(md-font-icon='icon ion-plus')

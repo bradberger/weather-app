@@ -364,11 +364,15 @@ $forecast-font-base: "../font/forecast-font";
         @keyframes pulse { 0% { opacity: .5 } 50% { opacity: 1 } 100% { opacity: .5 } }
 
 
-.rotate {
-  -webkit-animation: rotation 12s infinite linear;
-     -moz-animation: rotation 12s infinite linear;
-       -o-animation: rotation 12s infinite linear;
-          animation: rotation 12s infinite linear;
+
+
+@media (min-width: 360px) {
+  .rotate {
+    -webkit-animation: rotation 30s infinite linear;
+    -moz-animation: rotation 30s infinite linear;
+    -o-animation: rotation 30s infinite linear;
+    animation: rotation 30s infinite linear;
+  }
 }
 
 @-webkit-keyframes rotation {
@@ -427,5 +431,17 @@ weather-overview, weather-summary {
     position: relative;
     margin-left: 0;
     font-size: .8em;
+  }
+}
+
+.md-toolbar-tools {
+  .basecloud:before,
+  .windysnowcloud:before,
+  .icon-hail::before,
+  .icon-cloud::after,
+  .icon-basecloud-full::before,
+  .icon-mist:before,
+  .icon-moon:before {
+    color: #fff;
   }
 }

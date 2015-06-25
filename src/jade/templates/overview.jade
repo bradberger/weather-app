@@ -1,39 +1,35 @@
-div(flex, ng-show='location')
+div(flex, ng-show='location', ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
     .overview-inner.container-narrow(layout='column')
-        div(ng-hide='report', layout='column', layout-align='space-around center')
+        div(ng-hide='report', layout='column', layout-align='space-around center', layout-padding)
             md-progress-circular.md-accent(md-mode="indeterminate")
             p {{ "Getting the forecast..." | translate:language.translator.current }}
-        div(ng-show='report')
-            md-card
-                md-card-content
-                    div(layout='row', layout-align='start center', hide-xs)
-                        h3.md-headline.overview-location-title {{ location.label | translate:language.translator.current }}
-                            span.divider
-                            small {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
-                        div(flex)
-                        div
+        .md-whiteframe-z2(ng-show='report')
+            md-toolbar.md-primary.md-hue-1
+                .md-toolbar-tools(layout='row', layout-align='start center', hide-xs)
+                    h3.md-headline.overview-location-title {{ location.label | translate:language.translator.current }}
+                        span.divider
+                        small {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
+                    div(flex)
+                    div
+                        weather-icon(ng-icon='{{ currently.icon }}')
+                    div.divider
+                    div
+                        temperature-item(temp='currently.temperature')
+                .md-toolbar-tools(hide, show-xs)
+                    div(layout='row')
+                        div(flex=50)
+                            h3.no-break.md-headline.overview-location-title {{ location.label | translate:language.translator.current }}
+                        div(flex=25)
                             weather-icon(ng-icon='{{ currently.icon }}')
-                        div.divider
-                        div
+                        div(flex=25)
                             temperature-item(temp='currently.temperature')
-                    div(hide, show-xs)
-                        h3.md-headline.overview-location-title {{ location.label | translate:language.translator.current }}
-                        div(layout='row', layout-align='center center', layout-padding)
-                            div
-                                strong {{ "Now" | translate:language.translator.current }}
-                            div
-                                weather-icon(ng-icon='{{ currently.icon }}')
-                            div
-                                temperature-item(temp='currently.temperature')
-                    .mini-forecast-container(layout='row', layout-fill, layout-align='space-between center')
-                        .mini-forecast(ng-repeat='day in daily.data', layout='column', layout-align='center center')
-                            div
-                                strong
-                                    small {{ day.time | timestamp:offset | date:'EEE' }}
-                            div
-                                weather-icon(ng-icon='{{ day.icon }}')
-                            div
-                                temperature-item(temp='day.temperatureMax')
-                    div(layout='column', layout-align='center center')
-                        md-button(ng-link='/weather/{{ location.latitude }}/{{ location.longitude }}?title={{ location.label }}')
-                            | {{ "More" | translate:language.translator.current }} &raquo;
+
+            .mini-forecast-container(layout='row', layout-fill, layout-align='space-between center', layout-padding)
+                .mini-forecast(ng-repeat='day in daily.data', layout='column', layout-align='center center')
+                    div
+                        strong
+                            small {{ day.time | timestamp:offset | date:'EEE' }}
+                    div
+                        weather-icon(ng-icon='{{ day.icon }}')
+                    div
+                        temperature-item(temp='day.temperatureMax')

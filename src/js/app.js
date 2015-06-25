@@ -55,8 +55,8 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
             });
 
     }])
-    .run(["$rootScope", "$mdDialog", "$window", "$timeout", "Language", "FirefoxPushNotifications", "$ionicPlatform", "$location",
-        function ($rootScope, $mdDialog, $window, $timeout, Language, FirefoxPushNotifications, $ionicPlatform, $location) {
+    .run(["$rootScope", "$mdDialog", "$window", "$timeout", "Language", "FirefoxPushNotifications", "$ionicPlatform", "$location", "$mdSidenav", "$mdUtil",
+        function ($rootScope, $mdDialog, $window, $timeout, Language, FirefoxPushNotifications, $ionicPlatform, $location, $mdSidenav, $mdUtil) {
 
             $rootScope.language = new Language();
 
@@ -66,6 +66,18 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
                 $window.localStorage.setItem("user.units", "us");
             } else if (units === "imperial") {
                 $window.localStorage.setItem("user.units", "ca");
+            }
+
+            $rootScope.toggleLeft = buildToggler("left");
+            /**
+             * Build handler to open/close a SideNav; when animation finishes
+             * report completion in console
+             */
+            function buildToggler(navID) {
+                var debounceFn =  $mdUtil.debounce(function(){
+                    $mdSidenav(navID).toggle();
+                }, 300);
+                return debounceFn;
             }
 
             $rootScope.getLanguage = function () {
@@ -78,6 +90,14 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
 
             $rootScope.telemetry = getTelemetryStatus();
             $rootScope.version = "0.1.7";
+
+            $window.BugHerdConfig = {
+                version: $rootScope.version,
+                feedback: { tab_position: "bottom-left" }
+            };
+            $script("//www.bugherd.com/sidebarv2.js?apikey=3pdv6bp0tehdbbti0flyxa");
+
+
             $rootScope.versions = {
                 "0.1.7": ["Improved navigation", "Improved performance", "Updated icons", "Bug fixes"]
             };

@@ -31,24 +31,13 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
             $window.location.reload();
         };
 
-        var switchTheme = function (color) {
-            if ($scope.colors.indexOf(color) >= 0) {
-                $window.localStorage.setItem("user.theme.primary", color);
-                updateSuccess();
-            }
-        };
-
-        var switchAccent = function (color) {
-            if ($scope.colors.indexOf(color) >= 0) {
-                $window.localStorage.setItem("user.theme.accent", color);
-                updateSuccess();
-            }
-        };
-
         var switchUnits = function (unit) {
-            clearCachedResults();
-            $window.localStorage.setItem("user.units", unit);
-            updateSuccess();
+
+            if($window.localStorage.getItem("user.units") !== unit) {
+                clearCachedResults();
+                $window.localStorage.setItem("user.units", unit);
+            }
+
         };
 
         var switchLanguage = function (lang) {
@@ -119,13 +108,13 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
         });
 
         $scope.$watch("units", function (val, old) {
-            if (old && val && old !== val) {
+            if (val) {
                 switchUnits(val);
             }
         });
 
-        $scope.$watch("color", function (val, old) {
-            if (old && val && old !== val) {
+        $scope.$watch("color", function (val) {
+            if (val) {
                 switchTheme(val);
             }
         });
