@@ -362,14 +362,19 @@ md-toolbar {
 }
 
 weather-overview  {
-  [show-xs].md-toolbar-tools {
-    [flex] {
-      > * {
-        line-height: 2.33 !important;
-      }
+  .md-toolbar-tools {
+    font-size: .8em !important;
+    &[show-xs] {
+      [flex] {
+        > * {
+          line-height: 2.33 !important;
+        }
 
+      }
     }
+
   }
+
 }
 
   .summary-now-header {

@@ -46,10 +46,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
                 templateUrl: "views/settings.html",
                 controller: "SettingsCtrl"
             })
-            .when("/feedback", {
-                templateUrl: "views/feedback.html",
-                controller: "FeedbackCtrl"
-            })
             .otherwise({
                 redirectTo: "/home"
             });

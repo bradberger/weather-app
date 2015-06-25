@@ -5,8 +5,8 @@ div(flex)
                 .container-narrow(layout)
                     div(flex, layout='row', column, layout-fill, layout-align='start end')
                         div.padding
-                            h1.md-display-2 {{ "Weather" | translate:language.translator.current }}
-                            h4.md-subhead The most secure, privacy focused weather forecast on the planet.&trade;
+                            h1.md-display-1 {{ "Weather" | translate:language.translator.current }}
+                            p The most secure, privacy focused weather forecast on the planet.
     .container-narrow(ng-hide='geolocation || locations.length')
         md-card(ng-link='/locations')
             md-card-content

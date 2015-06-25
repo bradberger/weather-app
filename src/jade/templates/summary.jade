@@ -10,7 +10,7 @@ div(flex, ng-show='location')
                             weather-icon(ng-icon='{{ currently.icon }}')
                             temperature-item(temp='currently.temperature')
                         div
-                            h3.md-display-1 {{ location.label | translate:language.translator.current }}
+                            h3.md-display-1.no-break {{ location.label | translate:language.translator.current }}
                             p
                                 small {{ "Local time" | translate:language.translator.current }}
                                     | &mdash; {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}

@@ -6,7 +6,7 @@ div(flex, ng-show='location', ng-link='/weather/{{ location.latitude }}/{{ locat
         .md-whiteframe-z2(ng-show='report')
             md-toolbar.md-primary.md-hue-1
                 .md-toolbar-tools(layout='row', layout-align='start center', hide-xs)
-                    h3.md-headline.overview-location-title {{ location.label | translate:language.translator.current }}
+                    h3.md-title.overview-location-title {{ location.label | translate:language.translator.current }}
                         span.divider
                         small {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
                     div(flex)

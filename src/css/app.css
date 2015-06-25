@@ -613,8 +613,10 @@ md-toolbar {
   .summary-inner md-card {
     margin: 1em 0; }
 
-weather-overview [show-xs].md-toolbar-tools [flex] > * {
-  line-height: 2.33 !important; }
+weather-overview .md-toolbar-tools {
+  font-size: .8em !important; }
+  weather-overview .md-toolbar-tools[show-xs] [flex] > * {
+    line-height: 2.33 !important; }
 
 .summary-now-header {
   margin-top: -4px;
