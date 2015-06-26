@@ -16,7 +16,7 @@ div(flex)
                 md-divider
                 md-list-item
                     md-icon(md-font-icon='icon ion-calculator')
-                    p {{ "Units" | translate:language.translator.current }}
+                    p {{ "Units" | translate:language.translator.current }} {{ units }}
                     md-select(ng-model='units')
                         md-option(ng-value='"us"') us
                         md-option(ng-value='"ca"') ca

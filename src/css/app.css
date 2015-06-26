@@ -358,9 +358,6 @@ weather-overview .icon-mist::before, weather-summary .icon-mist::before {
   margin-left: 0;
   font-size: .8em; }
 
-.md-toolbar-tools .basecloud:before, .md-toolbar-tools .windysnowcloud:before, .md-toolbar-tools .icon-hail::before, .md-toolbar-tools .icon-cloud::after, .md-toolbar-tools .icon-basecloud-full::before, .md-toolbar-tools .icon-mist:before, .md-toolbar-tools .icon-moon:before {
-  color: #fff; }
-
 .ionic-body, body {
   overflow: auto;
   color: #445A64; }
@@ -477,14 +474,12 @@ md-card .caret {
   padding-top: 4px;
   border: 4px solid #fff; }
 
-md-toolbar {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15); }
-  md-toolbar .md-button {
-    font-size: 1em;
-    margin: 0;
-    min-width: 48px; }
-  md-toolbar * {
-    color: #fff; }
+md-toolbar .md-button {
+  font-size: 1em;
+  margin: 0;
+  min-width: 48px; }
+md-toolbar * {
+  color: #fff; }
 
 .md-fab md-icon .icon.md-font {
   font-size: 2em;
@@ -600,6 +595,10 @@ md-fab-speed-dial.top-left {
 
 md-toolbar {
   min-height: 48px; }
+  md-toolbar.white {
+    background-color: #fff; }
+    md-toolbar.white * {
+      color: #445A64; }
   md-toolbar .md-toolbar-tools {
     height: 48px;
     max-height: 48px; }
@@ -607,6 +606,9 @@ md-toolbar {
       font-size: 1em; }
     md-toolbar .md-toolbar-tools .md-font.icon {
       font-size: .8em; }
+
+.md-padding {
+  padding: 16px; }
 
 .summary-inner {
   padding: 0 0 4em; }
@@ -765,6 +767,8 @@ md-backdrop.md-opaque.md-default-theme {
     min-height: 0; } }
 
 @media (max-width: 480px) {
+  .summary-inner {
+    padding: 0 8px; }
   .banner-logo {
     font-size: 8em !important; }
   weather-overview .mini-forecast:nth-child(n+6) {

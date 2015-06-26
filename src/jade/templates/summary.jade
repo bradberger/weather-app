@@ -1,19 +1,12 @@
 div(flex, ng-show='location')
-    .home-banner(layout, layout-fill)
-        .background-sf-paper(flex, layout='column', layout-fill)
-            div(flex)
+    .home-banner
+        .background-sf-paper
             .overview-location
-                .container-narrow(flex, layout='row', layout-align='start end')
-                    div(layout, layout-padding, layout-align='start center', flex)
-                        .weather-badge.md-whiteframe-z1(layout='column', layout-align='center center', ng-show='')
-                            .title {{ "Now" }}
-                            weather-icon(ng-icon='{{ currently.icon }}')
-                            temperature-item(temp='currently.temperature')
-                        div
-                            h3.md-display-1.no-break {{ location.label | translate:language.translator.current }}
-                            p
-                                small {{ "Local time" | translate:language.translator.current }}
-                                    | &mdash; {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
+                .container-narrow.md-padding
+                    h3.md-display-1.no-break {{ location.label | translate:language.translator.current }}
+                    p
+                        small {{ "Local time" | translate:language.translator.current }}
+                            | &mdash; {{ currently.time | timestamp:offset | date:'shortTime' | translate:language.translator.current }}
     .summary-inner.container-narrow(layout='column')
         div(ng-hide='report', layout='column', layout-align='space-around center', layout-padding)
             md-progress-circular.md-accent(md-mode="indeterminate")

@@ -8,7 +8,7 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
         $scope.color = $window.localStorage.getItem("user.theme.primary") || "blue-grey";
         $scope.accent = $window.localStorage.getItem("user.theme.accent") || "blue-grey";
         $scope.lang = $scope.getLanguage($window);
-        $scope.units = $window.localStorage.getItem("user.units") || "imperial";
+        $scope.units = $window.localStorage.getItem("user.units") || "us";
 
         $scope.colors = [
             "red", "pink", "purple", "deep-purple", "indigo", "blue",
@@ -33,10 +33,8 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
 
         var switchUnits = function (unit) {
 
-            if($window.localStorage.getItem("user.units") !== unit) {
-                clearCachedResults();
-                $window.localStorage.setItem("user.units", unit);
-            }
+            clearCachedResults();
+            $window.localStorage.setItem("user.units", unit);
 
         };
 
@@ -93,11 +91,6 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
 
         };
 
-        $scope.toggleErrorReporting = function () {
-            $window.localStorage.setItem("user.reporting", $scope.reporting ? "" : "1");
-            $window.location.reload();
-        };
-
         $scope.toggleTelemetry = function () {
             $window.localStorage.setItem("user.telemetry", $scope.telemetry ? "" : "1");
             $window.location.reload();
@@ -107,21 +100,9 @@ angular.module("weatherApp").controller("SettingsCtrl", ["$scope", "$window", "L
             $window.location.reload();
         });
 
-        $scope.$watch("units", function (val, old) {
+        $scope.$watch("units", function (val) {
             if (val) {
                 switchUnits(val);
-            }
-        });
-
-        $scope.$watch("color", function (val) {
-            if (val) {
-                switchTheme(val);
-            }
-        });
-
-        $scope.$watch("accent", function (val, old) {
-            if (old && val && old !== val) {
-                switchAccent(val);
             }
         });
 

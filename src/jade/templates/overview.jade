@@ -4,7 +4,7 @@ div(flex, ng-show='location', ng-link='/weather/{{ location.latitude }}/{{ locat
             md-progress-circular.md-accent(md-mode="indeterminate")
             p {{ "Getting the forecast..." | translate:language.translator.current }}
         .md-whiteframe-z2(ng-show='report')
-            md-toolbar.md-primary.md-hue-1
+            md-toolbar.white
                 .md-toolbar-tools(layout='row', layout-align='start center', hide-xs)
                     h3.md-title.overview-location-title {{ location.label | translate:language.translator.current }}
                         span.divider

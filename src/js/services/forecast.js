@@ -16,8 +16,7 @@ angular.module("weatherApp").service("Forecast", ["$window", "$q", "$http", "$md
 
         this.clearCache = function() {
             var re = /^user\.results/;
-            var items = angular.copy($window.localStorage);
-            angular.forEach(items, function(v, k) {
+            angular.forEach($window.localStorage, function(v, k) {
                 if (re.test(k)) {
                     $window.localStorage.removeItem(k);
                 }

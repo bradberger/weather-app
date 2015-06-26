@@ -433,15 +433,3 @@ weather-overview, weather-summary {
     font-size: .8em;
   }
 }
-
-.md-toolbar-tools {
-  .basecloud:before,
-  .windysnowcloud:before,
-  .icon-hail::before,
-  .icon-cloud::after,
-  .icon-basecloud-full::before,
-  .icon-mist:before,
-  .icon-moon:before {
-    color: #fff;
-  }
-}
