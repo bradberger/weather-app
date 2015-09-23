@@ -11,21 +11,16 @@ div(flex, ng-show='location')
         div(ng-hide='report', layout='column', layout-align='space-around center', layout-padding)
             md-progress-circular.md-accent(md-mode="indeterminate")
             p {{ "Getting the forecast..." | translate:language.translator.current }}
-
         div(flex, ng-show='report')
             .summary-view-menu(layout, layout-align='center center')
                 div
-                    md-button.md-primary(ng-click='currentView = "now"', ng-class='{"md-primary": currentView == "now" || ! currentView }')
-                        | {{ "Now" | translate:language.translator.current }}
+                    md-button(ng-click='currentView = "now"', ng-class='{"md-primary": currentView == "now" || ! currentView }') {{ "Now" | translate:language.translator.current }}
                 .divider
                 div
-                    md-button(ng-click='currentView = "hourly"', ng-class='{"md-primary": currentView == "hourly" }')
-                        | {{ "Hourly" | translate:language.translator.current }}
+                    md-button(ng-click='currentView = "hourly"', ng-class='{"md-primary": currentView == "hourly" }') {{ "Hourly" | translate:language.translator.current }}
                 .divider
                 div
-                    md-button(ng-click='currentView = "daily"', ng-class='{"md-primary": currentView == "daily" }')
-                        | {{ "Week" | translate:language.translator.current }}
-
+                    md-button(ng-click='currentView = "daily"', ng-class='{"md-primary": currentView == "daily" }') {{ "Week" | translate:language.translator.current }}
             div(ng-switch='currentView')
                 div(ng-switch-when='hourly')
                     md-card
@@ -81,7 +76,7 @@ div(flex, ng-show='location')
                 div(ng-switch-default)
                     md-card
                         md-card-content
-                            section(layout='column', layout-padding)
+                            section(layout='column', layout-padding) 
                                 .summary-now-header
                                     h3.md-display-1.temperature-item(layout, layout-align='start center', layout-align-sm='center center')
                                         div(hide-xs) {{ "Now" | translate:language.translator.current }}
@@ -90,7 +85,7 @@ div(flex, ng-show='location')
                                         .divider
                                         temperature-item(temp='currently.temperature')
                                 p {{ currently.summary }}
-                                .mini-forecast-container(layout='row', layout-wrap, layout-padding)
+                                .mini-forecast-container(layout, layout-wrap, layout-padding)
                                     .data-box(flex=20, flex-md=25, flex-sm=50, ng-show='currently.apparentTemperature')
                                         .info
                                             md-icon(md-font-icon='wi wi-thermometer')

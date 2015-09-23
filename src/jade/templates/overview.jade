@@ -23,9 +23,8 @@ div(flex, ng-show='location', ng-link='/weather/{{ location.latitude }}/{{ locat
                             weather-icon(ng-icon='{{ currently.icon }}')
                         div(flex=25)
                             temperature-item(temp='currently.temperature')
-
-            .mini-forecast-container(layout='row', layout-fill, layout-align='space-between center', layout-padding)
-                .mini-forecast(ng-repeat='day in daily.data', layout='column', layout-align='center center')
+            .mini-forecast-container(layout='row', layout-align='space-between center', layout-wrap, layout-padding)
+                .mini-forecast(ng-repeat='day in daily.data', layout='column', layout-wrap, layout-align='center center')
                     div
                         strong
                             small {{ day.time | timestamp:offset | date:'EEE' }}

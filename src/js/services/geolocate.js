@@ -48,9 +48,9 @@ angular.module("weatherApp").service("Geolocate", ["$window", "$q", function($wi
                 });
 
             if (watching) {
-               this.startWatching();
+                this.startWatching();
             } else {
-               this.stopWatching();
+                this.stopWatching();
             }
 
             return deferred.promise;

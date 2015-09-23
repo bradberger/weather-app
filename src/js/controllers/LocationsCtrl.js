@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$timeout", "$location", "Locations", "$mdToast", "$ionicSlideBoxDelegate",
-    function ($scope, $filter, $window, $timeout, $location, Locations, $mdToast, $ionicSlideBoxDelegate) {
+angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "$window", "$timeout", "$location", "Locations", "$mdToast",
+    function ($scope, $filter, $window, $timeout, $location, Locations, $mdToast) {
 
         var lang = $scope.getLanguage();
 
@@ -10,7 +10,6 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
         $scope.searchResults = [];
         $scope.searching = false;
         $scope.search = function () {
-
             if ($scope.searchAddress) {
                 $scope.searching = true;
                 $scope.locations.query($scope.searchAddress, lang)
@@ -35,7 +34,6 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
                         $scope.searching = false;
                     });
             }
-
         };
 
         $scope.addLocation = function (location) {
@@ -61,15 +59,9 @@ angular.module("weatherApp").controller("LocationsCtrl", ["$scope", "$filter", "
         });
 
         $scope.removeLocation = function (i) {
-
             $scope.locations.remove(i).then(function () {
-                $ionicSlideBoxDelegate.slide(0);
                 $mdToast.showSimple("Location removed");
             });
-
         };
 
-
     }]);
-
-

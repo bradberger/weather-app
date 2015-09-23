@@ -1,21 +1,17 @@
-/* globals __dirname: false */
-
+/*eslint-env node */
 "use strict";
 
 require("events").EventEmitter.prototype._maxListeners = 200;
 
 function getVersion(skipTimestamp) {
-
     var version = require(opts.path("bower.json")).version;
     if (skipTimestamp || false) {
         return version;
     }
-
     return [
         version,
         getTimestamp()
     ].join(".");
-
 }
 
 function getTimestamp(date) {
@@ -24,14 +20,12 @@ function getTimestamp(date) {
 }
 
 function getZipName(platform) {
-
     return [
         "weather-app",
         platform || "firefox",
         getVersion(),
         "zip"
     ].join(".");
-
 }
 
 var gulp = require("gulp"),
@@ -43,12 +37,11 @@ var gulp = require("gulp"),
     imagemin = require("gulp-imagemin"),
     imageResize = require("gulp-image-resize"),
     autoprefixer = require("gulp-autoprefixer"),
-    jshint = require("gulp-jshint"),
+    eslint = require("gulp-eslint"),
     jade = require("gulp-jade"),
     sass = require("gulp-sass"),
     rename = require("gulp-rename"),
     minifyHTML = require("gulp-minify-html"),
-    glob = require("glob"),
     replace = require("gulp-replace"),
     runSequence = require("run-sequence"),
     shell = require("gulp-shell"),
@@ -56,7 +49,6 @@ var gulp = require("gulp"),
         path: function(path) {
             return __dirname + (path.charAt(0) === "/" ? "" : "/") + path;
         },
-        uncss: { html: glob.sync("app/www/**/*.html") },
         html: { empty: true, quotes: true, spare: true },
         autoprefixer: { browsers: ["last 2 versions"], cascade: true },
         css: { keepBreaks: false },
@@ -94,17 +86,19 @@ var JS_SRC = [
     opts.path("src/js/controllers/*.js")
 ];
 
-gulp.task("jshint", function () {
-    return gulp.src("src/js/**/*.js")
-        .pipe(jshint())
-        .pipe(jshint.reporter("jshint-stylish"));
+gulp.task("lint", function () {
+    return gulp
+        .src("src/js/**/*.js")
+        .pipe(eslint())
+        .pipe(eslint.format());
 });
 
-gulp.task("jshint:fail", function () {
-    return gulp.src("src/js/**/*.js")
-        .pipe(jshint())
-        .pipe(jshint.reporter("jshint-stylish"))
-        .pipe(jshint.reporter("fail"));
+gulp.task("lint:fail", function () {
+    return gulp
+        .src("src/js/**/*.js")
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task("images", ["images:icons", "images:splash"], function () {
@@ -206,20 +200,16 @@ gulp.task("images:splash", function() {
 });
 
 gulp.task("jade", function () {
-
-    var DEST = opts.path("src/html"),
-        SRC = opts.path("src/jade/**/*.jade");
-
+    var DEST = opts.path("src/html");
+    var SRC = opts.path("src/jade/**/*.jade");
     return gulp.src(SRC)
-        .pipe(jade())
+        .pipe(jade({ doctype: "html" }))
         .pipe(gulp.dest(DEST));
 });
 
 gulp.task("html", function() {
-
-    var SRC = opts.path("src/html/**/*.html"),
-        DEST = opts.path("app/www");
-
+    var SRC = opts.path("src/html/**/*.html");
+    var DEST = opts.path("app/www");
     return gulp.src(SRC)
         .pipe(changed(DEST))
         .pipe(minifyHTML(opts.html))
@@ -227,23 +217,17 @@ gulp.task("html", function() {
 });
 
 gulp.task("sass", function() {
-
-    var SRC = opts.path("src/sass/app.scss"),
-        DEST = opts.path("src/css");
-
+    var SRC = opts.path("src/sass/app.scss");
+    var DEST = opts.path("src/css");
     return gulp.src(SRC)
-        .on("error", function(err) {
-            console.error(err);
-        })
+        .on("error", console.error)
         .pipe(sass())
         .pipe(gulp.dest(DEST));
 });
 
 gulp.task("assets:build", function() {
-
-    var SRC = opts.path("src/assets/**/*"),
-        DEST = opts.path("app/www");
-
+    var SRC = opts.path("src/assets/**/*");
+    var DEST = opts.path("app/www");
     return gulp.src(SRC)
         .pipe(changed(DEST))
         .pipe(gulp.dest(DEST));
@@ -288,24 +272,20 @@ gulp.task("css:dev", function() {
         .pipe(gulp.dest(CSS_DEST));
 });
 
-gulp.task("js:dev", ["jshint"], function() {
-
+gulp.task("js:dev", ["lint"], function() {
     return gulp.src(JS_SRC)
         .pipe(concat("app.js"))
         .pipe(gulp.dest(JS_DEST));
-
 });
 
-gulp.task("js:build", ["jshint:fail"], function() {
-
+gulp.task("js:build", ["lint:fail"], function() {
     return gulp.src(JS_SRC)
         .pipe(concat("app.js"))
         .pipe(uglify())
         .pipe(gulp.dest(JS_DEST));
-
 });
 
-gulp.task("test", ["jshint:fail"]);
+gulp.task("test", ["lint:fail"]);
 
 gulp.task("watch", /*["webserver"], */function () {
     gulp.watch(["src/html/**/*.html"], function() {

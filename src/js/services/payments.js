@@ -148,4 +148,4 @@ angular.module("weatherApp")
 
         return new Payments("r1TkNsXyD2M2zU86");
 
-}]);
+    }]);

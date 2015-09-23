@@ -15,7 +15,12 @@ function getTelemetryStatus() {
 }
 
 angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", "angular.translate", "ionic"])
-    .config(["$routeProvider", "$mdThemingProvider", function ($routeProvider, $mdThemingProvider) {
+    .config(["$routeProvider", "$mdThemingProvider", "$logProvider", function ($routeProvider, $mdThemingProvider, $logProvider, $compileProvider) {
+
+        if (document.domain !== "localhost") {
+            $logProvider.debugEnabled(false);
+            $compileProvider.debugInfoEnabled(false);
+        }
 
         $mdThemingProvider.theme("default")
             .primaryPalette("blue")
@@ -86,13 +91,6 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
 
             $rootScope.telemetry = getTelemetryStatus();
             $rootScope.version = "0.1.7";
-
-            $window.BugHerdConfig = {
-                version: $rootScope.version,
-                feedback: { tab_position: "bottom-left" }
-            };
-            $script("//www.bugherd.com/sidebarv2.js?apikey=3pdv6bp0tehdbbti0flyxa");
-
 
             $rootScope.versions = {
                 "0.1.7": ["Improved navigation", "Improved performance", "Updated icons", "Bug fixes"]
@@ -192,8 +190,8 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
                 $timeout($rootScope.versionAlert, 1000);
                 $window.addEventListener("online", function () {
 
-                    var online = !! navigator.onLine,
-                        now = new Date();
+                    var online = !! navigator.onLine;
+                    var now = new Date();
 
                     $rootScope.online = online;
                     if (online) {
@@ -214,7 +212,5 @@ angular.module("weatherApp", ["ngMaterial", "ngRoute", "ngAnimate", "ngLocale", 
                 notifications.init();
 
             });
-
-
 
         }]);

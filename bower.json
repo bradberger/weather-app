@@ -2,11 +2,11 @@
   "name": "weather-app",
   "version": "0.1.7",
   "authors": [
-    "Brad Berger <inbox@bitola.co>"
+    "Brad Berger <brad@bradb.net>"
   ],
   "description": "An open source weather app.",
-  "license": "MPL",
-  "homepage": "https://github.com/BitolaCo/weather-app",
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/bradberger/weather-app",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,24 +16,24 @@
     "tests"
   ],
   "dependencies": {
-    "ionic": "driftyco/ionic-bower#~1.0.0",
-    "angular": "~1.3.15",
-    "angular-material": "~0.10",
-    "angular-route": "~1.3.15",
-    "angular-sanitize": "~1.3.15",
-    "angular-touch": "~1.3.15",
-    "angular-animate": "~1.3.15",
+    "bower-ionic": "~1.1",
+    "angular": "~1.4",
+    "angular-material": "~0.11",
+    "angular-route": "~1.4",
+    "angular-sanitize": "~1.4",
+    "angular-touch": "~1.4",
+    "angular-animate": "~1.4",
     "angular-ui-router": "*",
-    "angular-translatability": "~0.1.1",
+    "angular-translatability": "~0.1",
     "weather-icons": "*",
-    "fontawesome": "~4.3.0",
-    "angular-i18n": "~1.3.15",
-    "script.js": "~2.5.7",
-    "ionicons": "~2.0.1"
+    "fontawesome": "~4",
+    "angular-i18n": "~1.4",
+    "script.js": "~2.5",
+    "ionicons": "~2"
   },
   "resolutions": {
-    "angular": "~1.3.15",
-    "angular-sanitize": "~1.3.15",
-    "angular-animate": "~1.3.15"
+    "angular": "1.4.6",
+    "angular-sanitize": "~1.4",
+    "angular-animate": "~1.4"
   }
 }

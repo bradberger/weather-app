@@ -379,6 +379,11 @@ md-backdrop {
   right: 0;
   bottom: 0; }
 
+[layout-wrap], .layout-wrap {
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
 .main-nav {
   position: fixed;
   top: 0;

@@ -1,11 +1,9 @@
 "use strict";
 
 angular.module("weatherApp").directive("weatherBackground", ["$timeout", function ($timeout) {
-
     return {
         restrict: "A",
         link: function ($scope, $element, $attrs) {
-
             var container = angular.element(document.querySelector(".background"));
             var classes = [
                 "clear-day",
@@ -19,7 +17,6 @@ angular.module("weatherApp").directive("weatherBackground", ["$timeout", functio
                 "partly-cloudy-day",
                 "partly-cloudy-night"
             ];
-
             var handleClass = function() {
                 $timeout(function() {
                     var bg = $attrs.weatherBackground || false;
@@ -28,11 +25,8 @@ angular.module("weatherApp").directive("weatherBackground", ["$timeout", functio
                         container.addClass(bg);
                     }
                 }, 200);
-             };
-
-             $element.bind("click", handleClass);
-
-       }
+            };
+            $element.bind("click", handleClass);
+        }
     };
-
 }]);

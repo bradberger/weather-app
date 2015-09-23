@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BitolaCo/weather-app.git"
+    "url": "https://github.com/bradberger/weather-app.git"
   },
-  "author": "Brad Berger <inbox@bitola.co>",
-  "license": "MPL",
+  "author": "Brad Berger <brad@bradb.net>",
+  "license": "MPL-2.0",
   "dependencies": {
-    "gulp": "^3.8.8",
+    "gulp": "~3.9",
     "gulp-sass": "^1.3.3",
     "gulp-concat": "^2.4.1",
     "gulp-minify-css": "^0.3.10",
@@ -21,17 +21,15 @@
   },
   "devDependencies": {
     "bower": "^1.3.3",
-    "gulp-util": "^2.2.14",
-    "shelljs": "^0.3.0",
     "concurrent-transform": "^1.0.0",
     "glob": "^4.0.6",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-changed": "^1.0.0",
+    "gulp-eslint": "^1.0.0",
     "gulp-gm": "0.0.7",
     "gulp-image-resize": "^0.6.0",
     "gulp-imagemin": "^1.0.1",
     "gulp-jade": "^0.9.0",
-    "gulp-jshint": "^1.8.5",
     "gulp-manifest": "0.0.6",
     "gulp-markdown": "^1.0.0",
     "gulp-minify-html": "^0.1.6",
@@ -39,8 +37,14 @@
     "gulp-shell": "^0.3.0",
     "gulp-size": "^1.1.0",
     "gulp-uglify": "^1.0.1",
-    "jshint-stylish": "^1.0.0",
-    "run-sequence": "^1.0.1"
+    "gulp-util": "^2.2.14",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.10",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.6",
+    "run-sequence": "^1.0.1",
+    "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
     "org.apache.cordova.device",

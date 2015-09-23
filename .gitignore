@@ -1,6 +1,5 @@
 node_modules/
 .idea/
 src/components/
-
-
+bower_components/
 *.log
